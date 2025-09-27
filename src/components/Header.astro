@@ -6,7 +6,7 @@
   <nav class="nav">
     <div class="nav-brand">
       <a href="/" class="brand-link">
-        <span class="brand-text">CleverConsult</span>
+        <span class="brand-text">Consultologist</span>
       </a>
     </div>
     
@@ -16,22 +16,22 @@
           <a href="#home" class="nav-link">Home</a>
         </li>
         <li class="nav-item">
-          <a href="#about" class="nav-link">About Us</a>
+          <a href="#about" class="nav-link">How it works</a>
         </li>
         <li class="nav-item">
-          <a href="#services" class="nav-link">Services</a>
+          <a href="#services" class="nav-link">Features</a>
         </li>
         <li class="nav-item">
-          <a href="#solutions" class="nav-link">Solutions</a>
+          <a href="#blog" class="nav-link">Blog</a>
         </li>
         <li class="nav-item">
-          <a href="#contact" class="nav-link">Contact</a>
+          <a href="#signin" class="nav-link">Sign in</a>
         </li>
       </ul>
     </div>
     
     <div class="nav-cta">
-      <a href="#contact" class="cta-button">Get Started</a>
+      <a href="#contact" class="cta-button">Try it free</a>
     </div>
     
     <div class="nav-toggle" id="nav-toggle">
@@ -44,36 +44,40 @@
 
 <style>
   .header {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background: transparent;
     transition: all 0.3s ease;
+    padding-top: 2rem;
   }
 
   .nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 5%;
+    padding: 1rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   }
 
   .nav-brand .brand-link {
     text-decoration: none;
-    color: #1a1a1a;
+    color: #0066cc;
     font-weight: 700;
     font-size: 1.75rem;
     transition: color 0.3s ease;
   }
 
   .nav-brand .brand-link:hover {
-    color: #0066cc;
+    color: #0052a3;
   }
 
   .nav-list {
@@ -103,19 +107,21 @@
   }
 
   .cta-button {
-    background: #0066cc;
+    background: linear-gradient(45deg, #ffd700, #ffed4e);
     color: white;
     padding: 0.75rem 1.5rem;
-    border-radius: 6px;
+    border-radius: 25px;
     text-decoration: none;
     font-weight: 600;
     font-size: 0.9rem;
     transition: all 0.3s ease;
+    color: #1a1a1a;
   }
 
   .cta-button:hover {
-    background: #0052a3;
+    background: linear-gradient(45deg, #ffed4e, #ffd700);
     transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
   }
 
   .nav-toggle {
@@ -136,6 +142,15 @@
 
   /* Mobile styles */
   @media (max-width: 767px) {
+    .header {
+      padding-top: 1rem;
+    }
+
+    .nav {
+      border-radius: 20px;
+      padding: 0.75rem 1rem;
+    }
+
     .nav-cta {
       display: none;
     }
@@ -143,7 +158,7 @@
     .nav-menu {
       position: fixed;
       left: -100%;
-      top: 70px;
+      top: 80px;
       flex-direction: column;
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
@@ -151,6 +166,7 @@
       text-align: center;
       transition: 0.3s;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 0 0 20px 20px;
     }
 
     .nav-menu.active {
