@@ -1,78 +1,59 @@
 ---
-// About section matching cleverconsult.ai style
+// How it Works section matching the new design
 ---
 
-<section id="how-it-works" class="about">
+<section id="how-it-works" class="how-it-works">
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title">How it Works</h2>
+      <h2 class="section-title">Easy as 1, 2, 3</h2>
       <p class="section-subtitle">
-        Our streamlined process transforms your consulting workflow in three simple steps.
+        Create your custom consult notes instantly.
       </p>
     </div>
     
-    <div class="about-grid">
-      <div class="about-content">
-        <h3>Transforming Business Through AI</h3>
-        <p>
-          At CleverConsult, we combine deep industry expertise with cutting-edge artificial intelligence to deliver consulting solutions that drive measurable results. Our team of experts helps organizations navigate digital transformation and unlock new opportunities for growth.
-        </p>
-        
-        <div class="approach-points">
-          <div class="approach-point">
-            <div class="point-icon">🎯</div>
-            <div class="point-content">
-              <h4>Strategic Focus</h4>
-              <p>We align AI solutions with your business objectives for maximum impact.</p>
-            </div>
-          </div>
-          <div class="approach-point">
-            <div class="point-icon">📊</div>
-            <div class="point-content">
-              <h4>Data-Driven Decisions</h4>
-              <p>Every recommendation is backed by comprehensive data analysis.</p>
-            </div>
-          </div>
-          <div class="approach-point">
-            <div class="point-icon">🚀</div>
-            <div class="point-content">
-              <h4>Rapid Implementation</h4>
-              <p>Fast deployment with measurable results from day one.</p>
-            </div>
-          </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-icon">
+          <img src="/image.png" alt="Send referral package" class="step-image" />
         </div>
+        <div class="step-number">1</div>
+        <h3 class="step-title">Send referral package</h3>
+        <p class="step-description">
+          Fax the referral package to your unique CleverConsult number and have your MOA send out a custom patient questionnaire.
+        </p>
       </div>
       
-      <div class="about-image">
-        <div class="image-placeholder">
-          <div class="placeholder-content">
-            <div class="tech-stack">
-              <div class="tech-item">
-                <span class="tech-icon">🤖</span>
-                <span>Machine Learning</span>
-              </div>
-              <div class="tech-item">
-                <span class="tech-icon">📈</span>
-                <span>Predictive Analytics</span>
-              </div>
-              <div class="tech-item">
-                <span class="tech-icon">🔍</span>
-                <span>Business Intelligence</span>
-              </div>
-              <div class="tech-item">
-                <span class="tech-icon">⚡</span>
-                <span>Process Automation</span>
-              </div>
-            </div>
-          </div>
+      <div class="step-card">
+        <div class="step-icon">
+          <img src="/image.png" alt="Our AI drafts the note" class="step-image" />
         </div>
+        <div class="step-number">2</div>
+        <h3 class="step-title">Our AI drafts the note</h3>
+        <p class="step-description">
+          CleverConsult creates your consult note by transforming the data from the referral package and patient questionnaire.
+        </p>
       </div>
+      
+      <div class="step-card">
+        <div class="step-icon">
+          <img src="/image.png" alt="Copy to EMR" class="step-image" />
+        </div>
+        <div class="step-number">3</div>
+        <h3 class="step-title">Copy to EMR</h3>
+        <p class="step-description">
+          Copy the drafted consult note directly into your EMR and proceed with your typical clinical encounter.
+        </p>
+      </div>
+    </div>
+    
+    <div class="cta-section">
+      <a href="#contact" class="cta-button">Try it free - save 4+ hours every week</a>
     </div>
   </div>
 </section>
 
 <style>
-  .about {
+  .how-it-works {
     padding: 6rem 2rem;
     background: white;
   }
@@ -88,7 +69,7 @@
   }
 
   .section-title {
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-weight: 700;
     color: #1f2937;
     margin-bottom: 1rem;
@@ -102,138 +83,135 @@
     line-height: 1.6;
   }
 
-  .about-grid {
+  .steps-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: start;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    margin-bottom: 4rem;
   }
 
-  .about-content h3 {
-    font-size: 1.75rem;
-    font-weight: 600;
-    color: #1f2937;
-    margin-bottom: 1.5rem;
-  }
-
-  .about-content p {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: #4b5563;
-    margin-bottom: 2.5rem;
-  }
-
-  .approach-points {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  .approach-point {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  .point-icon {
-    font-size: 1.5rem;
-    background: #f0f9ff;
-    padding: 0.75rem;
-    border-radius: 12px;
-    color: #0066cc;
-  }
-
-  .point-content h4 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #1f2937;
-    margin-bottom: 0.5rem;
-  }
-
-  .point-content p {
-    font-size: 0.9rem;
-    color: #6b7280;
-    margin: 0;
-    line-height: 1.5;
-  }
-
-  .about-image {
+  .step-card {
+    text-align: center;
     position: relative;
   }
 
-  .image-placeholder {
-    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-    padding: 2rem;
+  .step-icon {
+    width: 280px;
+    height: 200px;
+    background: linear-gradient(135deg, #a7f3d0 0%, #6ee7b7 100%);
     border-radius: 20px;
-    border: 1px solid rgba(0, 102, 204, 0.1);
-    min-height: 400px;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 0 auto 2rem;
+    position: relative;
+    overflow: hidden;
   }
 
-  .tech-stack {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
+  .step-image {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
   }
 
-  .tech-item {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease;
+  .step-number {
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background: #0d9488;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
   }
 
-  .tech-item:hover {
-    transform: translateY(-5px);
-  }
-
-  .tech-icon {
-    font-size: 2rem;
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-
-  .tech-item span:last-child {
-    font-size: 0.9rem;
+  .step-title {
+    font-size: 1.5rem;
     font-weight: 600;
-    color: #374151;
+    color: #1f2937;
+    margin-bottom: 1rem;
+  }
+
+  .step-description {
+    color: #6b7280;
+    line-height: 1.6;
+    font-size: 1rem;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .cta-section {
+    text-align: center;
+  }
+
+  .cta-button {
+    background: #0d9488;
+    color: white;
+    padding: 1.2rem 2.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    display: inline-block;
+    box-shadow: 0 4px 20px rgba(13, 148, 136, 0.3);
+  }
+
+  .cta-button:hover {
+    background: #0f766e;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(13, 148, 136, 0.4);
   }
 
   /* Mobile styles */
   @media (max-width: 768px) {
-    .about {
+    .how-it-works {
       padding: 4rem 1rem;
     }
 
     .section-title {
-      font-size: 2rem;
+      font-size: 2.5rem;
     }
 
     .section-subtitle {
       font-size: 1.1rem;
     }
 
-    .about-grid {
+    .steps-grid {
       grid-template-columns: 1fr;
       gap: 3rem;
     }
 
-    .approach-points {
-      gap: 1.5rem;
+    .step-icon {
+      width: 250px;
+      height: 180px;
     }
 
-    .tech-stack {
-      grid-template-columns: 1fr;
-      gap: 1rem;
+    .step-title {
+      font-size: 1.25rem;
     }
 
-    .tech-item {
-      padding: 1.5rem;
+    .cta-button {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .section-title {
+      font-size: 2rem;
+    }
+
+    .step-icon {
+      width: 200px;
+      height: 150px;
     }
   }
 </style>
