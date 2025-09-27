@@ -1,12 +1,12 @@
 ---
-// Header component with floating menu bar
+// Header component matching cleverconsult.ai style
 ---
 
 <header class="header">
   <nav class="nav">
     <div class="nav-brand">
       <a href="/" class="brand-link">
-        <span class="brand-text">Consultologist</span>
+        <span class="brand-text">CleverConsult</span>
       </a>
     </div>
     
@@ -16,15 +16,22 @@
           <a href="#home" class="nav-link">Home</a>
         </li>
         <li class="nav-item">
-          <a href="#about" class="nav-link">About</a>
+          <a href="#about" class="nav-link">About Us</a>
         </li>
         <li class="nav-item">
           <a href="#services" class="nav-link">Services</a>
         </li>
         <li class="nav-item">
+          <a href="#solutions" class="nav-link">Solutions</a>
+        </li>
+        <li class="nav-item">
           <a href="#contact" class="nav-link">Contact</a>
         </li>
       </ul>
+    </div>
+    
+    <div class="nav-cta">
+      <a href="#contact" class="cta-button">Get Started</a>
     </div>
     
     <div class="nav-toggle" id="nav-toggle">
@@ -42,6 +49,9 @@
     left: 0;
     right: 0;
     z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
   }
 
@@ -49,24 +59,21 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 0;
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    padding: 1rem 5%;
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
   .nav-brand .brand-link {
     text-decoration: none;
-    color: #2563eb;
+    color: #1a1a1a;
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     transition: color 0.3s ease;
   }
 
   .nav-brand .brand-link:hover {
-    color: #1d4ed8;
+    color: #0066cc;
   }
 
   .nav-list {
@@ -74,22 +81,41 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    gap: 2rem;
+    gap: 2.5rem;
   }
 
   .nav-link {
     text-decoration: none;
-    color: #374151;
+    color: #333;
     font-weight: 500;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
+    font-size: 1rem;
     transition: all 0.3s ease;
     position: relative;
   }
 
   .nav-link:hover {
-    color: #2563eb;
-    background: rgba(37, 99, 235, 0.1);
+    color: #0066cc;
+  }
+
+  .nav-cta {
+    display: flex;
+    align-items: center;
+  }
+
+  .cta-button {
+    background: #0066cc;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+  }
+
+  .cta-button:hover {
+    background: #0052a3;
+    transform: translateY(-1px);
   }
 
   .nav-toggle {
@@ -102,40 +128,18 @@
   .bar {
     width: 25px;
     height: 3px;
-    background: #374151;
+    background: #333;
     margin: 3px 0;
     transition: 0.3s;
     border-radius: 2px;
   }
 
-  /* Desktop floating menu */
-  @media (min-width: 768px) {
-    .header {
-      top: 2rem;
-      left: 50%;
-      right: auto;
-      transform: translateX(-50%);
-      width: auto;
-      max-width: 800px;
-    }
-
-    .nav {
-      border-radius: 50px;
-      padding: 0.75rem 2rem;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(20px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .nav:hover {
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-      transform: translateY(-2px);
-    }
-  }
-
   /* Mobile styles */
   @media (max-width: 767px) {
+    .nav-cta {
+      display: none;
+    }
+
     .nav-menu {
       position: fixed;
       left: -100%;
@@ -146,8 +150,7 @@
       width: 100%;
       text-align: center;
       transition: 0.3s;
-      box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
-      border-radius: 0 0 20px 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
 
     .nav-menu.active {

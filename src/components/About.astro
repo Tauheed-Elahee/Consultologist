@@ -1,62 +1,70 @@
 ---
-// About section component
+// About section matching cleverconsult.ai style
 ---
 
 <section id="about" class="about">
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title">About Consultologist</h2>
+      <h2 class="section-title">About CleverConsult</h2>
       <p class="section-subtitle">
-        We're passionate about helping businesses reach their full potential through strategic consulting and innovative solutions.
+        Leading the future of business consulting through artificial intelligence and data-driven insights.
       </p>
     </div>
     
     <div class="about-grid">
       <div class="about-content">
-        <h3>Our Mission</h3>
+        <h3>Transforming Business Through AI</h3>
         <p>
-          To empower businesses with data-driven insights, strategic planning, and innovative solutions that drive sustainable growth and success in today's competitive landscape.
+          At CleverConsult, we combine deep industry expertise with cutting-edge artificial intelligence to deliver consulting solutions that drive measurable results. Our team of experts helps organizations navigate digital transformation and unlock new opportunities for growth.
         </p>
         
-        <div class="stats">
-          <div class="stat">
-            <div class="stat-number">500+</div>
-            <div class="stat-label">Projects Completed</div>
+        <div class="approach-points">
+          <div class="approach-point">
+            <div class="point-icon">🎯</div>
+            <div class="point-content">
+              <h4>Strategic Focus</h4>
+              <p>We align AI solutions with your business objectives for maximum impact.</p>
+            </div>
           </div>
-          <div class="stat">
-            <div class="stat-number">98%</div>
-            <div class="stat-label">Client Satisfaction</div>
+          <div class="approach-point">
+            <div class="point-icon">📊</div>
+            <div class="point-content">
+              <h4>Data-Driven Decisions</h4>
+              <p>Every recommendation is backed by comprehensive data analysis.</p>
+            </div>
           </div>
-          <div class="stat">
-            <div class="stat-number">10+</div>
-            <div class="stat-label">Years Experience</div>
+          <div class="approach-point">
+            <div class="point-icon">🚀</div>
+            <div class="point-content">
+              <h4>Rapid Implementation</h4>
+              <p>Fast deployment with measurable results from day one.</p>
+            </div>
           </div>
         </div>
       </div>
       
-      <div class="about-features">
-        <div class="feature">
-          <div class="feature-icon">🎯</div>
-          <h4>Strategic Focus</h4>
-          <p>We align our solutions with your business objectives to ensure maximum impact and ROI.</p>
-        </div>
-        
-        <div class="feature">
-          <div class="feature-icon">📈</div>
-          <h4>Data-Driven</h4>
-          <p>Our recommendations are backed by thorough analysis and market research.</p>
-        </div>
-        
-        <div class="feature">
-          <div class="feature-icon">🤝</div>
-          <h4>Collaborative</h4>
-          <p>We work closely with your team to ensure seamless implementation and knowledge transfer.</p>
-        </div>
-        
-        <div class="feature">
-          <div class="feature-icon">⚡</div>
-          <h4>Results-Oriented</h4>
-          <p>We focus on delivering measurable outcomes that drive your business forward.</p>
+      <div class="about-image">
+        <div class="image-placeholder">
+          <div class="placeholder-content">
+            <div class="tech-stack">
+              <div class="tech-item">
+                <span class="tech-icon">🤖</span>
+                <span>Machine Learning</span>
+              </div>
+              <div class="tech-item">
+                <span class="tech-icon">📈</span>
+                <span>Predictive Analytics</span>
+              </div>
+              <div class="tech-item">
+                <span class="tech-icon">🔍</span>
+                <span>Business Intelligence</span>
+              </div>
+              <div class="tech-item">
+                <span class="tech-icon">⚡</span>
+                <span>Process Automation</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -66,7 +74,7 @@
 <style>
   .about {
     padding: 6rem 2rem;
-    background: #f8fafc;
+    background: white;
   }
 
   .container {
@@ -115,73 +123,85 @@
     margin-bottom: 2.5rem;
   }
 
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+  .approach-points {
+    display: flex;
+    flex-direction: column;
     gap: 2rem;
   }
 
-  .stat {
-    text-align: center;
-    padding: 1.5rem;
-    background: white;
+  .approach-point {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .point-icon {
+    font-size: 1.5rem;
+    background: #f0f9ff;
+    padding: 0.75rem;
     border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease;
+    color: #0066cc;
   }
 
-  .stat:hover {
-    transform: translateY(-5px);
-  }
-
-  .stat-number {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #2563eb;
+  .point-content h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1f2937;
     margin-bottom: 0.5rem;
   }
 
-  .stat-label {
+  .point-content p {
     font-size: 0.9rem;
     color: #6b7280;
-    font-weight: 500;
+    margin: 0;
+    line-height: 1.5;
   }
 
-  .about-features {
+  .about-image {
+    position: relative;
+  }
+
+  .image-placeholder {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    padding: 2rem;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 102, 204, 0.1);
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tech-stack {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    gap: 1.5rem;
+    width: 100%;
   }
 
-  .feature {
+  .tech-item {
     background: white;
-    padding: 2rem;
-    border-radius: 16px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-    border: 1px solid #e5e7eb;
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
   }
 
-  .feature:hover {
+  .tech-item:hover {
     transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
   }
 
-  .feature-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+  .tech-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.5rem;
   }
 
-  .feature h4 {
-    font-size: 1.25rem;
+  .tech-item span:last-child {
+    font-size: 0.9rem;
     font-weight: 600;
-    color: #1f2937;
-    margin-bottom: 1rem;
-  }
-
-  .feature p {
-    color: #6b7280;
-    line-height: 1.6;
+    color: #374151;
   }
 
   /* Mobile styles */
@@ -203,17 +223,16 @@
       gap: 3rem;
     }
 
-    .stats {
+    .approach-points {
+      gap: 1.5rem;
+    }
+
+    .tech-stack {
       grid-template-columns: 1fr;
       gap: 1rem;
     }
 
-    .about-features {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-
-    .feature {
+    .tech-item {
       padding: 1.5rem;
     }
   }

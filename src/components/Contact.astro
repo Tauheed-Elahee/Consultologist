@@ -1,21 +1,21 @@
 ---
-// Contact section component
+// Contact section matching cleverconsult.ai style
 ---
 
 <section id="contact" class="contact">
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title">Get In Touch</h2>
+      <h2 class="section-title">Ready to Transform Your Business?</h2>
       <p class="section-subtitle">
-        Ready to transform your business? Let's discuss how we can help you achieve your goals.
+        Schedule a consultation with our AI experts and discover how we can help you unlock new opportunities for growth.
       </p>
     </div>
     
     <div class="contact-grid">
       <div class="contact-info">
-        <h3>Let's Start a Conversation</h3>
+        <h3>Get Started Today</h3>
         <p>
-          We're here to help you navigate challenges and unlock opportunities. Reach out to us and let's explore how we can work together.
+          Our team of AI consultants is ready to help you navigate the complexities of digital transformation and implement solutions that drive real results.
         </p>
         
         <div class="contact-methods">
@@ -23,7 +23,7 @@
             <div class="method-icon">📧</div>
             <div class="method-content">
               <h4>Email</h4>
-              <p>hello@consultologist.com</p>
+              <p>hello@cleverconsult.ai</p>
             </div>
           </div>
           
@@ -39,8 +39,16 @@
             <div class="method-icon">📍</div>
             <div class="method-content">
               <h4>Office</h4>
-              <p>123 Business Ave, Suite 100<br>New York, NY 10001</p>
+              <p>123 Innovation Drive, Suite 200<br>San Francisco, CA 94105</p>
             </div>
+          </div>
+        </div>
+        
+        <div class="consultation-note">
+          <div class="note-icon">💡</div>
+          <div class="note-content">
+            <h4>Free Consultation</h4>
+            <p>Schedule a 30-minute consultation to discuss your AI strategy and explore potential solutions.</p>
           </div>
         </div>
       </div>
@@ -63,24 +71,24 @@
           </div>
           
           <div class="form-group">
-            <label for="service">Service Interest</label>
+            <label for="service">Area of Interest</label>
             <select id="service" name="service">
               <option value="">Select a service</option>
-              <option value="business-strategy">Business Strategy</option>
+              <option value="ai-strategy">AI Strategy & Implementation</option>
               <option value="data-analytics">Data Analytics</option>
               <option value="process-optimization">Process Optimization</option>
               <option value="digital-transformation">Digital Transformation</option>
-              <option value="team-development">Team Development</option>
-              <option value="innovation-consulting">Innovation Consulting</option>
+              <option value="business-intelligence">Business Intelligence</option>
+              <option value="risk-management">Risk Management</option>
             </select>
           </div>
           
           <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
+            <label for="message">Tell us about your project</label>
+            <textarea id="message" name="message" rows="5" placeholder="Describe your current challenges and goals..." required></textarea>
           </div>
           
-          <button type="submit" class="submit-btn">Send Message</button>
+          <button type="submit" class="submit-btn">Schedule Consultation</button>
         </form>
       </div>
     </div>
@@ -90,8 +98,8 @@
 <style>
   .contact {
     padding: 6rem 2rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    background: white;
+    color: #1a1a1a;
   }
 
   .container {
@@ -107,12 +115,13 @@
   .section-title {
     font-size: 2.5rem;
     font-weight: 700;
+    color: #1f2937;
     margin-bottom: 1rem;
   }
 
   .section-subtitle {
     font-size: 1.25rem;
-    opacity: 0.9;
+    color: #6b7280;
     max-width: 600px;
     margin: 0 auto;
     line-height: 1.6;
@@ -128,20 +137,22 @@
   .contact-info h3 {
     font-size: 1.75rem;
     font-weight: 600;
+    color: #1f2937;
     margin-bottom: 1.5rem;
   }
 
   .contact-info p {
     font-size: 1.1rem;
     line-height: 1.7;
-    opacity: 0.9;
+    color: #4b5563;
     margin-bottom: 2.5rem;
   }
 
   .contact-methods {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
   }
 
   .contact-method {
@@ -152,29 +163,57 @@
 
   .method-icon {
     font-size: 1.5rem;
-    background: rgba(255, 255, 255, 0.1);
+    background: #f0f9ff;
     padding: 1rem;
     border-radius: 12px;
-    backdrop-filter: blur(10px);
+    color: #0066cc;
   }
 
   .method-content h4 {
     font-size: 1.1rem;
     font-weight: 600;
+    color: #1f2937;
     margin-bottom: 0.5rem;
   }
 
   .method-content p {
-    opacity: 0.8;
+    color: #6b7280;
     margin: 0;
   }
 
+  .consultation-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    background: #f0f9ff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-left: 4px solid #0066cc;
+  }
+
+  .note-icon {
+    font-size: 1.5rem;
+    color: #0066cc;
+  }
+
+  .note-content h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+  }
+
+  .note-content p {
+    color: #4b5563;
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
   .contact-form-container {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px);
+    background: #f8fafc;
     border-radius: 20px;
     padding: 2.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid #e5e7eb;
   }
 
   .contact-form {
@@ -191,51 +230,51 @@
   .form-group label {
     font-weight: 500;
     margin-bottom: 0.5rem;
-    color: rgba(255, 255, 255, 0.9);
+    color: #374151;
   }
 
   .form-group input,
   .form-group select,
   .form-group textarea {
     padding: 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid #d1d5db;
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+    background: white;
+    color: #1a1a1a;
     font-size: 1rem;
     transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
   }
 
   .form-group input::placeholder,
   .form-group textarea::placeholder {
-    color: rgba(255, 255, 255, 0.6);
+    color: #9ca3af;
   }
 
   .form-group input:focus,
   .form-group select:focus,
   .form-group textarea:focus {
     outline: none;
-    border-color: rgba(255, 255, 255, 0.5);
-    background: rgba(255, 255, 255, 0.15);
+    border-color: #0066cc;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
   }
 
   .submit-btn {
     padding: 1rem 2rem;
-    background: linear-gradient(45deg, #ffd700, #ffed4e);
-    color: #1a1a1a;
+    background: #0066cc;
+    color: white;
     border: none;
-    border-radius: 50px;
+    border-radius: 12px;
     font-weight: 600;
     font-size: 1rem;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);
   }
 
   .submit-btn:hover {
+    background: #0052a3;
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+    box-shadow: 0 8px 25px rgba(0, 102, 204, 0.4);
   }
 
   /* Mobile styles */
@@ -265,6 +304,12 @@
       flex-direction: column;
       text-align: center;
       gap: 0.5rem;
+    }
+
+    .consultation-note {
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
     }
   }
 </style>

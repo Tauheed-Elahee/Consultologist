@@ -1,5 +1,5 @@
 ---
-// Services section component
+// Services section matching cleverconsult.ai style
 ---
 
 <section id="services" class="services">
@@ -7,74 +7,74 @@
     <div class="section-header">
       <h2 class="section-title">Our Services</h2>
       <p class="section-subtitle">
-        Comprehensive consulting solutions tailored to your business needs
+        AI-powered consulting services designed to transform your business operations and drive sustainable growth
       </p>
     </div>
     
     <div class="services-grid">
       <div class="service-card">
-        <div class="service-icon">💼</div>
-        <h3>Business Strategy</h3>
-        <p>Strategic planning and business model optimization to drive sustainable growth and competitive advantage.</p>
+        <div class="service-icon">🤖</div>
+        <h3>AI Strategy & Implementation</h3>
+        <p>Develop and implement comprehensive AI strategies that align with your business objectives and drive measurable results.</p>
         <ul class="service-features">
-          <li>Market Analysis</li>
-          <li>Competitive Intelligence</li>
-          <li>Growth Planning</li>
+          <li>AI Readiness Assessment</li>
+          <li>Custom AI Solution Development</li>
+          <li>Implementation Roadmap</li>
         </ul>
       </div>
       
       <div class="service-card">
         <div class="service-icon">📊</div>
         <h3>Data Analytics</h3>
-        <p>Transform your data into actionable insights with advanced analytics and business intelligence solutions.</p>
+        <p>Unlock the power of your data with advanced analytics, machine learning, and predictive modeling solutions.</p>
         <ul class="service-features">
-          <li>Data Visualization</li>
+          <li>Advanced Data Visualization</li>
           <li>Predictive Analytics</li>
-          <li>Performance Metrics</li>
+          <li>Real-time Dashboards</li>
         </ul>
       </div>
       
       <div class="service-card">
-        <div class="service-icon">🔧</div>
+        <div class="service-icon">⚡</div>
         <h3>Process Optimization</h3>
-        <p>Streamline operations and improve efficiency through process analysis and optimization strategies.</p>
+        <p>Streamline operations and eliminate inefficiencies using AI-driven process analysis and intelligent automation.</p>
         <ul class="service-features">
-          <li>Workflow Analysis</li>
-          <li>Automation Solutions</li>
-          <li>Quality Improvement</li>
+          <li>Process Mining & Analysis</li>
+          <li>Intelligent Automation</li>
+          <li>Performance Optimization</li>
         </ul>
       </div>
       
       <div class="service-card">
         <div class="service-icon">🚀</div>
         <h3>Digital Transformation</h3>
-        <p>Navigate the digital landscape with comprehensive transformation strategies and technology adoption.</p>
+        <p>Lead your industry with comprehensive digital transformation strategies powered by cutting-edge technology.</p>
         <ul class="service-features">
-          <li>Technology Strategy</li>
-          <li>Digital Solutions</li>
+          <li>Digital Strategy Development</li>
+          <li>Technology Integration</li>
           <li>Change Management</li>
         </ul>
       </div>
       
       <div class="service-card">
-        <div class="service-icon">👥</div>
-        <h3>Team Development</h3>
-        <p>Build high-performing teams through leadership development and organizational culture enhancement.</p>
+        <div class="service-icon">🔍</div>
+        <h3>Business Intelligence</h3>
+        <p>Make informed decisions with comprehensive business intelligence solutions and real-time market insights.</p>
         <ul class="service-features">
-          <li>Leadership Training</li>
-          <li>Team Building</li>
-          <li>Culture Development</li>
+          <li>Market Intelligence</li>
+          <li>Competitive Analysis</li>
+          <li>Strategic Planning</li>
         </ul>
       </div>
       
       <div class="service-card">
-        <div class="service-icon">💡</div>
-        <h3>Innovation Consulting</h3>
-        <p>Foster innovation and creativity within your organization to stay ahead of market trends.</p>
+        <div class="service-icon">🛡️</div>
+        <h3>Risk Management</h3>
+        <p>Identify, assess, and mitigate business risks using advanced AI models and predictive analytics.</p>
         <ul class="service-features">
-          <li>Innovation Strategy</li>
-          <li>Product Development</li>
-          <li>Market Research</li>
+          <li>Risk Assessment</li>
+          <li>Predictive Risk Modeling</li>
+          <li>Compliance Monitoring</li>
         </ul>
       </div>
     </div>
@@ -84,7 +84,7 @@
 <style>
   .services {
     padding: 6rem 2rem;
-    background: white;
+    background: #f8fafc;
   }
 
   .container {
@@ -114,40 +114,24 @@
 
   .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
     gap: 2rem;
   }
 
   .service-card {
-    background: #f8fafc;
+    background: white;
     padding: 2.5rem;
-    border-radius: 20px;
+    border-radius: 16px;
     border: 1px solid #e5e7eb;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
   }
 
-  .service-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #2563eb, #7c3aed);
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
-  }
-
   .service-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    background: white;
-  }
-
-  .service-card:hover::before {
-    transform: scaleX(1);
+    box-shadow: 0 20px 40px rgba(0, 102, 204, 0.1);
+    border-color: #0066cc;
   }
 
   .service-icon {
@@ -186,7 +170,7 @@
     content: '✓';
     position: absolute;
     left: 0;
-    color: #10b981;
+    color: #0066cc;
     font-weight: bold;
   }
 
