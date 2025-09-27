@@ -12,15 +12,15 @@
   </div>
     
   <div class="container" align="center">
-    <textarea id="comments" name="comments" rows="4" cols="80" />
+    <div class="input-container">
+      <textarea id="comments" name="comments" rows="6" placeholder="Enter your consultation details here..." class="consultation-textarea"></textarea>
+    </div>
 
-    <br />
+    <div class="button-container">
+      <button type="button" id="consultologist-send" class="consultation-button">Send to Consultologist</button>
+    </div>
 
-    <button type="button" id="consultologist-send">Send to Consultologist</button>
-
-    <br />
-
-    <div align="justify" id="consultologist-response">
+    <div class="response-container" id="consultologist-response">
     </div>
   </div>
 </section>
@@ -104,6 +104,74 @@
     background: #0f766e;
     transform: translateY(-1px);
     box-shadow: 0 4px 15px rgba(13, 148, 136, 0.3);
+  }
+
+  .input-container {
+    max-width: 600px;
+    margin: 0 auto 2rem;
+  }
+
+  .consultation-textarea {
+    width: 100%;
+    padding: 1.5rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 16px;
+    font-size: 1rem;
+    font-family: inherit;
+    background: white;
+    color: #1f2937;
+    transition: all 0.3s ease;
+    resize: vertical;
+    min-height: 120px;
+    box-sizing: border-box;
+  }
+
+  .consultation-textarea:focus {
+    outline: none;
+    border-color: #0d9488;
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+  }
+
+  .consultation-textarea::placeholder {
+    color: #9ca3af;
+  }
+
+  .button-container {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .consultation-button {
+    padding: 1.2rem 2.5rem;
+    background: #0d9488;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(13, 148, 136, 0.3);
+  }
+
+  .consultation-button:hover {
+    background: #0f766e;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(13, 148, 136, 0.4);
+  }
+
+  .response-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    background: #f8fafc;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+    min-height: 100px;
+    text-align: left;
+    color: #1f2937;
+    line-height: 1.6;
+    font-size: 1rem;
   }
 
   .contact-grid {
@@ -281,6 +349,26 @@
 
     .input-button {
       width: 100%;
+    }
+
+    .input-container {
+      margin-bottom: 1.5rem;
+    }
+
+    .consultation-textarea {
+      padding: 1.25rem;
+      font-size: 0.95rem;
+    }
+
+    .consultation-button {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      width: 100%;
+    }
+
+    .response-container {
+      padding: 1.25rem;
+      font-size: 0.95rem;
     }
 
     .contact-grid {
