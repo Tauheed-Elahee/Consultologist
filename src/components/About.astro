@@ -1,0 +1,220 @@
+---
+// About section component
+---
+
+<section id="about" class="about">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">About Consultologist</h2>
+      <p class="section-subtitle">
+        We're passionate about helping businesses reach their full potential through strategic consulting and innovative solutions.
+      </p>
+    </div>
+    
+    <div class="about-grid">
+      <div class="about-content">
+        <h3>Our Mission</h3>
+        <p>
+          To empower businesses with data-driven insights, strategic planning, and innovative solutions that drive sustainable growth and success in today's competitive landscape.
+        </p>
+        
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Projects Completed</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">98%</div>
+            <div class="stat-label">Client Satisfaction</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">10+</div>
+            <div class="stat-label">Years Experience</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="about-features">
+        <div class="feature">
+          <div class="feature-icon">🎯</div>
+          <h4>Strategic Focus</h4>
+          <p>We align our solutions with your business objectives to ensure maximum impact and ROI.</p>
+        </div>
+        
+        <div class="feature">
+          <div class="feature-icon">📈</div>
+          <h4>Data-Driven</h4>
+          <p>Our recommendations are backed by thorough analysis and market research.</p>
+        </div>
+        
+        <div class="feature">
+          <div class="feature-icon">🤝</div>
+          <h4>Collaborative</h4>
+          <p>We work closely with your team to ensure seamless implementation and knowledge transfer.</p>
+        </div>
+        
+        <div class="feature">
+          <div class="feature-icon">⚡</div>
+          <h4>Results-Oriented</h4>
+          <p>We focus on delivering measurable outcomes that drive your business forward.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    padding: 6rem 2rem;
+    background: #f8fafc;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 1rem;
+  }
+
+  .section-subtitle {
+    font-size: 1.25rem;
+    color: #6b7280;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-content h3 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-content p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #4b5563;
+    margin-bottom: 2.5rem;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .stat {
+    text-align: center;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+  }
+
+  .stat:hover {
+    transform: translateY(-5px);
+  }
+
+  .stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2563eb;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.9rem;
+    color: #6b7280;
+    font-weight: 500;
+  }
+
+  .about-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .feature {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border: 1px solid #e5e7eb;
+  }
+
+  .feature:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  .feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .feature h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 1rem;
+  }
+
+  .feature p {
+    color: #6b7280;
+    line-height: 1.6;
+  }
+
+  /* Mobile styles */
+  @media (max-width: 768px) {
+    .about {
+      padding: 4rem 1rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+    }
+
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .stats {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .about-features {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .feature {
+      padding: 1.5rem;
+    }
+  }
+</style>

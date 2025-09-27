@@ -1,0 +1,216 @@
+---
+// Services section component
+---
+
+<section id="services" class="services">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Our Services</h2>
+      <p class="section-subtitle">
+        Comprehensive consulting solutions tailored to your business needs
+      </p>
+    </div>
+    
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">💼</div>
+        <h3>Business Strategy</h3>
+        <p>Strategic planning and business model optimization to drive sustainable growth and competitive advantage.</p>
+        <ul class="service-features">
+          <li>Market Analysis</li>
+          <li>Competitive Intelligence</li>
+          <li>Growth Planning</li>
+        </ul>
+      </div>
+      
+      <div class="service-card">
+        <div class="service-icon">📊</div>
+        <h3>Data Analytics</h3>
+        <p>Transform your data into actionable insights with advanced analytics and business intelligence solutions.</p>
+        <ul class="service-features">
+          <li>Data Visualization</li>
+          <li>Predictive Analytics</li>
+          <li>Performance Metrics</li>
+        </ul>
+      </div>
+      
+      <div class="service-card">
+        <div class="service-icon">🔧</div>
+        <h3>Process Optimization</h3>
+        <p>Streamline operations and improve efficiency through process analysis and optimization strategies.</p>
+        <ul class="service-features">
+          <li>Workflow Analysis</li>
+          <li>Automation Solutions</li>
+          <li>Quality Improvement</li>
+        </ul>
+      </div>
+      
+      <div class="service-card">
+        <div class="service-icon">🚀</div>
+        <h3>Digital Transformation</h3>
+        <p>Navigate the digital landscape with comprehensive transformation strategies and technology adoption.</p>
+        <ul class="service-features">
+          <li>Technology Strategy</li>
+          <li>Digital Solutions</li>
+          <li>Change Management</li>
+        </ul>
+      </div>
+      
+      <div class="service-card">
+        <div class="service-icon">👥</div>
+        <h3>Team Development</h3>
+        <p>Build high-performing teams through leadership development and organizational culture enhancement.</p>
+        <ul class="service-features">
+          <li>Leadership Training</li>
+          <li>Team Building</li>
+          <li>Culture Development</li>
+        </ul>
+      </div>
+      
+      <div class="service-card">
+        <div class="service-icon">💡</div>
+        <h3>Innovation Consulting</h3>
+        <p>Foster innovation and creativity within your organization to stay ahead of market trends.</p>
+        <ul class="service-features">
+          <li>Innovation Strategy</li>
+          <li>Product Development</li>
+          <li>Market Research</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services {
+    padding: 6rem 2rem;
+    background: white;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 1rem;
+  }
+
+  .section-subtitle {
+    font-size: 1.25rem;
+    color: #6b7280;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+
+  .service-card {
+    background: #f8fafc;
+    padding: 2.5rem;
+    border-radius: 20px;
+    border: 1px solid #e5e7eb;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #2563eb, #7c3aed);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  .service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    background: white;
+  }
+
+  .service-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .service-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .service-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 1rem;
+  }
+
+  .service-card p {
+    color: #6b7280;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .service-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .service-features li {
+    color: #4b5563;
+    padding: 0.5rem 0;
+    position: relative;
+    padding-left: 1.5rem;
+  }
+
+  .service-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #10b981;
+    font-weight: bold;
+  }
+
+  /* Mobile styles */
+  @media (max-width: 768px) {
+    .services {
+      padding: 4rem 1rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+    }
+
+    .services-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      padding: 2rem;
+    }
+  }
+</style>
