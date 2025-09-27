@@ -11,6 +11,15 @@
       </p>
     </div>
     
+    <div class="input-container">
+      <input 
+        type="text" 
+        class="text-input" 
+        placeholder="Enter your email to get started"
+      />
+      <button class="input-button">Get Started</button>
+    </div>
+    
   </div>
 </section>
 
@@ -44,6 +53,55 @@
     max-width: 600px;
     margin: 0 auto;
     line-height: 1.6;
+  }
+
+  .input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .text-input {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 50px;
+    font-size: 1rem;
+    background: white;
+    color: #1f2937;
+    transition: all 0.3s ease;
+  }
+
+  .text-input:focus {
+    outline: none;
+    border-color: #0d9488;
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+  }
+
+  .text-input::placeholder {
+    color: #9ca3af;
+  }
+
+  .input-button {
+    padding: 1rem 2rem;
+    background: #0d9488;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .input-button:hover {
+    background: #0f766e;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(13, 148, 136, 0.3);
   }
 
   .contact-grid {
@@ -208,6 +266,19 @@
 
     .section-subtitle {
       font-size: 1.1rem;
+    }
+
+    .input-container {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .text-input {
+      width: 100%;
+    }
+
+    .input-button {
+      width: 100%;
     }
 
     .contact-grid {
