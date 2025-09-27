@@ -44,14 +44,16 @@
 
 <style>
   .header {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
-    background: transparent;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
     transition: all 0.3s ease;
-    padding-top: 2rem;
+    padding: 1rem 0;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
   }
 
   .nav {
@@ -61,11 +63,8 @@
     padding: 1rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
     border-radius: 50px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    background: transparent;
   }
 
   .nav-brand .brand-link {
@@ -143,7 +142,7 @@
   /* Mobile styles */
   @media (max-width: 767px) {
     .header {
-      padding-top: 1rem;
+      padding: 0.5rem 0;
     }
 
     .nav {
