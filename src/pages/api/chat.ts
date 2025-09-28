@@ -26,10 +26,7 @@ const schema = JSON.parse(schemaContent);
 
 const ajv = new draft2020({ allErrors: true });
 addFormats(ajv);
-const validate = ajv.compile(index):10 
- 
- POST https://consultologist.ai/api/chat net::ERR_ABORTED 405 (Method Not Allowed)
-(schema);
+const validate = ajv.compile(schema);
 
 // Convert schema to formatted string for system context
 const schemaString = JSON.stringify(schema, null, 2);
