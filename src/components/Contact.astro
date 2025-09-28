@@ -11,7 +11,7 @@
       </p>
   </div>
     
-  <div class="container" align="center">
+  <div class="container" style="text-align: center;">
     <div class="input-container">
       <textarea id="comments" name="comments" rows="6" placeholder="Enter your consultation details here..." class="consultation-textarea"></textarea>
     </div>
@@ -435,8 +435,8 @@
 
 <script>
   // Handle Consultologist submission
-  const consultologistButton = document.getElementById('consultologist-send');
-  const consultationTextarea = document.getElementById('comments');
+  const consultologistButton = document.getElementById('consultologist-send') as HTMLButtonElement;
+  const consultationTextarea = document.getElementById('comments') as HTMLTextAreaElement;
   const responseContainer = document.getElementById('consultologist-response');
 
   if (consultologistButton && consultationTextarea && responseContainer) {

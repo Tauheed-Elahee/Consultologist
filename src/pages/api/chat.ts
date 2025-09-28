@@ -1,8 +1,8 @@
 import type { APIRoute } from 'astro';
 import { Liquid } from 'liquidjs';
 import OpenAI from 'openai';
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import Ajv from 'ajv';
 
 const openai = new OpenAI({
