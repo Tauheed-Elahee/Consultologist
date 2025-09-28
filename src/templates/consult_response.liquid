@@ -1,418 +1,274 @@
-<div class="consultation-result">
-  <div class="consultation-header">
-    <h3>🏥 Oncology Consultation Note</h3>
-    <div class="timestamp">Generated: {{ "now" | date: "%B %d, %Y at %I:%M %p" }}</div>
-    {% if front_matter.encounter.datetime %}
-    <div class="encounter-date">Encounter: {{ front_matter.encounter.datetime }}</div>
-    {% endif %}
-  </div>
+{%- comment -%}
+Mortigen Oncology Note — HTML output (no fallbacks; pronouns required)
 
-  <div class="consultation-sections">
-    <!-- Patient Information -->
-    {% if front_matter.patient %}
-    <div class="consultation-section">
-      <h4>👤 Patient Information</h4>
-      <div class="patient-info">
-        <p><strong>Name:</strong> {{ front_matter.patient.full_name | default: front_matter.patient.name }}</p>
-        {% if front_matter.patient.dob %}
-        <p><strong>Date of Birth:</strong> {{ front_matter.patient.dob }}</p>
-        {% endif %}
-        <p><strong>Age:</strong> {{ front_matter.patient.age_years }} years</p>
-        <p><strong>Sex:</strong> {{ front_matter.patient.sex | capitalize }}</p>
-      </div>
-    </div>
-    {% endif %}
+Render context must conform to mortigen_render_context.schema.json
+{%- endcomment -%}
 
-    <!-- Reason for Consultation -->
-    {% if content.reason %}
-    <div class="consultation-section">
-      <h4>🎯 Reason for Consultation</h4>
-      <p>{{ content.reason }}</p>
-    </div>
-    {% endif %}
+{%- assign pf    = front_matter.patient -%}
+{%- assign enc   = front_matter.encounter -%}
+{%- assign stage = front_matter.staging -%}
+{%- assign path  = front_matter.pathology -%}
+{%- assign rcpt  = front_matter.receptors -%}
+{%- assign onc   = front_matter.oncotype -%}
+{%- assign plan  = front_matter.plan_structured -%}
+{%- assign side  = extras.side | default: 'right' -%}
 
-    <!-- Diagnosis -->
-    {% if front_matter.diagnosis %}
-    <div class="consultation-section">
-      <h4>🔍 Diagnosis</h4>
-      <ul class="diagnosis-list">
-        {% for diagnosis in front_matter.diagnosis %}
-        <li>{{ diagnosis }}</li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% endif %}
+{%- assign p_nom  = pf.pronoun.nom -%}
+{%- assign p_gen  = pf.pronoun.gen -%}
+{%- assign p_obj  = pf.pronoun.obj -%}
+{%- assign p_refl = pf.pronoun.refl -%}
 
-    <!-- History of Present Illness -->
-    {% if content.hpi %}
-    <div class="consultation-section">
-      <h4>📝 History of Present Illness</h4>
-      <p>{{ content.hpi }}</p>
-    </div>
-    {% endif %}
+{%- assign her2_label  = rcpt.her2.label -%}
+{%- assign her2_detail = rcpt.her2.detail -%}
 
-    <!-- Past Medical History -->
-    {% if content.pmh %}
-    <div class="consultation-section">
-      <h4>📋 Past Medical History</h4>
-      <p>{{ content.pmh }}</p>
-    </div>
-    {% endif %}
+{%- assign sex_label   = pf.sex -%}
+{%- assign stage_clean = stage.stage_group | replace: 'Stage ', '' -%}
 
-    <!-- Medications -->
-    {% if front_matter.medications and front_matter.medications.size > 0 %}
-    <div class="consultation-section">
-      <h4>💊 Current Medications</h4>
-      <ul class="medication-list">
-        {% for med in front_matter.medications %}
-        <li>
-          <strong>{{ med.label }}</strong>
-          {% if med.dose %} - {{ med.dose }}{% if med.dose_unit %}{{ med.dose_unit }}{% endif %}{% endif %}
-          {% if med.route %} {{ med.route }}{% endif %}
-          {% if med.frequency %} {{ med.frequency }}{% endif %}
-          {% if med.prn %} (PRN){% endif %}
-          {% if med.indication %} - {{ med.indication }}{% endif %}
-        </li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% endif %}
+{%- assign reason_text = content.reason | default: front_matter.diagnosis | join: ', ' -%}
 
-    <!-- Allergies -->
-    {% if front_matter.allergies and front_matter.allergies.size > 0 %}
-    <div class="consultation-section">
-      <h4>⚠️ Allergies</h4>
-      <ul class="allergy-list">
-        {% for allergy in front_matter.allergies %}
-        <li>
-          <strong>{{ allergy.agent }}</strong>: {{ allergy.reaction }}
-          {% if allergy.severity %} ({{ allergy.severity }}){% endif %}
-        </li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% endif %}
+{%- assign meds_items = front_matter.medications -%}
+{%- assign allergies_items = front_matter.allergies -%}
 
-    <!-- Social and Family History -->
-    {% if content.social or content.family %}
-    <div class="consultation-section">
-      <h4>👥 Social and Family History</h4>
-      {% if content.social %}
-      <p><strong>Social History:</strong> {{ content.social }}</p>
-      {% endif %}
-      {% if content.family %}
-      <p><strong>Family History:</strong> {{ content.family }}</p>
-      {% endif %}
-    </div>
-    {% endif %}
+{%- comment %} -------------------- Demographics -------------------- {% endcomment -%}
+{%- if pf.full_name or pf.name or pf.dob or pf.age_years or pf.sex -%}
+  {%- capture demo_line -%}
+    {%- if pf.full_name -%}{{ pf.full_name }}{%- elsif pf.name -%}{{ pf.name }}{%- endif -%}
+    {%- if pf.dob -%}{% if pf.full_name or pf.name %} — {% endif %}DOB: {{ pf.dob }}{%- endif -%}
+    {%- if pf.age_years -%}{% if pf.dob or pf.full_name or pf.name %} — {% endif %}Age: {{ pf.age_years }}{%- endif -%}
+    {%- if pf.sex -%}{% if pf.age_years or pf.dob or pf.full_name or pf.name %} — {% endif %}Sex: {{ pf.sex }}{%- endif -%}
+  {%- endcapture -%}
+  <p>{{ demo_line | strip }}</p>
+  <br>
+{%- endif -%}
 
-    <!-- Physical Examination -->
-    {% if content.exam %}
-    <div class="consultation-section">
-      <h4>🔬 Physical Examination</h4>
-      <p>{{ content.exam }}</p>
-    </div>
-    {% endif %}
+{%- comment %} -------------------- Date/Time -------------------- {% endcomment -%}
+{%- if enc.datetime -%}
+  <p>{{ enc.datetime | date: "%B %-d, %Y %H:%M %Z" }}</p>
+  <br>
+{%- endif -%}
 
-    <!-- Staging Information -->
-    {% if front_matter.staging %}
-    <div class="consultation-section">
-      <h4>📊 Staging</h4>
-      <div class="staging-info">
-        <p><strong>Stage:</strong> {{ front_matter.staging.stage_group }}</p>
-        {% if front_matter.staging.tnm %}
-        <p><strong>TNM Classification:</strong> 
-          {{ front_matter.staging.tnm.prefix }}{{ front_matter.staging.tnm.T }}{{ front_matter.staging.tnm.N }}{{ front_matter.staging.tnm.M }}
-        </p>
-        {% endif %}
-      </div>
-    </div>
-    {% endif %}
+{%- comment %} -------------------- Reason -------------------- {% endcomment -%}
+{%- if reason_text -%}
+  <h2>Reason for Consultation</h2>
+  <p>{{ reason_text | strip | newline_to_br }}</p>
+  <br>
+{%- endif -%}
 
-    <!-- Pathology -->
-    {% if front_matter.pathology %}
-    <div class="consultation-section">
-      <h4>🧪 Pathology</h4>
-      <div class="pathology-info">
-        <p><strong>Histology:</strong> {{ front_matter.pathology.histology }}</p>
-        <p><strong>Grade:</strong> {{ front_matter.pathology.grade }}</p>
-        <p><strong>Tumor Size:</strong> {{ front_matter.pathology.tumor_size_cm }} cm</p>
-        {% if front_matter.pathology.dcis_present %}
-        <p><strong>DCIS Present:</strong> {{ front_matter.pathology.dcis_present }}</p>
-        {% endif %}
-        {% if front_matter.pathology.margins %}
-        <p><strong>Margins:</strong> {{ front_matter.pathology.margins }}</p>
-        {% endif %}
-        <p><strong>Lymph Nodes:</strong> {{ front_matter.pathology.nodes_positive }}/{{ front_matter.pathology.nodes_examined }} positive</p>
-      </div>
-    </div>
-    {% endif %}
+{%- comment %} -------------------- HPI -------------------- {% endcomment -%}
+{%- if content.hpi -%}
+  <h2>History of Present Illness</h2>
+  <p>{{ content.hpi | strip | newline_to_br }}</p>
+  <br>
+{%- endif -%}
 
-    <!-- Receptor Status -->
-    {% if front_matter.receptors %}
-    <div class="consultation-section">
-      <h4>🧬 Receptor Status</h4>
-      <div class="receptor-info">
-        <p><strong>ER:</strong> {{ front_matter.receptors.ER }}</p>
-        <p><strong>PR:</strong> {{ front_matter.receptors.PR }}</p>
-        {% if front_matter.receptors.her2 %}
-        <p><strong>HER2:</strong> {{ front_matter.receptors.her2.label }}
-          {% if front_matter.receptors.her2.ihc_score %} (IHC: {{ front_matter.receptors.her2.ihc_score }}){% endif %}
-          {% if front_matter.receptors.her2.fish_result %} (FISH: {{ front_matter.receptors.her2.fish_result }}){% endif %}
-        </p>
-        {% if front_matter.receptors.her2.detail %}
-        <p><em>{{ front_matter.receptors.her2.detail }}</em></p>
-        {% endif %}
-        {% endif %}
-      </div>
-    </div>
-    {% endif %}
+{%- comment %} -------------------- PMH -------------------- {% endcomment -%}
+{%- if content.pmh -%}
+  <h2>Past Medical History</h2>
+  <p>{{ content.pmh | strip | newline_to_br }}</p>
+  <br>
+{%- endif -%}
 
-    <!-- Oncotype DX -->
-    {% if front_matter.oncotype and front_matter.oncotype.score %}
-    <div class="consultation-section">
-      <h4>🧪 Oncotype DX</h4>
-      <div class="oncotype-info">
-        <p><strong>Recurrence Score:</strong> {{ front_matter.oncotype.score }}</p>
-        <p><strong>9-Year Risk:</strong> {{ front_matter.oncotype.risk_percent_9yr }}%</p>
-        {% if front_matter.oncotype.absolute_benefit_percent %}
-        <p><strong>Absolute Benefit of Chemotherapy:</strong> {{ front_matter.oncotype.absolute_benefit_percent }}%</p>
-        {% endif %}
-      </div>
-    </div>
-    {% endif %}
+{%- comment %} -------------------- Medication -------------------- {% endcomment -%}
+{%- assign meds_block = '' -%}
+{%- if meds_items and meds_items.size > 0 -%}
+  {%- capture meds_block -%}
+    <ul>
+    {%- for m in meds_items -%}
+      <li>
+        {%- if m.label -%}{{ m.label }}{%- else -%}{{ m }}{%- endif -%}
+        {%- if m.dose %} {{ m.dose }}{%- if m.dose_unit %} {{ m.dose_unit }}{%- endif -%}{%- endif -%}
+        {%- if m.route %} {{ m.route }}{%- endif -%}
+        {%- if m.frequency %} {{ m.frequency }}{%- endif -%}
+        {%- if m.prn %} PRN{%- endif -%}
+        {%- if m.indication %} — for {{ m.indication }}{%- endif -%}
+      </li>
+    {%- endfor -%}
+    </ul>
+  {%- endcapture -%}
+{%- elsif content.meds -%}
+  {%- capture meds_block -%}
+    <p>{{ content.meds | strip | newline_to_br }}</p>
+  {%- endcapture -%}
+{%- endif -%}
+{%- if meds_block -%}
+  <h2>Medication</h2>
+  {{ meds_block }}
+  <br>
+{%- endif -%}
 
-    <!-- Investigations -->
-    {% if content.investigations %}
-    <div class="consultation-section">
-      <h4>🔬 Investigations</h4>
-      <p>{{ content.investigations }}</p>
-    </div>
-    {% endif %}
+{%- comment %} -------------------- Allergies -------------------- {% endcomment -%}
+{%- assign allergies_block = '' -%}
+{%- if allergies_items and allergies_items.size > 0 -%}
+  {%- capture allergies_block -%}
+    <ul>
+    {%- for a in allergies_items -%}
+      <li>
+        {%- if a.agent -%}{{ a.agent }}{%- else -%}{{ a }}{%- endif -%}
+        {%- if a.reaction %} — {{ a.reaction }}{%- endif -%}
+        {%- if a.severity %} ({{ a.severity }}){%- endif -%}
+      </li>
+    {%- endfor -%}
+    </ul>
+  {%- endcapture -%}
+{%- elsif content.allergies -%}
+  {%- capture allergies_block -%}
+    <p>{{ content.allergies | strip | newline_to_br }}</p>
+  {%- endcapture -%}
+{%- endif -%}
+{%- if allergies_block -%}
+  <h2>Allergies</h2>
+  {{ allergies_block }}
+  <br>
+{%- endif -%}
 
-    <!-- Treatment Plan -->
-    {% if front_matter.plan_structured %}
-    <div class="consultation-section">
-      <h4>📋 Treatment Plan</h4>
-      <div class="treatment-plan">
-        {% if front_matter.plan_structured.endocrine %}
-        <div class="treatment-section">
-          <h5>Endocrine Therapy</h5>
-          {% if front_matter.plan_structured.endocrine.ordered %}
-          <p>✅ <strong>Recommended:</strong> 
-            {% if front_matter.plan_structured.endocrine.agent == "other" %}
-              {{ front_matter.plan_structured.endocrine.agent_other }}
-            {% else %}
-              {{ front_matter.plan_structured.endocrine.agent | capitalize }}
-            {% endif %}
-          </p>
-          {% else %}
-          <p>❌ Not recommended at this time</p>
-          {% endif %}
-        </div>
-        {% endif %}
+{%- comment %} -------------------- Social -------------------- {% endcomment -%}
+{%- if content.social -%}
+  <h2>Social History</h2>
+  <p>{{ content.social | strip | newline_to_br }}</p>
+  <br>
+{%- endif -%}
 
-        {% if front_matter.plan_structured.chemotherapy %}
-        <div class="treatment-section">
-          <h5>Chemotherapy</h5>
-          {% if front_matter.plan_structured.chemotherapy.recommended %}
-          <p>✅ <strong>Recommended</strong></p>
-          {% if front_matter.plan_structured.chemotherapy.risk_basis %}
-          <p><strong>Basis:</strong> {{ front_matter.plan_structured.chemotherapy.risk_basis | replace: "_", " " | capitalize }}</p>
-          {% endif %}
-          {% if front_matter.plan_structured.chemotherapy.regimen %}
-          <p><strong>Regimen:</strong> 
-            {% if front_matter.plan_structured.chemotherapy.regimen == null and front_matter.plan_structured.chemotherapy.regimen_other %}
-              {{ front_matter.plan_structured.chemotherapy.regimen_other }}
-            {% else %}
-              {{ front_matter.plan_structured.chemotherapy.regimen }}
-            {% endif %}
-          </p>
-          {% endif %}
-          {% else %}
-          <p>❌ Not recommended at this time</p>
-          {% endif %}
-        </div>
-        {% endif %}
+{%- comment %} -------------------- Family -------------------- {% endcomment -%}
+{%- if content.family -%}
+  <h2>Family History</h2>
+  <p>{{ content.family | strip | newline_to_br }}</p>
+  <br>
+{%- endif -%}
 
-        {% if front_matter.plan_structured.radiation_referred != null %}
-        <div class="treatment-section">
-          <h5>Radiation Therapy</h5>
-          {% if front_matter.plan_structured.radiation_referred %}
-          <p>✅ Referral to radiation oncology recommended</p>
-          {% else %}
-          <p>❌ Radiation therapy not indicated at this time</p>
-          {% endif %}
-        </div>
-        {% endif %}
-      </div>
-    </div>
-    {% endif %}
-  </div>
-
-  <div class="consultation-footer">
-    <p class="disclaimer">
-      <strong>⚠️ Important:</strong> This AI-generated consultation note is a draft and should be reviewed, 
-      modified, and validated by the attending physician before use in clinical practice.
+{%- comment %} -------------------- Physical Exam -------------------- {% endcomment -%}
+{%- if content.exam or flags.exam_present -%}
+  <h2>Physical Exam</h2>
+  {%- if content.exam -%}
+    <p>{{ content.exam | strip | newline_to_br }}</p>
+    <p>
+      Alert, attentive, and in no distress. There is no evidence of peripheral lymphadenopathy.
+      Cardiovascular and respiratory exams are unremarkable. No tenderness on palpation of the spine.
+      Abdominal is soft and nontender, with no palpable masses. No hepatosplenomegaly. No peripheral edema.
+      Bilateral breast exam was unremarkable with no worrisome masses or skin changes.
     </p>
-  </div>
-</div>
+  {%- else -%}
+    <p>
+      Alert, attentive, and in no distress. There is no evidence of peripheral lymphadenopathy.
+      Cardiovascular and respiratory exams are unremarkable. No tenderness on palpation of the spine.
+      Abdominal is soft and nontender, with no palpable masses. No hepatosplenomegaly. No peripheral edema.
+      Bilateral breast exam was unremarkable with no worrisome masses or skin changes.
+    </p>
+  {%- endif -%}
+  <br>
+{%- endif -%}
 
-<style>
-  .consultation-result {
-    background: white;
-    border-radius: 16px;
-    padding: 2rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e5e7eb;
-    margin-top: 1rem;
-  }
+{%- comment %} -------------------- Investigations -------------------- {% endcomment -%}
+{%- if content.investigations -%}
+  <h2>Investigations</h2>
+  <p>{{ content.investigations | strip | newline_to_br }}</p>
+  <br>
+{%- endif -%}
 
-  .consultation-header {
-    border-bottom: 2px solid #0d9488;
-    padding-bottom: 1rem;
-    margin-bottom: 2rem;
-  }
+{%- comment %} -------------------- Assessment / Plan -------------------- {% endcomment -%}
+{%- if stage.tnm.T and stage.tnm.N and stage.tnm.M and path.grade and path.histology and rcpt.ER and rcpt.PR -%}
+  <h2>Assessment/Plan</h2>
 
-  .consultation-header h3 {
-    color: #0d9488;
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin: 0 0 0.5rem 0;
-  }
+  <p>
+    {{ pf.name }} is a {{ pf.age_years }}-year old {{ sex_label }} with a
+    {{ stage.tnm.T }}{% if path.tumor_size_cm %} ({{ path.tumor_size_cm }} cm){% endif %} {{ stage.tnm.N }}
+    {%- if path.nodes_positive or path.nodes_examined -%}
+      ({{ path.nodes_positive }}/{{ path.nodes_examined }})
+    {%- endif -%}
+    {{ stage.tnm.M }}, grade {{ path.grade }}, ER+ ({{ rcpt.ER }}) PR+ ({{ rcpt.PR }}) {{ her2_label }}
+    {%- if her2_detail %} ({{ her2_detail }}){%- endif -%},
+    {{ path.histology }} of the {{ side }} breast. Overall, {{ pf.name }} has a stage {{ stage_clean }} breast cancer.
+  </p>
 
-  .timestamp, .encounter-date {
-    color: #6b7280;
-    font-size: 0.9rem;
-    font-style: italic;
-  }
+  {%- if onc.score -%}
+    <p>
+      An OncotypeDx test was performed and {{ p_gen }} recurrence score is {{ onc.score }}
+      which is associated with a 9-year distant recurrence risk of {{ onc.risk_percent_9yr }}%
+      {%- if onc.absolute_benefit_percent %}. The absolute chemotherapy benefit is estimated to be {{ onc.absolute_benefit_percent }}%{%- endif -%}.
+    </p>
+  {%- endif -%}
 
-  .consultation-sections {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
+  <p>
+    Since {{ pf.name }}'s breast cancer is estrogen receptor positive, hormone therapy is strongly recommended.
+    I have recommended 5 years of
+    {%- if plan.endocrine and plan.endocrine.agent == 'letrozole' -%}
+      letrozole. I discussed the side effects which include, but are not limited to, myalgias, arthralgias, hot flashes,
+      fatigue, and a risk of osteopenia and osteoporosis over time. 5 years of letrozole would be expected to reduce
+      {{ p_gen }} relative risk of recurrence by 50%.
+    {%- elsif plan.endocrine and plan.endocrine.agent == 'tamoxifen' -%}
+      tamoxifen. I discussed the side effects which include, but are not limited to, hot flashes, myalgias, arthralgias,
+      fatigue, and an under 1% risk of endometrial cancer and VTE. {{ p_nom | capitalize }} understands the teratogenic
+      risks of tamoxifen. 5 years of tamoxifen would be expected to reduce {{ p_gen }} relative risk of recurrence by 50%.
+    {%- else -%}
+      hormonal therapy.
+    {%- endif -%}
+  </p>
 
-  .consultation-section {
-    background: #f8fafc;
-    border-radius: 12px;
-    padding: 1.5rem;
-    border-left: 4px solid #0d9488;
-  }
+  {%- if plan.radiation_referred -%}
+    <p>I will also refer {{ p_obj }} to see one of my radiation oncology colleagues to discuss adjuvant radiation.</p>
+  {%- endif -%}
 
-  .consultation-section h4 {
-    color: #1f2937;
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin: 0 0 0.75rem 0;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
+  <p>Finally, we discussed chemotherapy.</p>
 
-  .consultation-section h5 {
-    color: #374151;
-    font-size: 1rem;
-    font-weight: 600;
-    margin: 1rem 0 0.5rem 0;
-  }
+  {%- if plan.chemotherapy and plan.chemotherapy.recommended == false and plan.chemotherapy.risk_basis == 'low_oncotype' -%}
+    <p>
+      Given the low risk features of this patient's breast cancer, I have not recommended adjuvant chemotherapy since any
+      small potential benefit would likely be outweighed by the potential disadvantages and side effects.
+    </p>
+    <p>
+      I will get {{ p_obj }} started on adjuvant
+      {%- if plan.endocrine and plan.endocrine.agent == 'letrozole' -%} letrozole
+      {%- elsif plan.endocrine and plan.endocrine.agent == 'tamoxifen' -%} tamoxifen
+      {%- else -%} hormonal therapy
+      {%- endif -%} soon.
+      I will order a baseline bone mineral density test. I will assess {{ p_obj }} again in 3 months. If all is well at that
+      time, I will likely discharge {{ p_obj }} back to the care of {{ p_gen }} family doctor for ongoing surveillance.
+    </p>
 
-  .consultation-section p {
-    color: #4b5563;
-    line-height: 1.6;
-    margin: 0 0 0.5rem 0;
-    white-space: pre-wrap;
-  }
+  {%- elsif plan.chemotherapy and plan.chemotherapy.recommended and plan.chemotherapy.risk_basis == 'her2_positive' -%}
+    <p>
+      Given {{ p_gen }} {{ her2_label | downcase }} breast cancer, I have recommended trastuzumab-based adjuvant chemotherapy
+      due to the significant expected benefit. Potential side effects include, but are not limited to, myelosuppression,
+      fatigue, nausea, diarrhea, peripheral neuropathy, and a small risk of cardiotoxicity. Cardiac monitoring with baseline
+      and periodic echocardiography will be arranged.
+    </p>
+    {%- if plan.chemotherapy.regimen == 'AC_TH' -%}
+      <p>
+        The recommended regimen is AC→TH, with doxorubicin and cyclophosphamide followed by paclitaxel with trastuzumab,
+        and trastuzumab continued to complete one year of anti-HER2 therapy.
+      </p>
+    {%- elsif plan.chemotherapy.regimen == 'TCH' -%}
+      <p>
+        The recommended regimen is TCH, with docetaxel, carboplatin, and trastuzumab, and trastuzumab continued to complete
+        one year of anti-HER2 therapy.
+      </p>
+    {%- endif -%}
 
-  .consultation-section p:last-child {
-    margin-bottom: 0;
-  }
+  {%- elsif plan.chemotherapy and plan.chemotherapy.recommended and plan.chemotherapy.regimen == 'BRAJACTG' -%}
+    <p>
+      Given {{ p_gen }} high risk breast cancer, I have recommended the chemotherapy regimen BRAJACTG which is expected to
+      decrease {{ p_gen }} relative risk of recurrence by 1/3. This is an 8 cycle regimen with doxorubicin and cyclophosphamide
+      given every 2 weeks for 4 cycles, followed by paclitaxel given every 2 weeks for another 4 cycles. The side effects include,
+      but are not limited to, myelosuppression and a risk of febrile neutropenia, chemotherapy associated alopecia, fatigue,
+      nausea, vomiting, diarrhea, mucositis, peripheral neuropathy, myalgias and arthralgias, hypersensitivity reactions,
+      and a small risk of cardiotoxicity. I have recommended G-CSF support given the myelosuppressive nature of this chemotherapy
+      and have arranged this today. I have also given {{ p_obj }} a prescription for antinausea medications. {{ p_nom | capitalize }}
+      has consented to starting chemotherapy and I will arrange for {{ p_gen }} first cycle to start in the next few weeks.
+      I will see {{ p_obj }} prior to cycle #2.
+    </p>
 
-  .patient-info, .staging-info, .pathology-info, .receptor-info, .oncotype-info {
-    display: grid;
-    gap: 0.5rem;
-  }
+  {%- elsif plan.chemotherapy and plan.chemotherapy.recommended and plan.chemotherapy.regimen == 'BRAJDC' -%}
+    <p>
+      Given {{ p_gen }} high Oncotype Dx recurrence score, I have recommended the chemotherapy regimen BRAJDC which is expected
+      to decrease {{ p_gen }} relative risk of recurrence by 1/3. This is a 4 cycle regimen with docetaxel and cyclophosphamide
+      given every 3 weeks. The side effects include, but are not limited to, myelosuppression and a risk of febrile neutropenia,
+      chemotherapy associated alopecia, fatigue, nausea, vomiting, diarrhea, mucositis, peripheral neuropathy, myalgias and
+      arthralgias. I have recommended G-CSF support given the myelosuppressive nature of this chemotherapy and have arranged this
+      today. I have also given {{ p_obj }} a prescription for antinausea medications. {{ p_nom | capitalize }} has consented to
+      starting chemotherapy and I will arrange for {{ p_gen }} first cycle to start in the next few weeks. I will see {{ p_obj }}
+      prior to cycle #2.
+    </p>
+  {%- endif -%}
 
-  .diagnosis-list, .medication-list, .allergy-list {
-    margin: 0;
-    padding-left: 1.5rem;
-    color: #4b5563;
-  }
-
-  .diagnosis-list li, .medication-list li, .allergy-list li {
-    margin-bottom: 0.5rem;
-    line-height: 1.5;
-  }
-
-  .treatment-plan {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .treatment-section {
-    background: white;
-    border-radius: 8px;
-    padding: 1rem;
-    border: 1px solid #e5e7eb;
-  }
-
-  .consultation-footer {
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid #e5e7eb;
-  }
-
-  .disclaimer {
-    background: #fef3c7;
-    border: 1px solid #f59e0b;
-    border-radius: 8px;
-    padding: 1rem;
-    color: #92400e;
-    font-size: 0.9rem;
-    margin: 0;
-    line-height: 1.5;
-  }
-
-  .error-message {
-    background: #fef2f2;
-    border: 1px solid #f87171;
-    border-radius: 12px;
-    padding: 1.5rem;
-    color: #dc2626;
-    text-align: center;
-  }
-
-  .error-message h3 {
-    margin: 0 0 1rem 0;
-    font-size: 1.25rem;
-  }
-
-  .error-message p {
-    margin: 0.5rem 0;
-  }
-
-  .error-details {
-    font-size: 0.9rem;
-    color: #991b1b;
-    font-style: italic;
-  }
-
-  @media (max-width: 768px) {
-    .consultation-result {
-      padding: 1.5rem;
-    }
-
-    .consultation-section {
-      padding: 1.25rem;
-    }
-
-    .consultation-header h3 {
-      font-size: 1.25rem;
-    }
-
-    .patient-info, .staging-info, .pathology-info, .receptor-info, .oncotype-info {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
+  <p>Thank you, it has been a pleasure to be involved in the care of {{ pf.name }}.</p>
+  <br>
+{%- endif -%}
