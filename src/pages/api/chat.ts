@@ -51,14 +51,6 @@ The JSON object must contain:
 - extras: Additional context like tumor laterality (left/right)
 - flags: Boolean indicators for data presence
 
-Key requirements:
-- Patient demographics with proper pronouns (nom/gen/obj/refl)
-- TNM staging with proper prefix (p/c/yp/yc/x) and valid T/N/M classifications
-- Pathology with histology, grade (1-3), tumor size, and lymph node details
-- Receptor status: ER/PR as scores (0-8/8), HER2 with detailed status
-- Structured treatment plans for endocrine therapy, chemotherapy, and radiation
-- Medications with proper dosing and frequency information
-
 Do not include any explanatory text, markdown formatting, or additional commentary. Return only the JSON object.`;
 
     // Call OpenAI API with JSON mode
