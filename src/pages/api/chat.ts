@@ -45,7 +45,44 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    const { prompt } = await request.json();
+    // Read request body as text first
+    const rawBody = await request.text();
+    
+    // Check if request body is empty
+    if (!rawBody || rawBody.trim() === '') {
+      console.error('Empty request body received');
+      const errorHtml = `
+        <div class="error-message">
+          <h3>⚠️ Invalid Request</h3>
+          <p>Request body is empty. Please provide consultation details.</p>
+        </div>
+      `;
+      return new Response(errorHtml, {
+        status: 400,
+        headers: { 'Content-Type': 'text/html' }
+      });
+    }
+
+    // Parse JSON with proper error handling
+    let requestData;
+    try {
+      requestData = JSON.parse(rawBody);
+    } catch (parseError) {
+      console.error('Failed to parse request body as JSON:', parseError);
+      console.error('Raw body:', rawBody);
+      const errorHtml = `
+        <div class="error-message">
+          <h3>⚠️ Invalid JSON</h3>
+          <p>Request body contains malformed JSON. Please check your request format.</p>
+        </div>
+      `;
+      return new Response(errorHtml, {
+        status: 400,
+        headers: { 'Content-Type': 'text/html' }
+      });
+    }
+
+    const { prompt } = requestData;
 
     if (!prompt || typeof prompt !== 'string') {
       const errorHtml = `
