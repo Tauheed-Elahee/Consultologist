@@ -4,6 +4,8 @@ import OpenAI from 'openai';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import Ajv from 'ajv';
+import addFormats from 'ajv-formats';
+import addFormats2020 from 'ajv-formats-draft2020';
 
 const openai = new OpenAI({
   apiKey: import.meta.env.OPENAI_API_KEY,
@@ -20,6 +22,8 @@ const schemaContent = readFileSync(schemaPath, 'utf-8');
 const schema = JSON.parse(schemaContent);
 
 const ajv = new Ajv({ allErrors: true });
+addFormats(ajv);
+addFormats2020(ajv);
 const validate = ajv.compile(schema);
 
 // Convert schema to formatted string for system context
