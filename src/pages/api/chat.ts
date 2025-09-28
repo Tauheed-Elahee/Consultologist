@@ -10,6 +10,8 @@ import draft2020 from 'ajv/dist/2020';
 // Ensure POST method is properly exported
 export const prerender = false;
 
+console.log("I'm inside the chat api!!!")
+
 const openai = new OpenAI({
   apiKey: import.meta.env.OPENAI_API_KEY,
 });
