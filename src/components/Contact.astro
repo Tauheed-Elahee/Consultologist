@@ -174,6 +174,45 @@
     font-size: 1rem;
   }
 
+  .loading-message {
+    text-align: center;
+    padding: 2rem;
+    color: #6b7280;
+  }
+
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #e5e7eb;
+    border-top: 4px solid #0d9488;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .error-message {
+    background: #fef2f2;
+    border: 1px solid #f87171;
+    border-radius: 12px;
+    padding: 1.5rem;
+    color: #dc2626;
+    text-align: center;
+  }
+
+  .error-message h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.25rem;
+  }
+
+  .error-message p {
+    margin: 0.5rem 0;
+  }
+
   .contact-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -395,38 +434,66 @@
 </style>
 
 <script>
-  // Handle form submission
-  const form = document.getElementById('contact-form');
-  if (form) {
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
+  // Handle Consultologist submission
+  const consultologistButton = document.getElementById('consultologist-send');
+  const consultationTextarea = document.getElementById('comments');
+  const responseContainer = document.getElementById('consultologist-response');
+
+  if (consultologistButton && consultationTextarea && responseContainer) {
+    consultologistButton.addEventListener('click', async function() {
+      const prompt = consultationTextarea.value.trim();
       
-      // Get form data
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData);
+      if (!prompt) {
+        responseContainer.innerHTML = `
+          <div class="error-message">
+            <p>Please enter consultation details before sending.</p>
+          </div>
+        `;
+        return;
+      }
+
+      // Update button state
+      const originalText = consultologistButton.textContent;
+      consultologistButton.textContent = 'Processing...';
+      consultologistButton.disabled = true;
       
-      // Simulate form submission
-      const submitBtn = form.querySelector('.submit-btn');
-      const originalText = submitBtn.textContent;
-      
-      submitBtn.textContent = 'Sending...';
-      submitBtn.disabled = true;
-      
-      // Simulate API call
-      setTimeout(() => {
-        submitBtn.textContent = 'Message Sent!';
-        submitBtn.style.background = 'linear-gradient(45deg, #10b981, #34d399)';
-        
-        // Reset form
-        form.reset();
-        
-        // Reset button after 3 seconds
-        setTimeout(() => {
-          submitBtn.textContent = originalText;
-          submitBtn.disabled = false;
-          submitBtn.style.background = 'linear-gradient(45deg, #ffd700, #ffed4e)';
-        }, 3000);
-      }, 2000);
+      // Show loading state
+      responseContainer.innerHTML = `
+        <div class="loading-message">
+          <div class="loading-spinner"></div>
+          <p>Consultologist is analyzing your input and generating a consultation note...</p>
+        </div>
+      `;
+
+      try {
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ prompt })
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const html = await response.text();
+        responseContainer.innerHTML = html;
+
+      } catch (error) {
+        console.error('Error calling Consultologist API:', error);
+        responseContainer.innerHTML = `
+          <div class="error-message">
+            <h3>⚠️ Error</h3>
+            <p>Sorry, there was an error processing your request. Please check your API key configuration and try again.</p>
+          </div>
+        `;
+      } finally {
+        // Reset button state
+        consultologistButton.textContent = originalText;
+        consultologistButton.disabled = false;
+      }
     });
   }
 </script>

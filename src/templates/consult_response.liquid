@@ -1,0 +1,172 @@
+<div class="consultation-result">
+  <div class="consultation-header">
+    <h3>📋 Consultation Note</h3>
+    <div class="timestamp">Generated: {{ "now" | date: "%B %d, %Y at %I:%M %p" }}</div>
+  </div>
+
+  <div class="consultation-sections">
+    {% if patient_summary %}
+    <div class="consultation-section">
+      <h4>👤 Patient Summary</h4>
+      <p>{{ patient_summary }}</p>
+    </div>
+    {% endif %}
+
+    {% if chief_complaint %}
+    <div class="consultation-section">
+      <h4>🎯 Chief Complaint</h4>
+      <p>{{ chief_complaint }}</p>
+    </div>
+    {% endif %}
+
+    {% if history_present_illness %}
+    <div class="consultation-section">
+      <h4>📝 History of Present Illness</h4>
+      <p>{{ history_present_illness }}</p>
+    </div>
+    {% endif %}
+
+    {% if assessment %}
+    <div class="consultation-section">
+      <h4>🔍 Assessment</h4>
+      <p>{{ assessment }}</p>
+    </div>
+    {% endif %}
+
+    {% if plan %}
+    <div class="consultation-section">
+      <h4>📋 Plan</h4>
+      <p>{{ plan }}</p>
+    </div>
+    {% endif %}
+
+    {% if follow_up %}
+    <div class="consultation-section">
+      <h4>📅 Follow-up</h4>
+      <p>{{ follow_up }}</p>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="consultation-footer">
+    <p class="disclaimer">
+      <strong>⚠️ Important:</strong> This AI-generated consultation note is a draft and should be reviewed, 
+      modified, and validated by the attending physician before use in clinical practice.
+    </p>
+  </div>
+</div>
+
+<style>
+  .consultation-result {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+    margin-top: 1rem;
+  }
+
+  .consultation-header {
+    border-bottom: 2px solid #0d9488;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .consultation-header h3 {
+    color: #0d9488;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .timestamp {
+    color: #6b7280;
+    font-size: 0.9rem;
+    font-style: italic;
+  }
+
+  .consultation-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .consultation-section {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 1.5rem;
+    border-left: 4px solid #0d9488;
+  }
+
+  .consultation-section h4 {
+    color: #1f2937;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 0.75rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .consultation-section p {
+    color: #4b5563;
+    line-height: 1.6;
+    margin: 0;
+    white-space: pre-wrap;
+  }
+
+  .consultation-footer {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .disclaimer {
+    background: #fef3c7;
+    border: 1px solid #f59e0b;
+    border-radius: 8px;
+    padding: 1rem;
+    color: #92400e;
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .error-message {
+    background: #fef2f2;
+    border: 1px solid #f87171;
+    border-radius: 12px;
+    padding: 1.5rem;
+    color: #dc2626;
+    text-align: center;
+  }
+
+  .error-message h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.25rem;
+  }
+
+  .error-message p {
+    margin: 0.5rem 0;
+  }
+
+  .error-details {
+    font-size: 0.9rem;
+    color: #991b1b;
+    font-style: italic;
+  }
+
+  @media (max-width: 768px) {
+    .consultation-result {
+      padding: 1.5rem;
+    }
+
+    .consultation-section {
+      padding: 1.25rem;
+    }
+
+    .consultation-header h3 {
+      font-size: 1.25rem;
+    }
+  }
+</style>
