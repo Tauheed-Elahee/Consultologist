@@ -7,6 +7,9 @@ import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
 import draft2020 from 'ajv/dist/2020';
 
+// Ensure POST method is properly exported
+export const prerender = false;
+
 const openai = new OpenAI({
   apiKey: import.meta.env.OPENAI_API_KEY,
 });
