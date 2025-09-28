@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://mortigen.example/schemas/mortigen_render_context.schema.json",
+  "$id": "https://consultologist.ai/schemas/mortigen_render_context.schema.json",
   "title": "Mortigen Render Context",
   "type": "object",
   "additionalProperties": false,
