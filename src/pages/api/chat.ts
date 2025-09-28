@@ -1,235 +1,183 @@
 import type { APIRoute } from 'astro';
+import { Liquid } from 'liquidjs';
 import OpenAI from 'openai';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
-import { Liquid } from 'liquidjs';
-import fs from 'fs';
-import path from 'path';
+import draft2020 from 'ajv/dist/2020';
 
+// Ensure POST method is properly exported
 export const prerender = false;
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: import.meta.env.OPENAI_API_KEY,
 });
 
-// Initialize AJV with formats
-const ajv = new Ajv({ allErrors: true });
-addFormats(ajv);
-
-// Load and compile the schema
-const schemaPath = path.join(process.cwd(), 'src/schemas/mortigen_render_context.schema.json');
-const schemaContent = fs.readFileSync(schemaPath, 'utf-8');
-const schema = JSON.parse(schemaContent);
-const validate = ajv.compile(schema);
-
-// Initialize Liquid template engine
 const engine = new Liquid({
-  root: path.join(process.cwd(), 'src/templates'),
+  root: join(process.cwd(), 'src/templates'),
   extname: '.liquid'
 });
 
-export const POST: APIRoute = async ({ request }) => {
-  console.log('API endpoint called');
-  
-  // Check if OpenAI API key is configured
-  if (!process.env.OPENAI_API_KEY) {
-    console.error('OpenAI API key not found');
-    return new Response(`
-      <div class="error-message">
-        <h3>⚠️ Configuration Error</h3>
-        <p>OpenAI API key is not configured. Please add your API key to the environment variables.</p>
-      </div>
-    `, {
-      status: 500,
-      headers: { 'Content-Type': 'text/html' }
-    });
-  }
+// Load and compile JSON schema
+const schemaPath = join(process.cwd(), 'src/schemas/mortigen_render_context.schema.json');
+const schemaContent = readFileSync(schemaPath, 'utf-8');
+const schema = JSON.parse(schemaContent);
 
+const ajv = new draft2020({ allErrors: true });
+addFormats(ajv);
+const validate = ajv.compile(index):10 
+ 
+ POST https://consultologist.ai/api/chat net::ERR_ABORTED 405 (Method Not Allowed)
+(schema);
+
+// Convert schema to formatted string for system context
+const schemaString = JSON.stringify(schema, null, 2);
+
+export const POST: APIRoute = async ({ request }) => {
   try {
-    console.log('Reading request body...');
-    
+    // Check if OpenAI API key is configured
+    if (!import.meta.env.OPENAI_API_KEY) {
+      console.error('OpenAI API key is not configured');
+      const errorHtml = `
+        <div class="error-message">
+          <h3>⚠️ Configuration Error</h3>
+          <p>OpenAI API key is not configured. Please add your API key to the environment variables.</p>
+        </div>
+      `;
+      return new Response(errorHtml, {
+        status: 500,
+        headers: { 'Content-Type': 'text/html' }
+      });
+    }
+
     // Read request body as text first
-    const bodyText = await request.text();
-    console.log('Raw request body:', bodyText);
+    const rawBody = await request.text();
     
-    // Check if body is empty
-    if (!bodyText || bodyText.trim() === '') {
+    // Check if request body is empty
+    if (!rawBody || rawBody.trim() === '') {
       console.error('Empty request body received');
-      return new Response(`
+      const errorHtml = `
         <div class="error-message">
           <h3>⚠️ Invalid Request</h3>
           <p>Request body is empty. Please provide consultation details.</p>
         </div>
-      `, {
+      `;
+      return new Response(errorHtml, {
         status: 400,
         headers: { 'Content-Type': 'text/html' }
       });
     }
 
-    // Parse JSON safely
-    let body;
+    // Parse JSON with proper error handling
+    let requestData;
     try {
-      body = JSON.parse(bodyText);
+      requestData = JSON.parse(rawBody);
     } catch (parseError) {
-      console.error('JSON parsing error:', parseError);
-      console.error('Failed to parse body:', bodyText);
-      return new Response(`
+      console.error('Failed to parse request body as JSON:', parseError);
+      console.error('Raw body:', rawBody);
+      const errorHtml = `
         <div class="error-message">
           <h3>⚠️ Invalid JSON</h3>
-          <p>Request body contains invalid JSON format.</p>
+          <p>Request body contains malformed JSON. Please check your request format.</p>
         </div>
-      `, {
+      `;
+      return new Response(errorHtml, {
         status: 400,
         headers: { 'Content-Type': 'text/html' }
       });
     }
 
-    const { prompt } = body;
-    console.log('Extracted prompt:', prompt);
+    const { prompt } = requestData;
 
-    if (!prompt) {
-      return new Response(`
+    if (!prompt || typeof prompt !== 'string') {
+      const errorHtml = `
         <div class="error-message">
-          <h3>⚠️ Missing Prompt</h3>
-          <p>No consultation details provided.</p>
+          <h3>⚠️ Invalid Input</h3>
+          <p>Please provide valid consultation details.</p>
         </div>
-      `, {
+      `;
+      return new Response(errorHtml, {
         status: 400,
         headers: { 'Content-Type': 'text/html' }
       });
     }
 
-    console.log('Making OpenAI API call...');
-    
+    // System context for medical consultation with schema guidance
+    const systemContext = `You are Consultologist, an AI assistant specialized in helping oncologists create structured consultation notes for breast cancer patients.
+
+IMPORTANT CONTEXT:
+- You are working with breast cancer oncology consultations
+- Focus on staging, pathology, receptor status, and treatment planning
+- Always consider TNM staging, hormone receptor status, HER2 status, and Oncotype DX scores when available
+- Treatment plans should include endocrine therapy, chemotherapy, and radiation considerations
+- Use evidence-based treatment recommendations
+
+CRITICAL: You must respond with ONLY a valid JSON object that conforms to the following structure:
+
+${schemaString}
+
+REQUIREMENTS:
+- Your response must be ONLY a valid JSON object that strictly conforms to this schema
+- Do not include any explanatory text, markdown formatting, or additional commentary
+- All required fields must be present and properly formatted
+- Use the exact enum values specified in the schema
+- Follow all pattern constraints (e.g., TNM staging patterns, receptor scoring patterns)
+- Return only the JSON object, nothing else`;
+
+    // Call OpenAI API with JSON mode
+    console.log('Calling OpenAI API...');
     const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+      model: "gpt-3.5-turbo",
       messages: [
-        {
-          role: "system",
-          content: `You are Consultologist, an AI assistant that helps physicians create consultation notes. 
-
-Your task is to analyze the provided consultation details and generate a structured JSON response that conforms to the mortigen_render_context schema.
-
-The JSON must include:
-- patient information (name, age, sex, pronouns)
-- staging information (stage_group, tnm classification)
-- pathology details (histology, grade, tumor size, nodes)
-- receptor status (ER, PR, HER2)
-- treatment plan (endocrine therapy, radiation, chemotherapy recommendations)
-
-Always respond with valid JSON that matches the schema exactly. Include realistic medical data based on the consultation details provided.
-
-Example structure:
-{
-  "front_matter": {
-    "patient": {
-      "name": "Patient Name",
-      "age_years": 65,
-      "sex": "female",
-      "pronoun": {
-        "nom": "she",
-        "gen": "her", 
-        "obj": "her",
-        "refl": "herself"
-      }
-    },
-    "staging": {
-      "stage_group": "Stage IIA",
-      "tnm": {
-        "prefix": "p",
-        "T": "T2",
-        "N": "N0",
-        "M": "M0"
-      }
-    },
-    "pathology": {
-      "histology": "invasive ductal carcinoma",
-      "grade": "2",
-      "tumor_size_cm": 2.1,
-      "nodes_examined": 3,
-      "nodes_positive": 0
-    },
-    "receptors": {
-      "ER": "8/8",
-      "PR": "7/8", 
-      "her2": {
-        "raw_text": "HER2 negative by IHC",
-        "label": "HER2-negative",
-        "detail": "IHC 1+"
-      }
-    },
-    "plan_structured": {
-      "endocrine": {
-        "ordered": true,
-        "agent": "letrozole"
-      },
-      "radiation_referred": true,
-      "chemotherapy": {
-        "recommended": false,
-        "risk_basis": "low_oncotype"
-      }
-    }
-  },
-  "content": {
-    "reason": "Consultation for newly diagnosed breast cancer",
-    "hpi": "Patient presents with...",
-    "pmh": "Past medical history includes...",
-    "social": "Social history...",
-    "family": "Family history..."
-  },
-  "extras": {
-    "side": "right"
-  },
-  "flags": {
-    "exam_present": true
-  }
-}`
-        },
-        {
-          role: "user",
-          content: prompt
-        }
+        { role: "system", content: systemContext },
+        { role: "user", content: prompt }
       ],
-      max_tokens: 4096,
       temperature: 0.7,
+      max_tokens: 4096,
+      response_format: { type: "json_object" }
     });
 
-    console.log('OpenAI API call successful');
-    const aiResponse = completion.choices[0]?.message?.content;
+    const responseContent = completion.choices[0]?.message?.content;
     
-    if (!aiResponse) {
+    if (!responseContent) {
+      console.error('No response content from OpenAI');
       throw new Error('No response from OpenAI');
     }
 
-    console.log('AI Response received:', aiResponse.substring(0, 200) + '...');
-
-    // Parse the AI response as JSON
-    let renderContext;
+    console.log('OpenAI response received, parsing JSON...');
+    // Parse JSON response from ChatGPT
+    let consultationData;
     try {
-      renderContext = JSON.parse(aiResponse);
-      console.log('Successfully parsed AI response as JSON');
+      consultationData = JSON.parse(responseContent);
     } catch (parseError) {
-      console.error('Failed to parse AI response as JSON:', parseError);
-      console.error('AI Response:', aiResponse);
-      throw new Error('AI response is not valid JSON');
+      console.error('Failed to parse OpenAI response as JSON:', parseError);
+      console.error('Response content:', responseContent);
+      throw new Error('Invalid JSON response from AI');
     }
 
+    console.log('JSON parsed successfully, validating schema...');
     // Validate against schema
-    console.log('Validating against schema...');
-    const isValid = validate(renderContext);
+    const isValid = validate(consultationData);
     
     if (!isValid) {
       console.error('Schema validation failed:', validate.errors);
-      throw new Error(`Schema validation failed: ${JSON.stringify(validate.errors)}`);
+      console.error('Invalid data:', JSON.stringify(consultationData, null, 2));
+      
+      // Create a user-friendly error message
+      const validationErrors = validate.errors?.map(error => {
+        const path = error.instancePath || 'root';
+        return `${path}: ${error.message}`;
+      }).join(', ') || 'Unknown validation error';
+      
+      throw new Error(`AI response does not match expected format: ${validationErrors}`);
     }
 
-    console.log('Schema validation successful');
+    console.log('Schema validation passed, rendering template...');
+    // Render HTML using Liquid template
+    const html = await engine.renderFile('consult_response', consultationData);
 
-    // Render the template
-    console.log('Rendering template...');
-    const html = await engine.renderFile('consult_response', renderContext);
     console.log('Template rendered successfully');
-
     return new Response(html, {
       status: 200,
       headers: { 'Content-Type': 'text/html' }
@@ -237,20 +185,23 @@ Example structure:
 
   } catch (error) {
     console.error('API Error details:', {
-      message: error.message,
-      stack: error.stack
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      name: error instanceof Error ? error.name : undefined
     });
     
-    return new Response(`
+    const errorHtml = `
       <div class="error-message">
-        <h3>⚠️ Error</h3>
-        <p>Sorry, there was an error processing your request. Please check your API key configuration and try again.</p>
-        <details style="margin-top: 1rem;">
-          <summary style="cursor: pointer; color: #666;">Click for technical details</summary>
-          <pre style="background: #f5f5f5; padding: 1rem; border-radius: 4px; margin-top: 0.5rem; font-size: 0.8rem; overflow-x: auto;">${error.message}</pre>
+        <h3>⚠️ Error Processing Request</h3>
+        <p>Sorry, there was an error processing your consultation request. Please try again.</p>
+        <details>
+          <summary>Error Details</summary>
+          <p class="error-details">${error instanceof Error ? error.message : 'Unknown error occurred'}</p>
         </details>
       </div>
-    `, {
+    `;
+
+    return new Response(errorHtml, {
       status: 500,
       headers: { 'Content-Type': 'text/html' }
     });
