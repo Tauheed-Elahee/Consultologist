@@ -437,11 +437,11 @@
   // Handle Consultologist submission
   const consultologistButton = document.getElementById('consultologist-send') as HTMLButtonElement;
   const consultationTextarea = document.getElementById('comments') as HTMLTextAreaElement;
-  const responseContainer = document.getElementById('consultologist-response');
+  const responseContainer = document.getElementById('consultologist-response') as HTMLElement;
 
   if (consultologistButton && consultationTextarea && responseContainer) {
     consultologistButton.addEventListener('click', async function() {
-      const prompt = (consultationTextarea as HTMLTextAreaElement).value.trim();
+      const prompt = consultationTextarea.value.trim();
       
       if (!prompt) {
         responseContainer.innerHTML = `
@@ -454,8 +454,8 @@
 
       // Update button state
       const originalText = consultologistButton.textContent;
-      (consultologistButton as HTMLButtonElement).textContent = 'Processing...';
-      (consultologistButton as HTMLButtonElement).disabled = true;
+      consultologistButton.textContent = 'Processing...';
+      consultologistButton.disabled = true;
       
       // Show loading state
       responseContainer.innerHTML = `
@@ -491,8 +491,8 @@
         `;
       } finally {
         // Reset button state
-        (consultologistButton as HTMLButtonElement).textContent = originalText;
-        (consultologistButton as HTMLButtonElement).disabled = false;
+        consultologistButton.textContent = originalText;
+        consultologistButton.disabled = false;
       }
     });
   }
