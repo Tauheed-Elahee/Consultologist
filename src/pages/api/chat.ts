@@ -22,6 +22,9 @@ const schema = JSON.parse(schemaContent);
 const ajv = new Ajv({ allErrors: true });
 const validate = ajv.compile(schema);
 
+// Convert schema to formatted string for system context
+const schemaString = JSON.stringify(schema, null, 2);
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     const { prompt } = await request.json();
@@ -45,13 +48,15 @@ IMPORTANT CONTEXT:
 
 CRITICAL: You must respond with ONLY a valid JSON object that conforms to the following structure:
 
-The JSON object must contain:
-- front_matter: Core structured data including patient demographics, staging (TNM classification), pathology details, receptor status (ER, PR, HER2), treatment plans, medications, and allergies
-- content: Narrative sections including reason for consultation, history of present illness, past medical history, social/family history, physical exam, and investigations
-- extras: Additional context like tumor laterality (left/right)
-- flags: Boolean indicators for data presence
+${schemaString}
 
-Do not include any explanatory text, markdown formatting, or additional commentary. Return only the JSON object.`;
+REQUIREMENTS:
+- Your response must be ONLY a valid JSON object that strictly conforms to this schema
+- Do not include any explanatory text, markdown formatting, or additional commentary
+- All required fields must be present and properly formatted
+- Use the exact enum values specified in the schema
+- Follow all pattern constraints (e.g., TNM staging patterns, receptor scoring patterns)
+- Return only the JSON object, nothing else`;
 
     // Call OpenAI API with JSON mode
     const completion = await openai.chat.completions.create({
