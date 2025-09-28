@@ -26,10 +26,10 @@
               "additionalProperties": false,
               "required": ["nom", "gen", "obj", "refl"],
               "properties": {
-                "nom":  { "type": "string" },  // e.g., "she" | "he" | "they"
-                "gen":  { "type": "string" },  // e.g., "her" | "his" | "their"
-                "obj":  { "type": "string" },  // e.g., "her" | "him" | "them"
-                "refl": { "type": "string" }   // e.g., "herself" | "himself" | "themself"
+                "nom":  { "type": "string" },
+                "gen":  { "type": "string" },
+                "obj":  { "type": "string" },
+                "refl": { "type": "string" }
               }
             }
           }
@@ -38,7 +38,7 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "datetime": { "type": "string" }  // ISO-8601 preferred; renderer just prints
+            "datetime": { "type": "string" }
           }
         },
         "diagnosis": {
@@ -89,7 +89,7 @@
               "type": "object",
               "additionalProperties": false,
               "properties": {
-                "raw_text":   { "type": "string" },  // verbatim source text for audit
+                "raw_text":   { "type": "string" },
                 "label":      { "type": "string", "enum": ["HER2-positive", "HER2-negative", "HER2 status equivocal/unknown"] },
                 "detail":     { "type": "string" },
                 "ihc_score":  { "type": ["string", "null"], "enum": ["0", "1+", "2+", "3+", null] },

@@ -1,49 +1,251 @@
 <div class="consultation-result">
   <div class="consultation-header">
-    <h3>📋 Consultation Note</h3>
+    <h3>🏥 Oncology Consultation Note</h3>
     <div class="timestamp">Generated: {{ "now" | date: "%B %d, %Y at %I:%M %p" }}</div>
+    {% if front_matter.encounter.datetime %}
+    <div class="encounter-date">Encounter: {{ front_matter.encounter.datetime }}</div>
+    {% endif %}
   </div>
 
   <div class="consultation-sections">
-    {% if patient_summary %}
+    <!-- Patient Information -->
+    {% if front_matter.patient %}
     <div class="consultation-section">
-      <h4>👤 Patient Summary</h4>
-      <p>{{ patient_summary }}</p>
+      <h4>👤 Patient Information</h4>
+      <div class="patient-info">
+        <p><strong>Name:</strong> {{ front_matter.patient.full_name | default: front_matter.patient.name }}</p>
+        {% if front_matter.patient.dob %}
+        <p><strong>Date of Birth:</strong> {{ front_matter.patient.dob }}</p>
+        {% endif %}
+        <p><strong>Age:</strong> {{ front_matter.patient.age_years }} years</p>
+        <p><strong>Sex:</strong> {{ front_matter.patient.sex | capitalize }}</p>
+      </div>
     </div>
     {% endif %}
 
-    {% if chief_complaint %}
+    <!-- Reason for Consultation -->
+    {% if content.reason %}
     <div class="consultation-section">
-      <h4>🎯 Chief Complaint</h4>
-      <p>{{ chief_complaint }}</p>
+      <h4>🎯 Reason for Consultation</h4>
+      <p>{{ content.reason }}</p>
     </div>
     {% endif %}
 
-    {% if history_present_illness %}
+    <!-- Diagnosis -->
+    {% if front_matter.diagnosis %}
+    <div class="consultation-section">
+      <h4>🔍 Diagnosis</h4>
+      <ul class="diagnosis-list">
+        {% for diagnosis in front_matter.diagnosis %}
+        <li>{{ diagnosis }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    <!-- History of Present Illness -->
+    {% if content.hpi %}
     <div class="consultation-section">
       <h4>📝 History of Present Illness</h4>
-      <p>{{ history_present_illness }}</p>
+      <p>{{ content.hpi }}</p>
     </div>
     {% endif %}
 
-    {% if assessment %}
+    <!-- Past Medical History -->
+    {% if content.pmh %}
     <div class="consultation-section">
-      <h4>🔍 Assessment</h4>
-      <p>{{ assessment }}</p>
+      <h4>📋 Past Medical History</h4>
+      <p>{{ content.pmh }}</p>
     </div>
     {% endif %}
 
-    {% if plan %}
+    <!-- Medications -->
+    {% if front_matter.medications and front_matter.medications.size > 0 %}
     <div class="consultation-section">
-      <h4>📋 Plan</h4>
-      <p>{{ plan }}</p>
+      <h4>💊 Current Medications</h4>
+      <ul class="medication-list">
+        {% for med in front_matter.medications %}
+        <li>
+          <strong>{{ med.label }}</strong>
+          {% if med.dose %} - {{ med.dose }}{% if med.dose_unit %}{{ med.dose_unit }}{% endif %}{% endif %}
+          {% if med.route %} {{ med.route }}{% endif %}
+          {% if med.frequency %} {{ med.frequency }}{% endif %}
+          {% if med.prn %} (PRN){% endif %}
+          {% if med.indication %} - {{ med.indication }}{% endif %}
+        </li>
+        {% endfor %}
+      </ul>
     </div>
     {% endif %}
 
-    {% if follow_up %}
+    <!-- Allergies -->
+    {% if front_matter.allergies and front_matter.allergies.size > 0 %}
     <div class="consultation-section">
-      <h4>📅 Follow-up</h4>
-      <p>{{ follow_up }}</p>
+      <h4>⚠️ Allergies</h4>
+      <ul class="allergy-list">
+        {% for allergy in front_matter.allergies %}
+        <li>
+          <strong>{{ allergy.agent }}</strong>: {{ allergy.reaction }}
+          {% if allergy.severity %} ({{ allergy.severity }}){% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    <!-- Social and Family History -->
+    {% if content.social or content.family %}
+    <div class="consultation-section">
+      <h4>👥 Social and Family History</h4>
+      {% if content.social %}
+      <p><strong>Social History:</strong> {{ content.social }}</p>
+      {% endif %}
+      {% if content.family %}
+      <p><strong>Family History:</strong> {{ content.family }}</p>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- Physical Examination -->
+    {% if content.exam %}
+    <div class="consultation-section">
+      <h4>🔬 Physical Examination</h4>
+      <p>{{ content.exam }}</p>
+    </div>
+    {% endif %}
+
+    <!-- Staging Information -->
+    {% if front_matter.staging %}
+    <div class="consultation-section">
+      <h4>📊 Staging</h4>
+      <div class="staging-info">
+        <p><strong>Stage:</strong> {{ front_matter.staging.stage_group }}</p>
+        {% if front_matter.staging.tnm %}
+        <p><strong>TNM Classification:</strong> 
+          {{ front_matter.staging.tnm.prefix }}{{ front_matter.staging.tnm.T }}{{ front_matter.staging.tnm.N }}{{ front_matter.staging.tnm.M }}
+        </p>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Pathology -->
+    {% if front_matter.pathology %}
+    <div class="consultation-section">
+      <h4>🧪 Pathology</h4>
+      <div class="pathology-info">
+        <p><strong>Histology:</strong> {{ front_matter.pathology.histology }}</p>
+        <p><strong>Grade:</strong> {{ front_matter.pathology.grade }}</p>
+        <p><strong>Tumor Size:</strong> {{ front_matter.pathology.tumor_size_cm }} cm</p>
+        {% if front_matter.pathology.dcis_present %}
+        <p><strong>DCIS Present:</strong> {{ front_matter.pathology.dcis_present }}</p>
+        {% endif %}
+        {% if front_matter.pathology.margins %}
+        <p><strong>Margins:</strong> {{ front_matter.pathology.margins }}</p>
+        {% endif %}
+        <p><strong>Lymph Nodes:</strong> {{ front_matter.pathology.nodes_positive }}/{{ front_matter.pathology.nodes_examined }} positive</p>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Receptor Status -->
+    {% if front_matter.receptors %}
+    <div class="consultation-section">
+      <h4>🧬 Receptor Status</h4>
+      <div class="receptor-info">
+        <p><strong>ER:</strong> {{ front_matter.receptors.ER }}</p>
+        <p><strong>PR:</strong> {{ front_matter.receptors.PR }}</p>
+        {% if front_matter.receptors.her2 %}
+        <p><strong>HER2:</strong> {{ front_matter.receptors.her2.label }}
+          {% if front_matter.receptors.her2.ihc_score %} (IHC: {{ front_matter.receptors.her2.ihc_score }}){% endif %}
+          {% if front_matter.receptors.her2.fish_result %} (FISH: {{ front_matter.receptors.her2.fish_result }}){% endif %}
+        </p>
+        {% if front_matter.receptors.her2.detail %}
+        <p><em>{{ front_matter.receptors.her2.detail }}</em></p>
+        {% endif %}
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Oncotype DX -->
+    {% if front_matter.oncotype and front_matter.oncotype.score %}
+    <div class="consultation-section">
+      <h4>🧪 Oncotype DX</h4>
+      <div class="oncotype-info">
+        <p><strong>Recurrence Score:</strong> {{ front_matter.oncotype.score }}</p>
+        <p><strong>9-Year Risk:</strong> {{ front_matter.oncotype.risk_percent_9yr }}%</p>
+        {% if front_matter.oncotype.absolute_benefit_percent %}
+        <p><strong>Absolute Benefit of Chemotherapy:</strong> {{ front_matter.oncotype.absolute_benefit_percent }}%</p>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Investigations -->
+    {% if content.investigations %}
+    <div class="consultation-section">
+      <h4>🔬 Investigations</h4>
+      <p>{{ content.investigations }}</p>
+    </div>
+    {% endif %}
+
+    <!-- Treatment Plan -->
+    {% if front_matter.plan_structured %}
+    <div class="consultation-section">
+      <h4>📋 Treatment Plan</h4>
+      <div class="treatment-plan">
+        {% if front_matter.plan_structured.endocrine %}
+        <div class="treatment-section">
+          <h5>Endocrine Therapy</h5>
+          {% if front_matter.plan_structured.endocrine.ordered %}
+          <p>✅ <strong>Recommended:</strong> 
+            {% if front_matter.plan_structured.endocrine.agent == "other" %}
+              {{ front_matter.plan_structured.endocrine.agent_other }}
+            {% else %}
+              {{ front_matter.plan_structured.endocrine.agent | capitalize }}
+            {% endif %}
+          </p>
+          {% else %}
+          <p>❌ Not recommended at this time</p>
+          {% endif %}
+        </div>
+        {% endif %}
+
+        {% if front_matter.plan_structured.chemotherapy %}
+        <div class="treatment-section">
+          <h5>Chemotherapy</h5>
+          {% if front_matter.plan_structured.chemotherapy.recommended %}
+          <p>✅ <strong>Recommended</strong></p>
+          {% if front_matter.plan_structured.chemotherapy.risk_basis %}
+          <p><strong>Basis:</strong> {{ front_matter.plan_structured.chemotherapy.risk_basis | replace: "_", " " | capitalize }}</p>
+          {% endif %}
+          {% if front_matter.plan_structured.chemotherapy.regimen %}
+          <p><strong>Regimen:</strong> 
+            {% if front_matter.plan_structured.chemotherapy.regimen == null and front_matter.plan_structured.chemotherapy.regimen_other %}
+              {{ front_matter.plan_structured.chemotherapy.regimen_other }}
+            {% else %}
+              {{ front_matter.plan_structured.chemotherapy.regimen }}
+            {% endif %}
+          </p>
+          {% endif %}
+          {% else %}
+          <p>❌ Not recommended at this time</p>
+          {% endif %}
+        </div>
+        {% endif %}
+
+        {% if front_matter.plan_structured.radiation_referred != null %}
+        <div class="treatment-section">
+          <h5>Radiation Therapy</h5>
+          {% if front_matter.plan_structured.radiation_referred %}
+          <p>✅ Referral to radiation oncology recommended</p>
+          {% else %}
+          <p>❌ Radiation therapy not indicated at this time</p>
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
     </div>
     {% endif %}
   </div>
@@ -79,7 +281,7 @@
     margin: 0 0 0.5rem 0;
   }
 
-  .timestamp {
+  .timestamp, .encounter-date {
     color: #6b7280;
     font-size: 0.9rem;
     font-style: italic;
@@ -108,11 +310,51 @@
     gap: 0.5rem;
   }
 
+  .consultation-section h5 {
+    color: #374151;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 1rem 0 0.5rem 0;
+  }
+
   .consultation-section p {
     color: #4b5563;
     line-height: 1.6;
-    margin: 0;
+    margin: 0 0 0.5rem 0;
     white-space: pre-wrap;
+  }
+
+  .consultation-section p:last-child {
+    margin-bottom: 0;
+  }
+
+  .patient-info, .staging-info, .pathology-info, .receptor-info, .oncotype-info {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .diagnosis-list, .medication-list, .allergy-list {
+    margin: 0;
+    padding-left: 1.5rem;
+    color: #4b5563;
+  }
+
+  .diagnosis-list li, .medication-list li, .allergy-list li {
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+  }
+
+  .treatment-plan {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .treatment-section {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    border: 1px solid #e5e7eb;
   }
 
   .consultation-footer {
@@ -167,6 +409,10 @@
 
     .consultation-header h3 {
       font-size: 1.25rem;
+    }
+
+    .patient-info, .staging-info, .pathology-info, .receptor-info, .oncotype-info {
+      grid-template-columns: 1fr;
     }
   }
 </style>

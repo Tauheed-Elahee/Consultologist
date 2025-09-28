@@ -10,6 +10,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "ajv": "^8.17.1",
     "astro": "^4.15.0",
     "liquidjs": "^10.21.1",
     "openai": "^5.23.1"
