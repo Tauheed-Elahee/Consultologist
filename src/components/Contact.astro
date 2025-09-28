@@ -441,7 +441,7 @@
 
   if (consultologistButton && consultationTextarea && responseContainer) {
     consultologistButton.addEventListener('click', async function() {
-      const prompt = consultationTextarea.value.trim();
+      const prompt = (consultationTextarea as HTMLTextAreaElement).value.trim();
       
       if (!prompt) {
         responseContainer.innerHTML = `
@@ -454,8 +454,8 @@
 
       // Update button state
       const originalText = consultologistButton.textContent;
-      consultologistButton.textContent = 'Processing...';
-      consultologistButton.disabled = true;
+      (consultologistButton as HTMLButtonElement).textContent = 'Processing...';
+      (consultologistButton as HTMLButtonElement).disabled = true;
       
       // Show loading state
       responseContainer.innerHTML = `
@@ -491,8 +491,8 @@
         `;
       } finally {
         // Reset button state
-        consultologistButton.textContent = originalText;
-        consultologistButton.disabled = false;
+        (consultologistButton as HTMLButtonElement).textContent = originalText;
+        (consultologistButton as HTMLButtonElement).disabled = false;
       }
     });
   }
