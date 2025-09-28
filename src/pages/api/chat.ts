@@ -30,12 +30,33 @@ const schemaString = JSON.stringify(schema, null, 2);
 
 export const POST: APIRoute = async ({ request }) => {
   try {
+    // Check if OpenAI API key is configured
+    if (!import.meta.env.OPENAI_API_KEY) {
+      console.error('OpenAI API key is not configured');
+      const errorHtml = `
+        <div class="error-message">
+          <h3>⚠️ Configuration Error</h3>
+          <p>OpenAI API key is not configured. Please add your API key to the environment variables.</p>
+        </div>
+      `;
+      return new Response(errorHtml, {
+        status: 500,
+        headers: { 'Content-Type': 'text/html' }
+      });
+    }
+
     const { prompt } = await request.json();
 
     if (!prompt || typeof prompt !== 'string') {
-      return new Response(JSON.stringify({ error: 'Invalid prompt provided' }), {
+      const errorHtml = `
+        <div class="error-message">
+          <h3>⚠️ Invalid Input</h3>
+          <p>Please provide valid consultation details.</p>
+        </div>
+      `;
+      return new Response(errorHtml, {
         status: 400,
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'text/html' }
       });
     }
 
@@ -62,6 +83,7 @@ REQUIREMENTS:
 - Return only the JSON object, nothing else`;
 
     // Call OpenAI API with JSON mode
+    console.log('Calling OpenAI API...');
     const completion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
@@ -76,18 +98,22 @@ REQUIREMENTS:
     const responseContent = completion.choices[0]?.message?.content;
     
     if (!responseContent) {
+      console.error('No response content from OpenAI');
       throw new Error('No response from OpenAI');
     }
 
+    console.log('OpenAI response received, parsing JSON...');
     // Parse JSON response from ChatGPT
     let consultationData;
     try {
       consultationData = JSON.parse(responseContent);
     } catch (parseError) {
-      console.error('Failed to parse OpenAI response as JSON:', responseContent);
+      console.error('Failed to parse OpenAI response as JSON:', parseError);
+      console.error('Response content:', responseContent);
       throw new Error('Invalid JSON response from AI');
     }
 
+    console.log('JSON parsed successfully, validating schema...');
     // Validate against schema
     const isValid = validate(consultationData);
     
@@ -104,22 +130,31 @@ REQUIREMENTS:
       throw new Error(`AI response does not match expected format: ${validationErrors}`);
     }
 
+    console.log('Schema validation passed, rendering template...');
     // Render HTML using Liquid template
     const html = await engine.renderFile('consult_response', consultationData);
 
+    console.log('Template rendered successfully');
     return new Response(html, {
       status: 200,
       headers: { 'Content-Type': 'text/html' }
     });
 
   } catch (error) {
-    console.error('API Error:', error);
+    console.error('API Error details:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      name: error instanceof Error ? error.name : undefined
+    });
     
     const errorHtml = `
       <div class="error-message">
         <h3>⚠️ Error Processing Request</h3>
         <p>Sorry, there was an error processing your consultation request. Please try again.</p>
-        <p class="error-details">${error instanceof Error ? error.message : 'Unknown error occurred'}</p>
+        <details>
+          <summary>Error Details</summary>
+          <p class="error-details">${error instanceof Error ? error.message : 'Unknown error occurred'}</p>
+        </details>
       </div>
     `;
 
