@@ -8,5 +8,10 @@ export default defineConfig({
   server: {
     host: true,
     port: 4321
+  },
+  vite: {
+    ssr: {
+      external: ['node:fs', 'node:path']
+    }
   }
 });
