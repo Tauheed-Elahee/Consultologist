@@ -1,20 +1,17 @@
 import type { APIRoute } from 'astro';
 import { Liquid } from 'liquidjs';
 import OpenAI from 'openai';
-import addFormats from 'ajv-formats';
-import draft2020 from 'ajv/dist/2020';
+import { validate } from '../../schemas/compiled-validator.js';
 import schemaJson from '../../schemas/mortigen_render_context.schema.json';
 import templateContent from '../../templates/consult_response.liquid?raw';
+
+type ValidateFunction = ((data: any) => boolean) & { errors?: Array<{ instancePath: string; message: string }> | null };
 
 export const prerender = false;
 
 const engine = new Liquid();
 
 const schema = schemaJson;
-
-const ajv = new draft2020({ allErrors: true });
-addFormats(ajv);
-const validate = ajv.compile(schema);
 
 const schemaString = JSON.stringify(schema, null, 2);
 
@@ -152,19 +149,20 @@ REQUIREMENTS:
     }
 
     console.log('JSON parsed successfully, validating schema...');
-    // Validate against schema
-    const isValid = validate(consultationData);
-    
-    if (!isValid) {
-      console.error('Schema validation failed:', validate.errors);
+    // Validate against schema (cast to include errors property)
+    const validator = validate as ValidateFunction;
+    const isValid = validator(consultationData);
+
+    if (!isValid && validator.errors) {
+      console.error('Schema validation failed:', validator.errors);
       console.error('Invalid data:', JSON.stringify(consultationData, null, 2));
-      
+
       // Create a user-friendly error message
-      const validationErrors = validate.errors?.map(error => {
+      const validationErrors = validator.errors.map((error) => {
         const path = error.instancePath || 'root';
         return `${path}: ${error.message}`;
       }).join(', ') || 'Unknown validation error';
-      
+
       throw new Error(`AI response does not match expected format: ${validationErrors}`);
     }
 
