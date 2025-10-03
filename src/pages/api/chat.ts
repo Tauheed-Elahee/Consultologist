@@ -1,10 +1,10 @@
 import type { APIRoute } from 'astro';
 import { Liquid } from 'liquidjs';
 import OpenAI from 'openai';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import addFormats from 'ajv-formats';
 import draft2020 from 'ajv/dist/2020';
-import schema from '../../schemas/mortigen_render_context.schema.json';
-import templateContent from '../../templates/consult_response.liquid?raw';
 
 // Ensure POST method is properly exported
 export const prerender = false;
@@ -15,7 +15,14 @@ const openai = new OpenAI({
   apiKey: import.meta.env.OPENAI_API_KEY,
 });
 
-const engine = new Liquid();
+const engine = new Liquid({
+  root: join(process.cwd(), 'src/templates'),
+  extname: '.liquid'
+});
+
+const schemaPath = join(process.cwd(), 'src/schemas/mortigen_render_context.schema.json');
+const schemaContent = readFileSync(schemaPath, 'utf-8');
+const schema = JSON.parse(schemaContent);
 
 const ajv = new draft2020({ allErrors: true });
 addFormats(ajv);
@@ -165,7 +172,7 @@ REQUIREMENTS:
 
     console.log('Schema validation passed, rendering template...');
     // Render HTML using Liquid template
-    const html = await engine.parseAndRender(templateContent, consultationData);
+    const html = await engine.renderFile('consult_response', consultationData);
 
     console.log('Template rendered successfully');
     return new Response(html, {
