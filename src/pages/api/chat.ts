@@ -8,12 +8,6 @@ import templateContent from '../../templates/consult_response.liquid?raw';
 
 export const prerender = false;
 
-console.log("I'm inside the chat file!!!");
-
-const openai = new OpenAI({
-  apiKey: import.meta.env.OPENAI_API_KEY,
-});
-
 const engine = new Liquid();
 
 const schema = schemaJson;
@@ -24,11 +18,17 @@ const validate = ajv.compile(schema);
 
 const schemaString = JSON.stringify(schema, null, 2);
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   console.log("I'm inside the chat function api!!!");
   try {
-    // Check if OpenAI API key is configured
-    if (!import.meta.env.OPENAI_API_KEY) {
+    const apiKey = locals.runtime?.env?.OPENAI_API_KEY || import.meta.env.OPENAI_API_KEY;
+
+    console.log('API Key check:', {
+      hasRuntimeEnv: !!locals.runtime?.env,
+      hasApiKey: !!apiKey
+    });
+
+    if (!apiKey) {
       console.error('OpenAI API key is not configured');
       const errorHtml = `
         <div class="error-message">
@@ -41,6 +41,10 @@ export const POST: APIRoute = async ({ request }) => {
         headers: { 'Content-Type': 'text/html' }
       });
     }
+
+    const openai = new OpenAI({
+      apiKey: apiKey,
+    });
 
     // Read request body as text first
     const rawBody = await request.text();
