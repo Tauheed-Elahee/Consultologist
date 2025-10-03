@@ -10,8 +10,9 @@ export default defineConfig({
     port: 4321
   },
   vite: {
-    ssr: {
-      external: ['node:fs', 'node:path']
+    assetsInclude: ['**/*.liquid'],
+    json: {
+      stringify: false
     }
   }
 });
