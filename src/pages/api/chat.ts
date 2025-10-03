@@ -9,8 +9,6 @@ import draft2020 from 'ajv/dist/2020';
 // Ensure POST method is properly exported
 export const prerender = false;
 
-console.log("I'm inside the chat function api!!!")
-
 const openai = new OpenAI({
   apiKey: import.meta.env.OPENAI_API_KEY,
 });
@@ -32,6 +30,7 @@ const validate = ajv.compile(schema);
 const schemaString = JSON.stringify(schema, null, 2);
 
 export const POST: APIRoute = async ({ request }) => {
+  console.log("I'm inside the chat function api!!!")
   try {
     // Check if OpenAI API key is configured
     if (!import.meta.env.OPENAI_API_KEY) {
