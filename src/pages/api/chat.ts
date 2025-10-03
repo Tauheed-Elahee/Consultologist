@@ -30,7 +30,7 @@ const validate = ajv.compile(schema);
 const schemaString = JSON.stringify(schema, null, 2);
 
 export const POST: APIRoute = async ({ request }) => {
-  console.log("I'm inside the chat function api!!!")
+  console.log("I'm inside the chat function api!!!");
   try {
     // Check if OpenAI API key is configured
     if (!import.meta.env.OPENAI_API_KEY) {
