@@ -5,9 +5,8 @@ import cloudflare from '@astrojs/cloudflare';
 export default defineConfig({
   output: 'server',
   adapter: cloudflare(),
-  vite: {
-    server: {
-      host: true
-    }
+  server: {
+    host: true,
+    port: 4321
   }
 });
