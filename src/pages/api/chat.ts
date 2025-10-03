@@ -8,6 +8,8 @@ import templateContent from '../../templates/consult_response.liquid?raw';
 
 export const prerender = false;
 
+console.log("I'm inside the chat file!!!");
+
 const openai = new OpenAI({
   apiKey: import.meta.env.OPENAI_API_KEY,
 });
