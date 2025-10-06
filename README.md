@@ -178,7 +178,7 @@ const consultationHTML = await response.text();
 
 ## License
 
-See `License.md` for details.
+Copyright. All rights reserved. See `License.md` for details.
 
 ## Contributing
 
