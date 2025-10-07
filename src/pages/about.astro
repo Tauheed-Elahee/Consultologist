@@ -1,0 +1,128 @@
+---
+const pageTitle = "About Astro";
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<title>{pageTitle}</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			body {
+				font-family: system-ui, -apple-system, sans-serif;
+				line-height: 1.6;
+				color: #333;
+				background: #f5f5f5;
+			}
+
+			.container {
+				max-width: 800px;
+				margin: 0 auto;
+				padding: 2rem;
+			}
+
+			header {
+				text-align: center;
+				padding: 3rem 0;
+			}
+
+			h1 {
+				font-size: 2.5rem;
+				color: #222;
+				margin-bottom: 1rem;
+			}
+
+			h2 {
+				font-size: 1.75rem;
+				color: #333;
+				margin-top: 2rem;
+				margin-bottom: 1rem;
+			}
+
+			p {
+				font-size: 1.125rem;
+				color: #666;
+				margin-bottom: 1rem;
+			}
+
+			main {
+				background: white;
+				border-radius: 8px;
+				padding: 2rem;
+				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+			}
+
+			.subtitle {
+				font-size: 1.25rem;
+				color: #888;
+			}
+
+			ul {
+				margin: 1rem 0 1rem 2rem;
+			}
+
+			li {
+				margin-bottom: 0.5rem;
+				color: #666;
+			}
+
+			.nav {
+				margin-top: 2rem;
+				padding-top: 2rem;
+				border-top: 1px solid #eee;
+			}
+
+			a {
+				color: #0066cc;
+				text-decoration: none;
+			}
+
+			a:hover {
+				text-decoration: underline;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<header>
+				<h1>{pageTitle}</h1>
+				<p class="subtitle">The web framework for content-driven websites</p>
+			</header>
+			<main>
+				<p>
+					Astro is a modern web framework designed for building fast, content-focused websites.
+					It allows developers to build websites that ship less JavaScript to the browser,
+					resulting in faster load times and better performance.
+				</p>
+
+				<h2>Key Features</h2>
+				<ul>
+					<li><strong>Component Islands:</strong> Astro pioneered the islands architecture, allowing you to build interactive UI components while keeping the rest of your page static.</li>
+					<li><strong>Zero JS by Default:</strong> Astro generates HTML with zero client-side JavaScript by default, adding interactivity only where needed.</li>
+					<li><strong>UI Agnostic:</strong> Use your favorite UI framework like React, Vue, Svelte, or others. You can even mix multiple frameworks in the same project.</li>
+					<li><strong>Fast Performance:</strong> Automatic optimization means your site loads quickly with minimal JavaScript overhead.</li>
+					<li><strong>Easy to Learn:</strong> Astro's component syntax is similar to HTML, making it accessible for developers of all skill levels.</li>
+				</ul>
+
+				<h2>Perfect For</h2>
+				<p>
+					Astro excels at building content-driven websites like blogs, marketing sites,
+					documentation, portfolios, and e-commerce stores. If your site is focused on
+					delivering content to users quickly, Astro is an excellent choice.
+				</p>
+
+				<div class="nav">
+					<a href="/">← Back to Home</a>
+				</div>
+			</main>
+		</div>
+	</body>
+</html>
