@@ -1,0 +1,258 @@
+---
+// Header component matching cleverconsult.ai style
+---
+
+<header class="header">
+  <nav class="nav">
+    <div class="nav-brand">
+      <a href="/" class="brand-link">
+        <span class="brand-text">Consultologist</span>
+      </a>
+    </div>
+
+    <div class="nav-menu" id="nav-menu">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="#home" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="#how-it-works" class="nav-link">How it works</a>
+        </li>
+        <li class="nav-item">
+          <a href="#features" class="nav-link">Features</a>
+        </li>
+        <li class="nav-item">
+          <a href="#blog" class="nav-link">Blog</a>
+        </li>
+        <li class="nav-item">
+          <a href="#signin" class="nav-link">Sign in</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="nav-cta">
+      <a href="/demo" class="cta-button">Try it free</a>
+    </div>
+
+    <div class="nav-toggle" id="nav-toggle">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+  </nav>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    padding: 1rem 2rem;
+  }
+
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    flex-wrap: nowrap;
+    gap: 2rem;
+  }
+
+  .nav-brand {
+    flex-shrink: 0;
+  }
+
+  .nav-brand .brand-link {
+    text-decoration: none;
+    color: #0066cc;
+    font-weight: 700;
+    font-size: 1.75rem;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .nav-brand .brand-link:hover {
+    color: #0052a3;
+  }
+
+  .nav-menu {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .nav-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 2rem;
+    flex-wrap: nowrap;
+  }
+
+  .nav-link {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    white-space: nowrap;
+  }
+
+  .nav-link:hover {
+    color: #0066cc;
+  }
+
+  .nav-cta {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .cta-button {
+    background: linear-gradient(45deg, #ffd700, #ffed4e);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    color: #1a1a1a;
+    white-space: nowrap;
+  }
+
+  .cta-button:hover {
+    background: linear-gradient(45deg, #ffed4e, #ffd700);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+  }
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+
+  .bar {
+    width: 25px;
+    height: 3px;
+    background: #333;
+    margin: 3px 0;
+    transition: 0.3s;
+    border-radius: 2px;
+  }
+
+  /* Mobile styles */
+  @media (max-width: 767px) {
+    .header {
+      padding: 0.5rem 0;
+    }
+
+    .nav {
+      border-radius: 20px;
+      padding: 0.75rem 1rem;
+    }
+
+    .nav-cta {
+      display: none;
+    }
+
+    .nav-menu {
+      position: fixed;
+      left: -100%;
+      top: 80px;
+      flex-direction: column;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      width: 100%;
+      text-align: center;
+      transition: 0.3s;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 0 0 20px 20px;
+    }
+
+    .nav-menu.active {
+      left: 0;
+    }
+
+    .nav-list {
+      flex-direction: column;
+      gap: 0;
+      padding: 2rem 0;
+    }
+
+    .nav-item {
+      margin: 0.5rem 0;
+    }
+
+    .nav-link {
+      padding: 1rem 2rem;
+      display: block;
+    }
+
+    .nav-toggle {
+      display: flex;
+    }
+
+    .nav-toggle.active .bar:nth-child(2) {
+      opacity: 0;
+    }
+
+    .nav-toggle.active .bar:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    .nav-toggle.active .bar:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+  }
+</style>
+
+<script>
+  // Mobile menu toggle
+  const navToggle = document.getElementById('nav-toggle');
+  const navMenu = document.getElementById('nav-menu');
+
+  if (navToggle && navMenu) {
+    navToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      navToggle.classList.toggle('active');
+    });
+
+    // Close menu when clicking on a link
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        navToggle.classList.remove('active');
+      });
+    });
+  }
+
+  // Smooth scrolling for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (this: HTMLAnchorElement, e: Event) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href')!);
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+</script>
