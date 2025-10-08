@@ -1,0 +1,440 @@
+# Astro component: Liquid Schema Studio (React island)
+
+> Drop-in editor for your landing page. Includes a React component and a tiny Astro wrapper. Lazy-loads on visibility.
+
+## 0) Install integrations & deps
+
+```bash
+npm i @astrojs/react react react-dom @monaco-editor/react liquidjs classnames
+npx astro add react
+```
+
+---
+
+## 1) `src/components/LiquidSchemaStudio.tsx`
+
+```tsx
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import Editor from "@monaco-editor/react";
+import { Liquid } from "liquidjs";
+import cn from "classnames";
+
+// ------------------- Types -------------------
+type JsonType = "string" | "number" | "boolean" | "object";
+
+type FieldDef = {
+  key: string;
+  title?: string;
+  type: JsonType;
+  required?: boolean;
+  enumValues?: string[]; // for string enums
+  objectFields?: FieldDef[]; // one nested level for demo
+};
+
+// ------------------- Seed -------------------
+const seedFields: FieldDef[] = [
+  { key: "title", title: "Note Title", type: "string", required: true },
+  {
+    key: "patient",
+    title: "Patient",
+    type: "object",
+    required: true,
+    objectFields: [
+      { key: "first_name", title: "First Name", type: "string", required: true },
+      { key: "last_name", title: "Last Name", type: "string", required: true },
+      { key: "age", title: "Age", type: "number", required: true },
+      { key: "sex", title: "Sex", type: "string", required: true, enumValues: ["female", "male", "other"] },
+    ],
+  },
+  {
+    key: "params",
+    title: "Params",
+    type: "object",
+    objectFields: [
+      { key: "histology", title: "Histology", type: "string" },
+      { key: "grade", title: "Grade", type: "number" },
+      { key: "er_status", title: "ER Status", type: "string", enumValues: ["positive", "negative", "unknown"] },
+      { key: "pr_status", title: "PR Status", type: "string", enumValues: ["positive", "negative", "unknown"] },
+      { key: "her2_status", title: "HER2 Status", type: "string", enumValues: ["positive", "negative", "equivocal", "unknown"] },
+    ],
+  },
+];
+
+const seedTemplate = `
+<h2>Reason for Consultation</h2>
+<p>Breast Cancer</p>
+
+<h2>HPI</h2>
+<p>{{ patient.first_name }} {{ patient.last_name }} is {{ patient.age }} years old ({{ patient.sex }}). Histology: {{ params.histology | default: "n/a" }}, grade {{ params.grade }}. Receptors — ER: {{ params.er_status }}, PR: {{ params.pr_status }}, HER2: {{ params.her2_status }}.</p>
+
+<h2>Plan</h2>
+<p>Discuss adjuvant hormonal therapy if ER is positive.</p>
+`;
+
+const seedData = {
+  title: "Consult: Breast Cancer | Catherine Doe",
+  patient: { first_name: "Catherine", last_name: "Doe", age: 43, sex: "female" },
+  params: {
+    histology: "invasive ductal carcinoma",
+    grade: 2,
+    er_status: "positive",
+    pr_status: "positive",
+    her2_status: "negative",
+  },
+};
+
+// ------------------- Helpers -------------------
+function fieldToSchema(f: FieldDef) {
+  if (f.enumValues && f.enumValues.length) {
+    return { type: "string", enum: f.enumValues, title: f.title || f.key };
+  }
+  return { type: f.type, title: f.title || f.key };
+}
+
+function fieldsToJsonSchema(fields: FieldDef[]) {
+  const schema: any = {
+    $schema: "http://json-schema.org/draft-07/schema#",
+    type: "object",
+    properties: {},
+    required: [] as string[],
+    additionalProperties: false,
+  };
+  for (const f of fields) {
+    if (f.type === "object") {
+      const obj: any = {
+        type: "object",
+        title: f.title || f.key,
+        properties: {},
+        required: [] as string[],
+        additionalProperties: false,
+      };
+      for (const c of f.objectFields || []) {
+        obj.properties[c.key] = fieldToSchema(c);
+        if (c.required) obj.required.push(c.key);
+      }
+      if (obj.required.length === 0) delete obj.required;
+      (schema.properties as any)[f.key] = obj;
+    } else {
+      (schema.properties as any)[f.key] = fieldToSchema(f);
+    }
+    if (f.required) (schema.required as string[]).push(f.key);
+  }
+  if ((schema.required as string[]).length === 0) delete schema.required;
+  return schema;
+}
+
+function download(filename: string, text: string) {
+  const blob = new Blob([text], { type: "application/octet-stream" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function fileOpen(onText: (t: string) => void, accept = ".json,.liquid,.txt,.md,.html") {
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = accept;
+  input.onchange = async () => {
+    if (!input.files?.[0]) return;
+    const t = await input.files[0].text();
+    onText(t);
+  };
+  input.click();
+}
+
+// ------------------- Form Renderer -------------------
+function FieldEditor({ field, onChange, onRemove }: { field: FieldDef; onChange: (f: FieldDef) => void; onRemove: () => void; }) {
+  const [local, setLocal] = useState<FieldDef>(field);
+  useEffect(() => setLocal(field), [field]);
+  function commit<K extends keyof FieldDef>(k: K, v: FieldDef[K]) {
+    const next = { ...local, [k]: v } as FieldDef;
+    setLocal(next);
+    onChange(next);
+  }
+  return (
+    <div className="border rounded-2xl p-3 mb-3 bg-white shadow-sm">
+      <div className="flex items-center gap-2 mb-2">
+        <input className="w-40 border rounded px-2 py-1" placeholder="key" value={local.key} onChange={(e) => commit("key", e.target.value)} />
+        <input className="flex-1 border rounded px-2 py-1" placeholder="Title (optional)" value={local.title || ""} onChange={(e) => commit("title", e.target.value)} />
+        <select className="border rounded px-2 py-1" value={local.type} onChange={(e) => commit("type", e.target.value as any)}>
+          <option>string</option>
+          <option>number</option>
+          <option>boolean</option>
+          <option>object</option>
+        </select>
+        <label className="flex items-center gap-2 text-sm">
+          <input type="checkbox" checked={!!local.required} onChange={(e) => commit("required", e.target.checked)} />
+          required
+        </label>
+        <button className="ml-auto text-red-600 text-sm" onClick={onRemove}>Remove</button>
+      </div>
+
+      {local.type === "string" && (
+        <div className="mb-2">
+          <label className="text-sm font-medium">Enum (comma-separated)</label>
+          <input className="w-full border rounded px-2 py-1" placeholder="positive, negative, unknown" value={(local.enumValues || []).join(", ")} onChange={(e) =>
+            commit("enumValues", e.target.value.split(",").map((s) => s.trim()).filter(Boolean))} />
+        </div>
+      )}
+
+      {local.type === "object" && (
+        <div className="mt-2 border-t pt-2">
+          <div className="flex items-center justify-between mb-2">
+            <div className="font-semibold">Object Fields</div>
+            <button className="text-sm" onClick={() => commit("objectFields", [ ...(local.objectFields || []), { key: "field", type: "string" as const }, ])}>+ Add sub-field</button>
+          </div>
+          {(local.objectFields || []).map((sf, i) => (
+            <FieldEditor key={i} field={sf} onChange={(nf) => {
+              const arr = [...(local.objectFields || [])];
+              arr[i] = nf; commit("objectFields", arr);
+            }} onRemove={() => {
+              const arr = [...(local.objectFields || [])];
+              arr.splice(i, 1); commit("objectFields", arr);
+            }} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function DataForm({ schema, data, onChange }: { schema: any; data: any; onChange: (d: any) => void; }) {
+  if (!schema?.properties) return <div className="text-sm text-gray-500">Define fields to build the form.</div>;
+  function setValue(path: string[], v: any) {
+    const next = { ...data };
+    let cur: any = next;
+    for (let i = 0; i < path.length - 1; i++) {
+      const k = path[i]; cur[k] = cur[k] ?? {}; cur = cur[k];
+    }
+    cur[path[path.length - 1]] = v; onChange(next);
+  }
+  function renderField(key: string, subschema: any, value: any, path: string[]) {
+    const title = subschema.title || key; const id = path.concat(key).join(".");
+    if (subschema.type === "object") {
+      const props = subschema.properties || {};
+      return (
+        <div key={id} className="border rounded-2xl p-3 mb-3 bg-white">
+          <div className="font-semibold mb-2">{title}</div>
+          {Object.keys(props).map((k) => renderField(k, props[k], value?.[k], path.concat(key)))}
+        </div>
+      );
+    }
+    const required = (schema.required || []).includes(key);
+    return (
+      <div key={id} className="mb-3">
+        <label className="block text-sm font-medium mb-1">{title} {required && <span className="text-red-500">*</span>}</label>
+        {Array.isArray(subschema.enum) ? (
+          <select className="w-full border rounded px-2 py-1" value={value ?? ""} onChange={(e) => setValue(path.concat(key), e.target.value)}>
+            <option value="">Select…</option>
+            {subschema.enum.map((v: string) => (<option key={v} value={v}>{v}</option>))}
+          </select>
+        ) : subschema.type === "boolean" ? (
+          <input type="checkbox" checked={!!value} onChange={(e) => setValue(path.concat(key), e.target.checked)} />
+        ) : (
+          <input className="w-full border rounded px-2 py-1" type={subschema.type === "number" ? "number" : "text"} value={value ?? ""} onChange={(e) => setValue(path.concat(key), subschema.type === "number" ? Number(e.target.value) : e.target.value)} />
+        )}
+      </div>
+    );
+  }
+  return <div>{Object.keys(schema.properties).map((k) => renderField(k, schema.properties[k], data?.[k], []))}</div>;
+}
+
+// ------------------- Main -------------------
+export default function LiquidSchemaStudio() {
+  const [fields, setFields] = useState<FieldDef[]>(seedFields);
+  const [template, setTemplate] = useState<string>(seedTemplate);
+  const [dataObj, setDataObj] = useState<any>(seedData);
+  const schema = useMemo(() => fieldsToJsonSchema(fields), [fields]);
+  const [rendered, setRendered] = useState<string>("");
+  const engineRef = useRef(new Liquid({ cache: false }));
+  const [error, setError] = useState<string>("");
+
+  useEffect(() => { renderLiquid(); }, [template, dataObj]);
+
+  async function renderLiquid() {
+    try {
+      setError("");
+      const tpl = await engineRef.current.parse(template);
+      const html = await engineRef.current.render(tpl, dataObj);
+      setRendered(html);
+    } catch (e: any) {
+      setError(String(e?.message || e));
+      setRendered("");
+    }
+  }
+
+  return (
+    <div className="min-h-[70vh] bg-slate-50 text-slate-900">
+      <div className="max-w-7xl mx-auto px-4 py-3 flex items-center gap-3">
+        <div className="text-xl font-semibold">Liquid + JSON Schema Studio</div>
+        <div className="ml-auto flex items-center gap-2 text-sm">
+          <button className="border rounded px-3 py-1" onClick={() => download("schema.json", JSON.stringify(schema, null, 2))}>Export Schema</button>
+          <button className="border rounded px-3 py-1" onClick={() => download("data.json", JSON.stringify(dataObj, null, 2))}>Export Data</button>
+          <button className="border rounded px-3 py-1" onClick={() => download("template.liquid", template)}>Export Template</button>
+          <div className="w-px h-6 bg-slate-200 mx-1" />
+          <button className="border rounded px-3 py-1" onClick={() => fileOpen((t) => {
+            try {
+              const obj = JSON.parse(t);
+              if (obj?.properties) {
+                setFields(schemaToFields(obj));
+              } else {
+                setDataObj(obj);
+              }
+            } catch {
+              setTemplate(t);
+            }
+          })}>Import (schema/data/template)</button>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 py-4 grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <section className="bg-white rounded-2xl shadow-sm border p-3">
+          <div className="flex items-center justify-between mb-2">
+            <h2 className="text-lg font-semibold">Schema Builder</h2>
+            <button className="text-sm" onClick={() => setFields((f) => [...f, { key: "field", type: "string" }])}>+ Add field</button>
+          </div>
+          {fields.map((f, i) => (
+            <FieldEditor key={i} field={f} onChange={(nf) => { const arr = [...fields]; arr[i] = nf; setFields(arr); }} onRemove={() => { const arr = [...fields]; arr.splice(i, 1); setFields(arr); }} />
+          ))}
+          <details className="mt-2">
+            <summary className="cursor-pointer select-none text-sm font-medium">JSON Schema (read-only)</summary>
+            <pre className="mt-2 text-xs bg-slate-50 p-2 rounded overflow-auto max-h-64">{JSON.stringify(schema, null, 2)}</pre>
+          </details>
+        </section>
+
+        <section className="bg-white rounded-2xl shadow-sm border p-3 flex flex-col">
+          <div className="flex items-center justify-between mb-2">
+            <h2 className="text-lg font-semibold">Liquid Template</h2>
+            <SnippetBar onInsert={(snippet) => setTemplate((t) => t + "\n" + snippet)} />
+          </div>
+          <div className="h-[380px] border rounded overflow-hidden">
+            <Editor height="100%" defaultLanguage="liquid" language="html" value={template} onChange={(v) => setTemplate(v || "")} options={{ minimap: { enabled: false }, fontSize: 14, wordWrap: "on" }} />
+          </div>
+          {error && (<div className="mt-2 text-sm text-red-600">{error}</div>)}
+        </section>
+
+        <section className="bg-white rounded-2xl shadow-sm border p-3">
+          <h2 className="text-lg font-semibold mb-2">Data & Preview</h2>
+          <div className="grid grid-cols-1 gap-3">
+            <div><DataForm schema={schema} data={dataObj} onChange={setDataObj} /></div>
+            <div>
+              <div className="text-sm font-medium mb-1">Rendered Preview</div>
+              <div className="border rounded p-3 bg-slate-50 prose max-w-none" dangerouslySetInnerHTML={{ __html: rendered }} />
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+}
+
+function SnippetBar({ onInsert }: { onInsert: (s: string) => void }) {
+  const snippets: { label: string; code: string }[] = [
+    { label: "Variable", code: "{{ variable_name }}" },
+    { label: "Default filter", code: "{{ params.histology | default: 'n/a' }}" },
+    { label: "If", code: "{% if params.er_status == 'positive' %}\n<p>ER positive.</p>\n{% endif %}" },
+    { label: "For loop", code: "{% for m in medications %}\n<p>- {{ m }}</p>\n{% endfor %}" },
+    { label: "Capture", code: "{% capture full_name %}{{ patient.first_name }} {{ patient.last_name }}{% endcapture %}" },
+  ];
+  return (
+    <div className="flex gap-2">
+      {snippets.map((s) => (
+        <button key={s.label} className="text-xs border rounded px-2 py-1" onClick={() => onInsert("\n" + s.code + "\n")}>
+          + {s.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function schemaToFields(schema: any): FieldDef[] {
+  if (!schema?.properties) return [];
+  const fields: FieldDef[] = [];
+  for (const [key, prop] of Object.entries<any>(schema.properties)) {
+    if (prop.type === "object") {
+      const objFields: FieldDef[] = [];
+      for (const [k2, p2] of Object.entries<any>(prop.properties || {})) {
+        objFields.push(propToField(k2, p2, prop.required));
+      }
+      fields.push({ key, title: prop.title, type: "object", required: (schema.required || []).includes(key), objectFields: objFields });
+    } else {
+      fields.push(propToField(key, prop, schema.required));
+    }
+  }
+  return fields;
+}
+
+function propToField(key: string, prop: any, requiredList: string[] = []): FieldDef {
+  const type = (prop.enum ? "string" : prop.type) as JsonType;
+  const fd: FieldDef = { key, title: prop.title, type, required: requiredList?.includes?.(key) || false };
+  if (prop.enum) fd.enumValues = prop.enum;
+  return fd;
+}
+```
+
+---
+
+## 2) `src/components/LiquidSchemaStudioIsland.astro`
+
+```astro
+---
+import LiquidSchemaStudio from "./LiquidSchemaStudio";
+---
+<section style="padding:1rem 0;">
+  <!-- Loads on visibility to protect your CWV on the landing page -->
+  <LiquidSchemaStudio client:visible />
+</section>
+```
+
+---
+
+## 3) Use it on your landing page (example)
+
+Create `src/pages/playground.astro` (or embed inside your homepage):
+
+```astro
+---
+import LiquidSchemaStudioIsland from "../components/LiquidSchemaStudioIsland.astro";
+---
+<html lang="en">
+  <head>
+    <title>Mortigen Playground</title>
+    <meta name="robots" content="noindex" />
+  </head>
+  <body>
+    <main>
+      <h1 style="font: 600 1.5rem/1.2 system-ui; margin: 1rem 0;">Try the Mortigen Template Studio</h1>
+      <p style="margin-bottom: 1rem; max-width: 60ch;">Build a JSON schema, edit a Liquid template, and preview live output. All client-side.</p>
+      <LiquidSchemaStudioIsland />
+    </main>
+  </body>
+</html>
+```
+
+---
+
+## 4) CSP / headers (only if you enforce strict CSP)
+
+Monaco uses web workers. Minimum allowances:
+
+```
+Content-Security-Policy:
+  default-src 'self';
+  script-src 'self' blob:'unsafe-inline';
+  worker-src 'self' blob:;
+  style-src 'self' 'unsafe-inline';
+  img-src 'self' data:;
+```
+
+(Adjust to your host. On Netlify, put this in `public/_headers`.)
+
+---
+
+## 5) Notes
+
+* Everything renders client-side; no server is required.
+* The editor is self-contained to avoid bloating your Astro SSR.
+* You can later extract this into `studio.mortigen.ca` for the full app, while keeping this as a lightweight playground.

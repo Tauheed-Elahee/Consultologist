@@ -1,14 +1,27 @@
 {
-  "name": "temp",
+  "name": "astro-landing-site",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "start": "astro dev",
+    "prebuild": "node scripts/compile-schema.js",
+    "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.14.1"
+    "@astrojs/cloudflare": "^12.6.9",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "astro": "^5.7.0",
+    "liquidjs": "^10.21.1",
+    "openai": "^5.23.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.0",
+    "@types/node": "^24.5.2",
+    "ajv-cli": "^5.0.0",
+    "typescript": "^5.5.0"
   }
 }

@@ -1,5 +1,22 @@
-// @ts-check
 import { defineConfig } from 'astro/config';
+import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
-export default defineConfig({});
+export default defineConfig({
+  output: 'server',
+  adapter: cloudflare({
+      platformProxy: {
+        enabled: true
+      }
+  }),
+  server: {
+    host: true,
+    port: 4321
+  },
+  vite: {
+    assetsInclude: ['**/*.liquid'],
+    json: {
+      stringify: false
+    }
+  }
+});
