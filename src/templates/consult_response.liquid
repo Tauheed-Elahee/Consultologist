@@ -182,7 +182,7 @@ Render context must conform to mortigen_render_context.schema.json
   {%- if onc.score -%}
     <p>
       An OncotypeDx test was performed and {{ p_gen }} recurrence score is {{ onc.score }}
-      which is associated with a 9-year distant recurrence risk of {{ onc.risk_percent_9yr }}%
+      which is associated with a {{ onc.risk_yr }}-year distant recurrence risk of {{ onc.risk_percent }}%
       {%- if onc.absolute_benefit_percent %}. The absolute chemotherapy benefit is estimated to be {{ onc.absolute_benefit_percent }}%{%- endif -%}.
     </p>
   {%- endif -%}
