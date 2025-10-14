@@ -15,13 +15,12 @@ const schema = schemaJson;
 
 const schemaString = JSON.stringify(schema, null, 2);
 
-export const POST: APIRoute = async ({ request, locals }) => {
+export async function POST(request: NextRequest) {
   console.log("I'm inside the chat function api!!!");
   try {
-    const apiKey = locals.runtime?.env?.OPENAI_API_KEY || import.meta.env.OPENAI_API_KEY;
+    const apiKey = process.env.OPENAI_API_KEY;
 
     console.log('API Key check:', {
-      hasRuntimeEnv: !!locals.runtime?.env,
       hasApiKey: !!apiKey
     });
 
@@ -35,18 +34,14 @@ export const POST: APIRoute = async ({ request, locals }) => {
       `;
       return new Response(errorHtml, {
         status: 500,
-        headers: { 'Content-Type': 'text/html' }
+        headers: {
+          'Content-Type': 'text/html'
+        }
       });
     }
 
-    const openai = new OpenAI({
-      apiKey: apiKey,
-    });
-
-    // Read request body as text first
     const rawBody = await request.text();
-    
-    // Check if request body is empty
+
     if (!rawBody || rawBody.trim() === '') {
       console.error('Empty request body received');
       const errorHtml = `
@@ -57,11 +52,12 @@ export const POST: APIRoute = async ({ request, locals }) => {
       `;
       return new Response(errorHtml, {
         status: 400,
-        headers: { 'Content-Type': 'text/html' }
+        headers: {
+          'Content-Type': 'text/html'
+        }
       });
     }
 
-    // Parse JSON with proper error handling
     let requestData;
     try {
       requestData = JSON.parse(rawBody);
@@ -76,7 +72,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
       `;
       return new Response(errorHtml, {
         status: 400,
-        headers: { 'Content-Type': 'text/html' }
+        headers: {
+          'Content-Type': 'text/html'
+        }
       });
     }
 
@@ -91,11 +89,12 @@ export const POST: APIRoute = async ({ request, locals }) => {
       `;
       return new Response(errorHtml, {
         status: 400,
-        headers: { 'Content-Type': 'text/html' }
+        headers: {
+          'Content-Type': 'text/html'
+        }
       });
     }
 
-    // System context for medical consultation with schema guidance
     const systemContext = `You are Consultologist, an AI assistant specialized in helping oncologists create structured consultation notes for breast cancer patients.
 
 IMPORTANT CONTEXT:
@@ -117,28 +116,40 @@ REQUIREMENTS:
 - Follow all pattern constraints (e.g., TNM staging patterns, receptor scoring patterns)
 - Return only the JSON object, nothing else`;
 
-    // Call OpenAI API with JSON mode
     console.log('Calling OpenAI API...');
-    const completion = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: [
-        { role: "system", content: systemContext },
-        { role: "user", content: prompt }
-      ],
-      temperature: 0.7,
-      max_tokens: 4096,
-      response_format: { type: "json_object" }
+    const openaiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({
+        model: "gpt-4o",
+        messages: [
+          { role: "system", content: systemContext },
+          { role: "user", content: prompt }
+        ],
+        temperature: 0.7,
+        max_tokens: 4096,
+        response_format: { type: "json_object" }
+      })
     });
 
+    if (!openaiResponse.ok) {
+      const errorText = await openaiResponse.text();
+      console.error('OpenAI API error:', errorText);
+      throw new Error(`OpenAI API request failed: ${openaiResponse.status}`);
+    }
+
+    const completion = await openaiResponse.json();
     const responseContent = completion.choices[0]?.message?.content;
-    
+
     if (!responseContent) {
       console.error('No response content from OpenAI');
       throw new Error('No response from OpenAI');
     }
 
     console.log('OpenAI response received, parsing JSON...');
-    // Parse JSON response from ChatGPT
     let consultationData;
     try {
       consultationData = JSON.parse(responseContent);
@@ -149,15 +160,13 @@ REQUIREMENTS:
     }
 
     console.log('JSON parsed successfully, validating schema...');
-    // Validate against schema (cast to include errors property)
     const validator = validate as ValidateFunction;
     const isValid = validator(consultationData);
 
     if (!isValid && validator.errors) {
       console.error('Schema validation failed:', validator.errors);
-      console.error('Invalid data:', JSON.stringify(consultationData, null, 2));
+      console.error('Invalid data:', JSON.stringify(consultationData, null));
 
-      // Create a user-friendly error message
       const validationErrors = validator.errors.map((error) => {
         const path = error.instancePath || 'root';
         return `${path}: ${error.message}`;
@@ -166,14 +175,37 @@ REQUIREMENTS:
       throw new Error(`AI response does not match expected format: ${validationErrors}`);
     }
 
+    console.log('Schema validated:', JSON.stringify(consultationData, null));
     console.log('Schema validation passed, rendering template...');
-    const html = await engine.parseAndRender(templateContent, consultationData);
 
-    console.log('Template rendered successfully');
-    return new Response(html, {
+    let html: string;
+    try {
+      html = await engine.parseAndRender(templateContent, consultationData);
+      console.log('Template rendered successfully');
+      console.log('Rendered HTML length:', html.length);
+      console.log('Rendered HTML:', html);
+    } catch (renderError) {
+      console.error('Error rendering template:', renderError);
+      throw renderError;
+    }
+
+    console.log('Returning Response...');
+
+    const responseHeaders: Record<string, string> = {
+      'Content-Type': 'text/html',
+      'Cache-Control': 'no-cache'
+    };
+
+    console.log('Response headers object created');
+
+    const response = new Response(html, {
       status: 200,
-      headers: { 'Content-Type': 'text/html' }
+      headers: responseHeaders
     });
+
+    console.log('Response object created, about to return');
+
+    return response;
 
   } catch (error) {
     console.error('API Error details:', {
@@ -181,7 +213,7 @@ REQUIREMENTS:
       stack: error instanceof Error ? error.stack : undefined,
       name: error instanceof Error ? error.name : undefined
     });
-    
+
     const errorHtml = `
       <div class="error-message">
         <h3>⚠️ Error Processing Request</h3>
@@ -195,7 +227,9 @@ REQUIREMENTS:
 
     return new Response(errorHtml, {
       status: 500,
-      headers: { 'Content-Type': 'text/html' }
+      headers: {
+        'Content-Type': 'text/html'
+      }
     });
   }
 };
