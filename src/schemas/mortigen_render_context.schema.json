@@ -106,11 +106,12 @@
           "additionalProperties": false,
           "properties": {
             "score": { "type": "number", "minimum": 0, "maximum": 100 },
-            "risk_percent_9yr": { "type": "number", "minimum": 0, "maximum": 100 },
+            "risk_yr": { "type": "integer", "minimum": 1, "maximum": 100 },
+            "risk_percent": { "type": "number", "minimum": 0, "maximum": 100 },
             "absolute_benefit_percent": { "type": "number", "minimum": 0, "maximum": 100 }
           },
           "allOf": [
-            { "if": { "required": ["score"] }, "then": { "required": ["risk_percent_9yr"] } }
+            { "if": { "required": ["score"] }, "then": { "required": ["risk_yr", "risk_percent"] } }
           ]
         },
         "plan_structured": {
