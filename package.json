@@ -2,6 +2,9 @@
   "name": "astro-landing-site",
   "type": "module",
   "version": "0.0.1",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -11,7 +14,7 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^12.6.9",
+    "@astrojs/node": "^9.1.1",
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",
     "astro": "^5.7.0",
