@@ -1,84 +1,73 @@
-import type { APIRoute } from 'astro';
 import { Liquid } from 'liquidjs';
 import OpenAI from 'openai';
-import { validate } from '../../schemas/compiled-validator.js';
-import schemaJson from '../../schemas/mortigen_render_context.schema.json';
-import templateContent from '../../templates/consult_response.liquid?raw';
+import Ajv from 'ajv';
+import addFormats from 'ajv-formats';
+import { readFileSync } from 'fs';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 
-type ValidateFunction = ((data: any) => boolean) & { errors?: Array<{ instancePath: string; message: string }> | null };
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const engine = new Liquid();
 
-const schema = schemaJson;
+const schemaPath = join(__dirname, '../../src/schemas/mortigen_render_context.schema.json');
+const templatePath = join(__dirname, '../../src/templates/consult_response.liquid');
 
-const schemaString = JSON.stringify(schema, null, 2);
+const schemaJson = JSON.parse(readFileSync(schemaPath, 'utf8'));
+const templateContent = readFileSync(templatePath, 'utf8');
 
-export const POST: APIRoute = async ({ request, locals }) => {
-  console.log("I'm inside the chat function api!!!");
+const ajv = new Ajv({ allErrors: true, strict: true });
+addFormats(ajv);
+const validate = ajv.compile(schemaJson);
+
+const schemaString = JSON.stringify(schemaJson, null, 2);
+
+export default async function (context, req) {
+  context.log("Chat function invoked");
+
   try {
-    const apiKey = locals.runtime?.env?.OPENAI_API_KEY || import.meta.env.OPENAI_API_KEY;
-
-    console.log('API Key check:', {
-      hasRuntimeEnv: !!locals.runtime?.env,
-      hasApiKey: !!apiKey
-    });
+    const apiKey = process.env.OPENAI_API_KEY;
 
     if (!apiKey) {
-      console.error('OpenAI API key is not configured');
+      context.log.error('OpenAI API key is not configured');
       const errorHtml = `
         <div class="error-message">
           <h3>⚠️ Configuration Error</h3>
           <p>OpenAI API key is not configured. Please add your API key to the environment variables.</p>
         </div>
       `;
-      return new Response(errorHtml, {
+      context.res = {
         status: 500,
-        headers: { 'Content-Type': 'text/html' }
-      });
+        headers: { 'Content-Type': 'text/html' },
+        body: errorHtml
+      };
+      return;
     }
 
     const openai = new OpenAI({
       apiKey: apiKey,
     });
 
-    // Read request body as text first
-    const rawBody = await request.text();
-    
-    // Check if request body is empty
-    if (!rawBody || rawBody.trim() === '') {
-      console.error('Empty request body received');
+    const rawBody = req.body;
+
+    if (!rawBody) {
+      context.log.error('Empty request body received');
       const errorHtml = `
         <div class="error-message">
           <h3>⚠️ Invalid Request</h3>
           <p>Request body is empty. Please provide consultation details.</p>
         </div>
       `;
-      return new Response(errorHtml, {
+      context.res = {
         status: 400,
-        headers: { 'Content-Type': 'text/html' }
-      });
+        headers: { 'Content-Type': 'text/html' },
+        body: errorHtml
+      };
+      return;
     }
 
-    // Parse JSON with proper error handling
-    let requestData;
-    try {
-      requestData = JSON.parse(rawBody);
-    } catch (parseError) {
-      console.error('Failed to parse request body as JSON:', parseError);
-      console.error('Raw body:', rawBody);
-      const errorHtml = `
-        <div class="error-message">
-          <h3>⚠️ Invalid JSON</h3>
-          <p>Request body contains malformed JSON. Please check your request format.</p>
-        </div>
-      `;
-      return new Response(errorHtml, {
-        status: 400,
-        headers: { 'Content-Type': 'text/html' }
-      });
-    }
-
-    const { prompt } = requestData;
+    const { prompt } = rawBody;
 
     if (!prompt || typeof prompt !== 'string') {
       const errorHtml = `
@@ -87,13 +76,14 @@ export const POST: APIRoute = async ({ request, locals }) => {
           <p>Please provide valid consultation details.</p>
         </div>
       `;
-      return new Response(errorHtml, {
+      context.res = {
         status: 400,
-        headers: { 'Content-Type': 'text/html' }
-      });
+        headers: { 'Content-Type': 'text/html' },
+        body: errorHtml
+      };
+      return;
     }
 
-    // System context for medical consultation with schema guidance
     const systemContext = `You are Consultologist, an AI assistant specialized in helping oncologists create structured consultation notes for breast cancer patients.
 
 IMPORTANT CONTEXT:
@@ -115,8 +105,7 @@ REQUIREMENTS:
 - Follow all pattern constraints (e.g., TNM staging patterns, receptor scoring patterns)
 - Return only the JSON object, nothing else`;
 
-    // Call OpenAI API with JSON mode
-    console.log('Calling OpenAI API...');
+    context.log('Calling OpenAI API...');
     const completion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
@@ -129,34 +118,30 @@ REQUIREMENTS:
     });
 
     const responseContent = completion.choices[0]?.message?.content;
-    
+
     if (!responseContent) {
-      console.error('No response content from OpenAI');
+      context.log.error('No response content from OpenAI');
       throw new Error('No response from OpenAI');
     }
 
-    console.log('OpenAI response received, parsing JSON...');
-    // Parse JSON response from ChatGPT
+    context.log('OpenAI response received, parsing JSON...');
     let consultationData;
     try {
       consultationData = JSON.parse(responseContent);
     } catch (parseError) {
-      console.error('Failed to parse OpenAI response as JSON:', parseError);
-      console.error('Response content:', responseContent);
+      context.log.error('Failed to parse OpenAI response as JSON:', parseError);
+      context.log.error('Response content:', responseContent);
       throw new Error('Invalid JSON response from AI');
     }
 
-    console.log('JSON parsed successfully, validating schema...');
-    // Validate against schema (cast to include errors property)
-    const validator = validate as ValidateFunction;
-    const isValid = validator(consultationData);
+    context.log('JSON parsed successfully, validating schema...');
+    const isValid = validate(consultationData);
 
-    if (!isValid && validator.errors) {
-      console.error('Schema validation failed:', validator.errors);
-      console.error('Invalid data:', JSON.stringify(consultationData, null, 2));
+    if (!isValid && validate.errors) {
+      context.log.error('Schema validation failed:', validate.errors);
+      context.log.error('Invalid data:', JSON.stringify(consultationData, null, 2));
 
-      // Create a user-friendly error message
-      const validationErrors = validator.errors.map((error) => {
+      const validationErrors = validate.errors.map((error) => {
         const path = error.instancePath || 'root';
         return `${path}: ${error.message}`;
       }).join(', ') || 'Unknown validation error';
@@ -164,22 +149,23 @@ REQUIREMENTS:
       throw new Error(`AI response does not match expected format: ${validationErrors}`);
     }
 
-    console.log('Schema validation passed, rendering template...');
+    context.log('Schema validation passed, rendering template...');
     const html = await engine.parseAndRender(templateContent, consultationData);
 
-    console.log('Template rendered successfully');
-    return new Response(html, {
+    context.log('Template rendered successfully');
+    context.res = {
       status: 200,
-      headers: { 'Content-Type': 'text/html' }
-    });
+      headers: { 'Content-Type': 'text/html' },
+      body: html
+    };
 
   } catch (error) {
-    console.error('API Error details:', {
+    context.log.error('API Error details:', {
       message: error instanceof Error ? error.message : 'Unknown error',
       stack: error instanceof Error ? error.stack : undefined,
       name: error instanceof Error ? error.name : undefined
     });
-    
+
     const errorHtml = `
       <div class="error-message">
         <h3>⚠️ Error Processing Request</h3>
@@ -191,9 +177,10 @@ REQUIREMENTS:
       </div>
     `;
 
-    return new Response(errorHtml, {
+    context.res = {
       status: 500,
-      headers: { 'Content-Type': 'text/html' }
-    });
+      headers: { 'Content-Type': 'text/html' },
+      body: errorHtml
+    };
   }
-};
+}

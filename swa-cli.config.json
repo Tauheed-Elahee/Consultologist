@@ -3,10 +3,10 @@
   "configurations": {
     "consultologist": {
       "appLocation": ".",
-      "outputLocation": "_site",
+      "outputLocation": "dist",
       "appBuildCommand": "npm run build",
       "run": "npm run dev",
-      "appDevserverUrl": "http://localhost:8080"
+      "appDevserverUrl": "http://localhost:4321"
     }
   }
 }
