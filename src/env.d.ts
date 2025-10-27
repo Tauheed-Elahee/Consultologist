@@ -4,7 +4,9 @@ declare namespace App {
   interface Locals {
     runtime?: {
       env: {
-        OPENAI_API_KEY?: string;
+        AZURE_OPENAI_ENDPOINT?: string;
+        AZURE_OPENAI_DEPLOYMENT_NAME?: string;
+        AZURE_OPENAI_API_VERSION?: string;
       };
     };
   }

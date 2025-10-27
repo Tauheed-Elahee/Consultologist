@@ -1,5 +1,6 @@
 import { Liquid } from 'liquidjs';
-import OpenAI from 'openai';
+import { AzureOpenAI } from 'openai';
+import { DefaultAzureCredential } from '@azure/identity';
 import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
 import { readFileSync } from 'fs';
@@ -27,14 +28,24 @@ export default async function (context, req) {
   context.log("Chat function invoked");
 
   try {
-    const apiKey = process.env.OPENAI_API_KEY;
+    const endpoint = process.env.AZURE_OPENAI_ENDPOINT;
+    const deploymentName = process.env.AZURE_OPENAI_DEPLOYMENT_NAME;
+    const apiVersion = process.env.AZURE_OPENAI_API_VERSION;
 
-    if (!apiKey) {
-      context.log.error('OpenAI API key is not configured');
+    context.log('Azure OpenAI Configuration check:', {
+      hasEndpoint: !!endpoint,
+      hasDeploymentName: !!deploymentName,
+      hasApiVersion: !!apiVersion,
+      endpoint: endpoint,
+      deploymentName: deploymentName
+    });
+
+    if (!endpoint || !deploymentName || !apiVersion) {
+      context.log.error('Azure OpenAI configuration is incomplete');
       const errorHtml = `
         <div class="error-message">
           <h3>⚠️ Configuration Error</h3>
-          <p>OpenAI API key is not configured. Please add your API key to the environment variables.</p>
+          <p>Azure OpenAI configuration is incomplete. Please ensure AZURE_OPENAI_ENDPOINT, AZURE_OPENAI_DEPLOYMENT_NAME, and AZURE_OPENAI_API_VERSION are set.</p>
         </div>
       `;
       context.res = {
@@ -45,8 +56,16 @@ export default async function (context, req) {
       return;
     }
 
-    const openai = new OpenAI({
-      apiKey: apiKey,
+    const credential = new DefaultAzureCredential();
+    const scope = "https://cognitiveservices.azure.com/.default";
+
+    const openai = new AzureOpenAI({
+      endpoint: endpoint,
+      apiVersion: apiVersion,
+      azureADTokenProvider: async () => {
+        const token = await credential.getToken(scope);
+        return token.token;
+      },
     });
 
     const rawBody = req.body;
@@ -105,9 +124,9 @@ REQUIREMENTS:
 - Follow all pattern constraints (e.g., TNM staging patterns, receptor scoring patterns)
 - Return only the JSON object, nothing else`;
 
-    context.log('Calling OpenAI API...');
+    context.log('Calling Azure OpenAI API...');
     const completion = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
+      model: deploymentName,
       messages: [
         { role: "system", content: systemContext },
         { role: "user", content: prompt }
@@ -120,16 +139,16 @@ REQUIREMENTS:
     const responseContent = completion.choices[0]?.message?.content;
 
     if (!responseContent) {
-      context.log.error('No response content from OpenAI');
-      throw new Error('No response from OpenAI');
+      context.log.error('No response content from Azure OpenAI');
+      throw new Error('No response from Azure OpenAI');
     }
 
-    context.log('OpenAI response received, parsing JSON...');
+    context.log('Azure OpenAI response received, parsing JSON...');
     let consultationData;
     try {
       consultationData = JSON.parse(responseContent);
     } catch (parseError) {
-      context.log.error('Failed to parse OpenAI response as JSON:', parseError);
+      context.log.error('Failed to parse Azure OpenAI response as JSON:', parseError);
       context.log.error('Response content:', responseContent);
       throw new Error('Invalid JSON response from AI');
     }

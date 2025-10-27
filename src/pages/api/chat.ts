@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { Liquid } from 'liquidjs';
-import OpenAI from 'openai';
+import { AzureOpenAI } from 'openai';
+import { DefaultAzureCredential } from '@azure/identity';
 import { validate } from '../../schemas/compiled-validator.js';
 import schemaJson from '../../schemas/mortigen_render_context.schema.json';
 import templateContent from '../../templates/consult_response.liquid?raw';
@@ -16,19 +17,24 @@ const schemaString = JSON.stringify(schema, null, 2);
 export const POST: APIRoute = async ({ request, locals }) => {
   console.log("I'm inside the chat function api!!!");
   try {
-    const apiKey = locals.runtime?.env?.OPENAI_API_KEY || import.meta.env.OPENAI_API_KEY;
+    const endpoint = locals.runtime?.env?.AZURE_OPENAI_ENDPOINT || import.meta.env.AZURE_OPENAI_ENDPOINT;
+    const deploymentName = locals.runtime?.env?.AZURE_OPENAI_DEPLOYMENT_NAME || import.meta.env.AZURE_OPENAI_DEPLOYMENT_NAME;
+    const apiVersion = locals.runtime?.env?.AZURE_OPENAI_API_VERSION || import.meta.env.AZURE_OPENAI_API_VERSION;
 
-    console.log('API Key check:', {
-      hasRuntimeEnv: !!locals.runtime?.env,
-      hasApiKey: !!apiKey
+    console.log('Azure OpenAI Configuration check:', {
+      hasEndpoint: !!endpoint,
+      hasDeploymentName: !!deploymentName,
+      hasApiVersion: !!apiVersion,
+      endpoint: endpoint,
+      deploymentName: deploymentName
     });
 
-    if (!apiKey) {
-      console.error('OpenAI API key is not configured');
+    if (!endpoint || !deploymentName || !apiVersion) {
+      console.error('Azure OpenAI configuration is incomplete');
       const errorHtml = `
         <div class="error-message">
           <h3>⚠️ Configuration Error</h3>
-          <p>OpenAI API key is not configured. Please add your API key to the environment variables.</p>
+          <p>Azure OpenAI configuration is incomplete. Please ensure AZURE_OPENAI_ENDPOINT, AZURE_OPENAI_DEPLOYMENT_NAME, and AZURE_OPENAI_API_VERSION are set.</p>
         </div>
       `;
       return new Response(errorHtml, {
@@ -37,8 +43,16 @@ export const POST: APIRoute = async ({ request, locals }) => {
       });
     }
 
-    const openai = new OpenAI({
-      apiKey: apiKey,
+    const credential = new DefaultAzureCredential();
+    const scope = "https://cognitiveservices.azure.com/.default";
+
+    const openai = new AzureOpenAI({
+      endpoint: endpoint,
+      apiVersion: apiVersion,
+      azureADTokenProvider: async () => {
+        const token = await credential.getToken(scope);
+        return token.token;
+      },
     });
 
     // Read request body as text first
@@ -115,10 +129,10 @@ REQUIREMENTS:
 - Follow all pattern constraints (e.g., TNM staging patterns, receptor scoring patterns)
 - Return only the JSON object, nothing else`;
 
-    // Call OpenAI API with JSON mode
-    console.log('Calling OpenAI API...');
+    // Call Azure OpenAI API with JSON mode
+    console.log('Calling Azure OpenAI API...');
     const completion = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
+      model: deploymentName,
       messages: [
         { role: "system", content: systemContext },
         { role: "user", content: prompt }
@@ -129,19 +143,19 @@ REQUIREMENTS:
     });
 
     const responseContent = completion.choices[0]?.message?.content;
-    
+
     if (!responseContent) {
-      console.error('No response content from OpenAI');
-      throw new Error('No response from OpenAI');
+      console.error('No response content from Azure OpenAI');
+      throw new Error('No response from Azure OpenAI');
     }
 
-    console.log('OpenAI response received, parsing JSON...');
+    console.log('Azure OpenAI response received, parsing JSON...');
     // Parse JSON response from ChatGPT
     let consultationData;
     try {
       consultationData = JSON.parse(responseContent);
     } catch (parseError) {
-      console.error('Failed to parse OpenAI response as JSON:', parseError);
+      console.error('Failed to parse Azure OpenAI response as JSON:', parseError);
       console.error('Response content:', responseContent);
       throw new Error('Invalid JSON response from AI');
     }
