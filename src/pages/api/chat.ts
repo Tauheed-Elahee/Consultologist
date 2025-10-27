@@ -5,6 +5,8 @@ import { validate } from '../../schemas/compiled-validator.js';
 import schemaJson from '../../schemas/mortigen_render_context.schema.json';
 import templateContent from '../../templates/consult_response.liquid?raw';
 
+export const prerender = false;
+
 type ValidateFunction = ((data: any) => boolean) & { errors?: Array<{ instancePath: string; message: string }> | null };
 
 const engine = new Liquid();
