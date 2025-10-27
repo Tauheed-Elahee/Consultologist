@@ -7,6 +7,7 @@ declare namespace App {
         AZURE_OPENAI_ENDPOINT?: string;
         AZURE_OPENAI_DEPLOYMENT_NAME?: string;
         AZURE_OPENAI_API_VERSION?: string;
+        OPENAI_API_KEY?: string;
       };
     };
   }

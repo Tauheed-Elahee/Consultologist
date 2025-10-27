@@ -1,6 +1,5 @@
 import { Liquid } from 'liquidjs';
 import { AzureOpenAI } from 'openai';
-import { DefaultAzureCredential } from '@azure/identity';
 import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
 import { readFileSync } from 'fs';
@@ -31,21 +30,23 @@ export default async function (context, req) {
     const endpoint = process.env.AZURE_OPENAI_ENDPOINT;
     const deploymentName = process.env.AZURE_OPENAI_DEPLOYMENT_NAME;
     const apiVersion = process.env.AZURE_OPENAI_API_VERSION;
+    const apiKey = process.env.OPENAI_API_KEY;
 
     context.log('Azure OpenAI Configuration check:', {
       hasEndpoint: !!endpoint,
       hasDeploymentName: !!deploymentName,
       hasApiVersion: !!apiVersion,
+      hasApiKey: !!apiKey,
       endpoint: endpoint,
       deploymentName: deploymentName
     });
 
-    if (!endpoint || !deploymentName || !apiVersion) {
+    if (!endpoint || !deploymentName || !apiVersion || !apiKey) {
       context.log.error('Azure OpenAI configuration is incomplete');
       const errorHtml = `
         <div class="error-message">
           <h3>⚠️ Configuration Error</h3>
-          <p>Azure OpenAI configuration is incomplete. Please ensure AZURE_OPENAI_ENDPOINT, AZURE_OPENAI_DEPLOYMENT_NAME, and AZURE_OPENAI_API_VERSION are set.</p>
+          <p>Azure OpenAI configuration is incomplete. Please ensure AZURE_OPENAI_ENDPOINT, AZURE_OPENAI_DEPLOYMENT_NAME, AZURE_OPENAI_API_VERSION, and OPENAI_API_KEY are set.</p>
         </div>
       `;
       context.res = {
@@ -56,16 +57,11 @@ export default async function (context, req) {
       return;
     }
 
-    const credential = new DefaultAzureCredential();
-    const scope = "https://cognitiveservices.azure.com/.default";
-
     const openai = new AzureOpenAI({
       endpoint: endpoint,
+      apiKey: apiKey,
       apiVersion: apiVersion,
-      azureADTokenProvider: async () => {
-        const token = await credential.getToken(scope);
-        return token.token;
-      },
+      deployment: deploymentName,
     });
 
     const rawBody = req.body;

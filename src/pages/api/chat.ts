@@ -1,7 +1,6 @@
 import type { APIRoute } from 'astro';
 import { Liquid } from 'liquidjs';
 import { AzureOpenAI } from 'openai';
-import { DefaultAzureCredential } from '@azure/identity';
 import { validate } from '../../schemas/compiled-validator.js';
 import schemaJson from '../../schemas/mortigen_render_context.schema.json';
 import templateContent from '../../templates/consult_response.liquid?raw';
@@ -20,21 +19,23 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const endpoint = locals.runtime?.env?.AZURE_OPENAI_ENDPOINT || import.meta.env.AZURE_OPENAI_ENDPOINT;
     const deploymentName = locals.runtime?.env?.AZURE_OPENAI_DEPLOYMENT_NAME || import.meta.env.AZURE_OPENAI_DEPLOYMENT_NAME;
     const apiVersion = locals.runtime?.env?.AZURE_OPENAI_API_VERSION || import.meta.env.AZURE_OPENAI_API_VERSION;
+    const apiKey = locals.runtime?.env?.OPENAI_API_KEY || import.meta.env.OPENAI_API_KEY;
 
     console.log('Azure OpenAI Configuration check:', {
       hasEndpoint: !!endpoint,
       hasDeploymentName: !!deploymentName,
       hasApiVersion: !!apiVersion,
+      hasApiKey: !!apiKey,
       endpoint: endpoint,
       deploymentName: deploymentName
     });
 
-    if (!endpoint || !deploymentName || !apiVersion) {
+    if (!endpoint || !deploymentName || !apiVersion || !apiKey) {
       console.error('Azure OpenAI configuration is incomplete');
       const errorHtml = `
         <div class="error-message">
           <h3>⚠️ Configuration Error</h3>
-          <p>Azure OpenAI configuration is incomplete. Please ensure AZURE_OPENAI_ENDPOINT, AZURE_OPENAI_DEPLOYMENT_NAME, and AZURE_OPENAI_API_VERSION are set.</p>
+          <p>Azure OpenAI configuration is incomplete. Please ensure AZURE_OPENAI_ENDPOINT, AZURE_OPENAI_DEPLOYMENT_NAME, AZURE_OPENAI_API_VERSION, and OPENAI_API_KEY are set.</p>
         </div>
       `;
       return new Response(errorHtml, {
@@ -43,16 +44,11 @@ export const POST: APIRoute = async ({ request, locals }) => {
       });
     }
 
-    const credential = new DefaultAzureCredential();
-    const scope = "https://cognitiveservices.azure.com/.default";
-
     const openai = new AzureOpenAI({
       endpoint: endpoint,
+      apiKey: apiKey,
       apiVersion: apiVersion,
-      azureADTokenProvider: async () => {
-        const token = await credential.getToken(scope);
-        return token.token;
-      },
+      deployment: deploymentName,
     });
 
     // Read request body as text first
