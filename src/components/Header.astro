@@ -50,7 +50,7 @@
     right: 0;
     z-index: 1000;
     transition: all 0.3s ease;
-    padding: 1rem 2rem;
+    padding: 0;
   }
 
   .nav {
@@ -58,9 +58,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    border-radius: 50px;
+    width: 100%;
+    margin: 0;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -158,11 +157,11 @@
   /* Mobile styles */
   @media (max-width: 767px) {
     .header {
-      padding: 0.5rem 0;
+      padding: 0;
     }
 
     .nav {
-      border-radius: 20px;
+      border-radius: 0;
       padding: 0.75rem 1rem;
     }
 
@@ -181,7 +180,7 @@
       text-align: center;
       transition: 0.3s;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      border-radius: 0 0 20px 20px;
+      border-radius: 0;
     }
 
     .nav-menu.active {
