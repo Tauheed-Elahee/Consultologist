@@ -1,0 +1,234 @@
+---
+// How it Works section matching the new design
+---
+
+<section id="pricing" class="pricing">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Easy as 1, 2, 3</h2>
+            <p class="section-subtitle">
+                Create your custom consult notes instantly.
+            </p>
+        </div>
+
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-icon">
+                    <img
+                        src="/image.png"
+                        alt="Send referral package"
+                        class="step-image"
+                    />
+                </div>
+                <div class="step-number">1</div>
+                <h3 class="step-title">Send referral package</h3>
+                <p class="step-description">
+                    Fax the referral package to your unique CleverConsult number
+                    and have your MOA send out a custom patient questionnaire.
+                </p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-icon">
+                    <img
+                        src="/image.png"
+                        alt="Our AI drafts the note"
+                        class="step-image"
+                    />
+                </div>
+                <div class="step-number">2</div>
+                <h3 class="step-title">Our AI drafts the note</h3>
+                <p class="step-description">
+                    CleverConsult creates your consult note by transforming the
+                    data from the referral package and patient questionnaire.
+                </p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-icon">
+                    <img
+                        src="/image.png"
+                        alt="Copy to EMR"
+                        class="step-image"
+                    />
+                </div>
+                <div class="step-number">3</div>
+                <h3 class="step-title">Copy to EMR</h3>
+                <p class="step-description">
+                    Copy the drafted consult note directly into your EMR and
+                    proceed with your typical clinical encounter.
+                </p>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <a href="/demo" class="cta-button"
+                >Try it free - save 4+ hours every week</a
+            >
+        </div>
+    </div>
+</section>
+
+<style>
+    .pricing {
+        padding: 6rem 2rem;
+        background: white;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+
+    .section-title {
+        font-size: 3rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+        font-size: 1.25rem;
+        color: #6b7280;
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    .steps-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+        margin-bottom: 4rem;
+    }
+
+    .step-card {
+        text-align: center;
+        position: relative;
+    }
+
+    .step-icon {
+        width: 280px;
+        height: 200px;
+        background: linear-gradient(135deg, #a7f3d0 0%, #6ee7b7 100%);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .step-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 20px;
+    }
+
+    .step-number {
+        position: absolute;
+        top: -10px;
+        left: 20px;
+        background: #0d9488;
+        color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
+    }
+
+    .step-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 1rem;
+    }
+
+    .step-description {
+        color: #6b7280;
+        line-height: 1.6;
+        font-size: 1rem;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .cta-section {
+        text-align: center;
+    }
+
+    .cta-button {
+        background: #0d9488;
+        color: white;
+        padding: 1.2rem 2.5rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        display: inline-block;
+        box-shadow: 0 4px 20px rgba(13, 148, 136, 0.3);
+    }
+
+    .cta-button:hover {
+        background: #0f766e;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(13, 148, 136, 0.4);
+    }
+
+    /* Mobile styles */
+    @media (max-width: 768px) {
+        .pricing {
+            padding: 4rem 1rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+        }
+
+        .steps-grid {
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        .step-icon {
+            width: 250px;
+            height: 180px;
+        }
+
+        .step-title {
+            font-size: 1.25rem;
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .section-title {
+            font-size: 2rem;
+        }
+
+        .step-icon {
+            width: 200px;
+            height: 150px;
+        }
+    }
+</style>

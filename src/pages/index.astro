@@ -1,134 +1,157 @@
 ---
-import Header from '../components/Header.astro';
-import Hero from '../components/Hero.astro';
-import About from '../components/About.astro';
-import Services from '../components/Services.astro';
-import Contact from '../components/Contact.astro';
-import Footer from '../components/Footer.astro';
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import About from "../components/About.astro";
+import Services from "../components/Services.astro";
+import Contact from "../components/Contact.astro";
+import Footer from "../components/Footer.astro";
+import Pricing from "../components/Pricing.astro";
 ---
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="Consultologist - You handle your specialty, we handle ours." />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Consultologist - You handle your specialty, we handle ours.</title>
-    
-    <!-- Preload fonts for better performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <Header />
-    <main>
-      <Hero />
-      <About />
-      <Services />
-    </main>
-    <Footer />
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="description"
+            content="Consultologist - You handle your specialty, we handle ours."
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <title>
+            Consultologist - You handle your specialty, we handle ours.
+        </title>
+
+        <!-- Preload fonts for better performance -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <Header />
+        <main>
+            <Hero />
+            <About />
+            <Services />
+            <Pricing />
+        </main>
+        <Footer />
+    </body>
 </html>
 
 <style is:global>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    line-height: 1.6;
-    color: #333;
-    overflow-x: hidden;
-  }
-
-  /* Custom scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
-    border-radius: 4px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: #a8a8a8;
-  }
-
-  /* Selection styles */
-  ::selection {
-    background: rgba(37, 99, 235, 0.2);
-    color: #1f2937;
-  }
-
-  /* Focus styles for accessibility */
-  *:focus {
-    outline: 2px solid #2563eb;
-    outline-offset: 2px;
-  }
-
-  /* Smooth transitions for all interactive elements */
-  a, button, input, select, textarea {
-    transition: all 0.3s ease;
-  }
-
-  /* Utility classes */
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-
-  .text-center {
-    text-align: center;
-  }
-
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-  }
-
-  /* Loading animation for better UX */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
-    to {
-      opacity: 1;
-      transform: translateY(0);
+
+    html {
+        scroll-behavior: smooth;
     }
-  }
 
-  .fade-in {
-    animation: fadeIn 0.6s ease-out;
-  }
+    body {
+        font-family:
+            "Inter",
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            Roboto,
+            Oxygen,
+            Ubuntu,
+            Cantarell,
+            sans-serif;
+        line-height: 1.6;
+        color: #333;
+        overflow-x: hidden;
+    }
 
-  /* Responsive typography */
-  @media (max-width: 768px) {
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+        border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #a8a8a8;
+    }
+
+    /* Selection styles */
+    ::selection {
+        background: rgba(37, 99, 235, 0.2);
+        color: #1f2937;
+    }
+
+    /* Focus styles for accessibility */
+    *:focus {
+        outline: 2px solid #2563eb;
+        outline-offset: 2px;
+    }
+
+    /* Smooth transitions for all interactive elements */
+    a,
+    button,
+    input,
+    select,
+    textarea {
+        transition: all 0.3s ease;
+    }
+
+    /* Utility classes */
     .container {
-      padding: 0 1rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
     }
-  }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    /* Loading animation for better UX */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .fade-in {
+        animation: fadeIn 0.6s ease-out;
+    }
+
+    /* Responsive typography */
+    @media (max-width: 768px) {
+        .container {
+            padding: 0 1rem;
+        }
+    }
 </style>
