@@ -16,6 +16,7 @@
   "dependencies": {
     "@astrojs/node": "^9.1.1",
     "@azure/identity": "^4.13.0",
+    "@fluentui/tokens": "^1.0.0-alpha.22",
     "@fluentui/web-components": "^2.6.1",
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",

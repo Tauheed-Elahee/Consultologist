@@ -1,291 +1,103 @@
 ---
-// Header component matching cleverconsult.ai style
 ---
 
-<header class="header">
-	<nav class="nav">
-		<div class="nav-brand">
-			<a href="/" class="brand-link">
-				<span class="brand-text">Consultologist</span>
-			</a>
+<header>
+	<fluent-toolbar>
+		<fluent-anchor href="/" slot="start">
+			<span>Consultologist</span>
+		</fluent-anchor>
+
+		<div slot="end" style="display: flex; gap: 1rem; align-items: center;">
+			<fluent-anchor href="/#home" data-scroll-target="#home">Home</fluent-anchor>
+			<fluent-anchor href="/#how-it-works" data-scroll-target="#how-it-works">How it works</fluent-anchor>
+			<fluent-anchor href="/#features" data-scroll-target="#features">Features</fluent-anchor>
+			<fluent-anchor href="/#pricing" data-scroll-target="#pricing">Pricing</fluent-anchor>
+			<fluent-anchor href="/#blog" data-scroll-target="#blog">Blog</fluent-anchor>
+			<fluent-anchor href="https://app.consultologist.ai">Sign in</fluent-anchor>
+			<fluent-button appearance="accent" href="/demo">Try it free</fluent-button>
 		</div>
 
-		<div class="nav-menu" id="nav-menu">
-			<ul class="nav-list">
-				<li class="nav-item">
-					<a
-						href="/#home"
-						class="nav-link"
-						data-scroll-target="#home"
-					>
-						Home
-					</a>
-				</li>
-				<li class="nav-item">
-					<a
-						href="/#how-it-works"
-						class="nav-link"
-						data-scroll-target="#how-it-works"
-					>
-						How it works
-					</a>
-				</li>
-				<li class="nav-item">
-					<a
-						href="/#features"
-						class="nav-link"
-						data-scroll-target="#features"
-					>
-						Features
-					</a>
-				</li>
-				<li class="nav-item">
-					<a
-						href="/#pricing"
-						class="nav-link"
-						data-scroll-target="#pricing"
-					>
-						Pricing
-					</a>
-				</li>
-				<li class="nav-item">
-					<a
-						href="/#blog"
-						class="nav-link"
-						data-scroll-target="#blog"
-					>
-						Blog
-					</a>
-				</li>
-				<li class="nav-item">
-					<a href="https://app.consultologist.ai" class="nav-link">
-						Sign in
-					</a>
-				</li>
-			</ul>
-		</div>
+		<fluent-button id="nav-toggle" slot="end" class="mobile-toggle">☰</fluent-button>
+	</fluent-toolbar>
 
-		<div class="nav-cta">
-			<a href="/demo" class="cta-button">Try it free</a>
-		</div>
-
-		<div class="nav-toggle" id="nav-toggle">
-			<span class="bar"></span>
-			<span class="bar"></span>
-			<span class="bar"></span>
-		</div>
-	</nav>
+	<div id="mobile-menu" class="mobile-menu">
+		<fluent-anchor href="/#home" data-scroll-target="#home">Home</fluent-anchor>
+		<fluent-anchor href="/#how-it-works" data-scroll-target="#how-it-works">How it works</fluent-anchor>
+		<fluent-anchor href="/#features" data-scroll-target="#features">Features</fluent-anchor>
+		<fluent-anchor href="/#pricing" data-scroll-target="#pricing">Pricing</fluent-anchor>
+		<fluent-anchor href="/#blog" data-scroll-target="#blog">Blog</fluent-anchor>
+		<fluent-anchor href="https://app.consultologist.ai">Sign in</fluent-anchor>
+		<fluent-button appearance="accent" href="/demo">Try it free</fluent-button>
+	</div>
 </header>
 
 <style>
-	.header {
+	header {
 		position: fixed;
 		top: 0;
 		left: 0;
 		right: 0;
 		z-index: 1000;
-		transition: all 0.3s ease;
-		padding: 0;
+		background: var(--colorNeutralBackground1);
+		box-shadow: var(--shadow4);
 	}
 
-	.nav {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 1rem 2rem;
-		width: 100%;
-		margin: 0;
-		background: rgba(255, 255, 255, 0.95);
-		backdrop-filter: blur(10px);
-		box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-		flex-wrap: nowrap;
-		gap: 2rem;
+	.mobile-toggle {
+		display: none;
 	}
 
-	.nav-brand {
-		flex-shrink: 0;
-	}
-
-	.nav-brand .brand-link {
-		text-decoration: none;
-		color: #0066cc;
-		font-weight: 700;
-		font-size: 1.75rem;
-		transition: color 0.3s ease;
-		white-space: nowrap;
-	}
-
-	.nav-brand .brand-link:hover {
-		color: #0052a3;
-	}
-
-	.nav-menu {
-		flex: 1;
-		display: flex;
-		justify-content: center;
-	}
-
-	.nav-list {
-		display: flex;
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		gap: 2rem;
-		flex-wrap: nowrap;
-	}
-
-	.nav-link {
-		text-decoration: none;
-		color: #333;
-		font-weight: 500;
-		font-size: 1rem;
-		transition: all 0.3s ease;
-		position: relative;
-		white-space: nowrap;
-	}
-
-	.nav-link:hover {
-		color: #0066cc;
-	}
-
-	.nav-cta {
-		display: flex;
-		align-items: center;
-		flex-shrink: 0;
-	}
-
-	.cta-button {
-		background: linear-gradient(45deg, #ffd700, #ffed4e);
-		color: white;
-		padding: 0.75rem 1.5rem;
-		border-radius: 0;
-		text-decoration: none;
-		font-weight: 600;
-		font-size: 0.9rem;
-		transition: all 0.3s ease;
-		color: #1a1a1a;
-		white-space: nowrap;
-	}
-
-	.cta-button:hover {
-		background: linear-gradient(45deg, #ffed4e, #ffd700);
-		transform: translateY(-1px);
-		box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
-	}
-
-	.nav-toggle {
+	.mobile-menu {
 		display: none;
 		flex-direction: column;
-		cursor: pointer;
-		padding: 0.5rem;
+		padding: var(--spacingVerticalM);
+		gap: var(--spacingVerticalS);
+		background: var(--colorNeutralBackground1);
 	}
 
-	.bar {
-		width: 25px;
-		height: 3px;
-		background: #333;
-		margin: 3px 0;
-		transition: 0.3s;
-		border-radius: 0;
+	.mobile-menu.active {
+		display: flex;
 	}
 
-	/* Mobile styles */
-	@media (max-width: 767px) {
-		.header {
-			padding: 0;
-		}
-
-		.nav {
-			border-radius: 0;
-			padding: 0.75rem 1rem;
-		}
-
-		.nav-cta {
+	@media (max-width: 768px) {
+		fluent-toolbar div[slot="end"]:not(.mobile-toggle) {
 			display: none;
 		}
 
-		.nav-menu {
-			position: fixed;
-			left: -100%;
-			top: 80px;
-			flex-direction: column;
-			background: rgba(255, 255, 255, 0.95);
-			backdrop-filter: blur(10px);
-			width: 100%;
-			text-align: center;
-			transition: 0.3s;
-			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-			border-radius: 0;
-		}
-
-		.nav-menu.active {
-			left: 0;
-		}
-
-		.nav-list {
-			flex-direction: column;
-			gap: 0;
-			padding: 2rem 0;
-		}
-
-		.nav-item {
-			margin: 0.5rem 0;
-		}
-
-		.nav-link {
-			padding: 1rem 2rem;
+		.mobile-toggle {
 			display: block;
-		}
-
-		.nav-toggle {
-			display: flex;
-		}
-
-		.nav-toggle.active .bar:nth-child(2) {
-			opacity: 0;
-		}
-
-		.nav-toggle.active .bar:nth-child(1) {
-			transform: translateY(8px) rotate(45deg);
-		}
-
-		.nav-toggle.active .bar:nth-child(3) {
-			transform: translateY(-8px) rotate(-45deg);
 		}
 	}
 </style>
 
 <script>
-	// Mobile menu toggle
 	const navToggle = document.getElementById("nav-toggle");
-	const navMenu = document.getElementById("nav-menu");
+	const mobileMenu = document.getElementById("mobile-menu");
 
-	if (navToggle && navMenu) {
+	if (navToggle && mobileMenu) {
 		navToggle.addEventListener("click", () => {
-			navMenu.classList.toggle("active");
-			navToggle.classList.toggle("active");
+			mobileMenu.classList.toggle("active");
 		});
 
-		// Close menu when clicking on a link
-		const navLinks = document.querySelectorAll(".nav-link");
-		navLinks.forEach((link) => {
+		const mobileLinks = mobileMenu.querySelectorAll("fluent-anchor, fluent-button");
+		mobileLinks.forEach((link) => {
 			link.addEventListener("click", () => {
-				navMenu.classList.remove("active");
-				navToggle.classList.remove("active");
+				mobileMenu.classList.remove("active");
 			});
 		});
 	}
 
-	// Smooth scrolling for nav links when already on the target page
 	document
-		.querySelectorAll<HTMLAnchorElement>(".nav-link[data-scroll-target]")
+		.querySelectorAll<HTMLElement>("fluent-anchor[data-scroll-target]")
 		.forEach((link) => {
-			const targetSelector = link.dataset.scrollTarget;
+			const targetSelector = link.getAttribute("data-scroll-target");
 			if (!targetSelector) {
 				return;
 			}
 
-			const linkUrl = new URL(link.href, window.location.origin);
+			const href = link.getAttribute("href");
+			if (!href) return;
+
+			const linkUrl = new URL(href, window.location.origin);
 			link.addEventListener("click", (event) => {
 				if (linkUrl.pathname !== window.location.pathname) {
 					return;

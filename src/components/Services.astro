@@ -1,183 +1,107 @@
 ---
-// Services section matching cleverconsult.ai style
 ---
 
-<section id="features" class="services">
-	<div class="container">
-		<div class="section-header">
-			<div class="features-badge">Features</div>
-			<h2 class="section-title">Features</h2>
-			<h3 class="section-main-title">
-				Reshaping specialist documentation
-			</h3>
-		</div>
+<section id="features">
+	<div>
+		<fluent-badge>Features</fluent-badge>
+		<h2>Features</h2>
+		<h3>Reshaping specialist documentation</h3>
+	</div>
 
-		<div class="services-grid">
-			<div class="service-card">
-				<div class="service-icon">🛡️</div>
-				<h3>100% compliant with Canadian health privacy standards</h3>
-				<p>
-					We fully comply with all relevant federal and provincial
-					health data regulations (PHIPA, PIPEDA, HIPA, HIA).
-				</p>
-			</div>
+	<div class="services-grid">
+		<fluent-card>
+			<div class="icon">🛡️</div>
+			<h4>100% compliant with Canadian health privacy standards</h4>
+			<p>
+				We fully comply with all relevant federal and provincial health data regulations (PHIPA, PIPEDA, HIPA, HIA).
+			</p>
+		</fluent-card>
 
-			<div class="service-card">
-				<div class="service-icon">📄</div>
-				<h3>Fully customizable notes</h3>
-				<p>
-					Make every note feel like your own - add your templates,
-					macros, and signatures. Create endoscopy and procedure notes
-					instantly.
-				</p>
-			</div>
+		<fluent-card>
+			<div class="icon">📄</div>
+			<h4>Fully customizable notes</h4>
+			<p>
+				Make every note feel like your own - add your templates, macros, and signatures. Create endoscopy and procedure notes instantly.
+			</p>
+		</fluent-card>
 
-			<div class="service-card">
-				<div class="service-icon">📋</div>
-				<h3>The perfect questionnaire</h3>
-				<p>
-					Streamline intake with a 100% customizable pre-appointment
-					questionnaire that feeds directly into your consult note.
-				</p>
-			</div>
+		<fluent-card>
+			<div class="icon">📋</div>
+			<h4>The perfect questionnaire</h4>
+			<p>
+				Streamline intake with a 100% customizable pre-appointment questionnaire that feeds directly into your consult note.
+			</p>
+		</fluent-card>
 
-			<div class="service-card">
-				<div class="service-icon">🔄</div>
-				<h3>EMR integrations</h3>
-				<p>
-					Soon to be integrated with major EMRs. Currently fully
-					functional through our web app.
-				</p>
-			</div>
+		<fluent-card>
+			<div class="icon">🔄</div>
+			<h4>EMR integrations</h4>
+			<p>
+				Soon to be integrated with major EMRs. Currently fully functional through our web app.
+			</p>
+		</fluent-card>
 
-			<div class="service-card">
-				<div class="service-icon">📝</div>
-				<h3>Follow Up Notes (Coming Soon)</h3>
-				<p>
-					Automatically incorporate new data since the last visit.
-					It's the same time saving workflow, now extended to your
-					entire day.
-				</p>
-			</div>
+		<fluent-card>
+			<div class="icon">📝</div>
+			<h4>Follow Up Notes (Coming Soon)</h4>
+			<p>
+				Automatically incorporate new data since the last visit. It's the same time saving workflow, now extended to your entire day.
+			</p>
+		</fluent-card>
 
-			<div class="service-card">
-				<div class="service-icon">🤖</div>
-				<h3>Specialist AI Scribe (Coming Soon)</h3>
-				<p>
-					Add the HPI, physical exam, and impression/plan to the
-					drafted note instantly.
-				</p>
-			</div>
-		</div>
+		<fluent-card>
+			<div class="icon">🤖</div>
+			<h4>Specialist AI Scribe (Coming Soon)</h4>
+			<p>
+				Add the HPI, physical exam, and impression/plan to the drafted note instantly.
+			</p>
+		</fluent-card>
 	</div>
 </section>
 
 <style>
-	.services {
-		padding: 6rem 2rem;
-		background: #f8fafc;
-	}
-
-	.container {
-		max-width: 1200px;
-		margin: 0 auto;
-	}
-
-	.section-header {
+	section {
+		padding: var(--spacingVerticalXXXL) var(--spacingHorizontalL);
+		background: var(--colorNeutralBackground1);
 		text-align: center;
-		margin-bottom: 5rem;
 	}
 
-	.features-badge {
-		display: inline-block;
-		background: #a7f3d0;
-		color: #065f46;
-		padding: 0.5rem 1rem;
-		border-radius: 0;
-		font-size: 0.9rem;
-		font-weight: 600;
-		margin-bottom: 1.5rem;
+	fluent-badge {
+		margin-bottom: var(--spacingVerticalL);
 	}
 
-	.section-title {
-		font-size: 1.5rem;
-		font-weight: 700;
-		color: #1f2937;
-		margin-bottom: 0.5rem;
+	h2 {
+		color: var(--colorNeutralForeground1);
+		margin-bottom: var(--spacingVerticalS);
 	}
 
-	.section-main-title {
-		font-size: 2.5rem;
-		font-weight: 700;
-		color: #1f2937;
-		margin: 0;
-		line-height: 1.2;
+	h3 {
+		color: var(--colorNeutralForeground1);
+		margin-bottom: var(--spacingVerticalXXL);
 	}
 
 	.services-grid {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 3rem;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: var(--spacingHorizontalXL);
 	}
 
-	.service-card {
+	fluent-card {
+		padding: var(--spacingVerticalXL) var(--spacingHorizontalL);
 		text-align: center;
-		padding: 2rem 1rem;
 	}
 
-	.service-icon {
-		width: 80px;
-		height: 80px;
-		background: #0d9488;
-		border-radius: 0;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 2rem;
-		margin: 0 auto 2rem;
-		color: white;
+	.icon {
+		font-size: 3rem;
+		margin-bottom: var(--spacingVerticalL);
 	}
 
-	.service-card h3 {
-		font-size: 1.25rem;
-		font-weight: 600;
-		color: #1f2937;
-		margin-bottom: 1.5rem;
-		line-height: 1.3;
+	h4 {
+		color: var(--colorNeutralForeground1);
+		margin-bottom: var(--spacingVerticalM);
 	}
 
-	.service-card p {
-		color: #6b7280;
-		line-height: 1.6;
-		margin: 0;
-		font-size: 1rem;
-	}
-
-	/* Mobile styles */
-	@media (max-width: 768px) {
-		.services {
-			padding: 4rem 1rem;
-		}
-
-		.section-main-title {
-			font-size: 2rem;
-		}
-
-		.section-title {
-			font-size: 1.25rem;
-		}
-
-		.section-header {
-			margin-bottom: 3rem;
-		}
-
-		.services-grid {
-			grid-template-columns: 1fr;
-			gap: 2.5rem;
-		}
-
-		.service-card {
-			padding: 1.5rem 1rem;
-		}
+	fluent-card p {
+		color: var(--colorNeutralForeground2);
 	}
 </style>

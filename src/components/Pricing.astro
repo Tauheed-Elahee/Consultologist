@@ -1,365 +1,142 @@
 ---
-// How it Works section matching the new design
 ---
 
-<section id="pricing" class="pricing">
-	<div class="container">
-		<div class="section-header">
-			<h2 class="section-title">Contract</h2>
-			<p class="section-subtitle">
-				Inaugurate your department of Consultology
-			</p>
-		</div>
-
-		<div class="pricing-grid">
-			<article class="pricing-card">
-				<p class="plan-name">Attending</p>
-				<p class="plan-description">
-					Create consult notes, templates, and workflows.
-				</p>
-				<p class="plan-price">
-					<span class="price-amount">$250</span>
-					<span class="price-period">/month</span>
-				</p>
-				<ul class="plan-features">
-					<li>
-						Creates pre-visit consult notes from referral package
-					</li>
-					<li>Concisely summarizes investigations how you like it</li>
-					<li>Fully customizable templates</li>
-				</ul>
-				<a class="plan-button" href="/demo">Start free trial</a>
-			</article>
-
-			<article class="pricing-card">
-				<p class="plan-name">Resident</p>
-				<p class="plan-description">Prepping the patient for visit.</p>
-				<p class="plan-price">
-					<span class="price-amount">$125</span>
-					<span class="price-period">/month</span>
-				</p>
-				<ul class="plan-features">
-					<li>Customizable patient questionnaire</li>
-					<li>Virtual patient onboarding</li>
-					<li>Prepare draft pre-visit HPI and assessment plan</li>
-				</ul>
-				<a class="plan-button" href="/demo">Book a demo</a>
-			</article>
-
-			<article class="pricing-card">
-				<p class="plan-name">Student</p>
-				<p class="plan-description">
-					A helping hand during your visit.
-				</p>
-				<p class="plan-price">
-					<span class="price-amount">$75</span>
-					<span class="price-period">/month</span>
-				</p>
-				<ul class="plan-features">
-					<li>Updates HPI during visit</li>
-					<li>Summarizes patients' key concerns</li>
-					<li>
-						Finalizes assessment plan based on your recommendations
-					</li>
-				</ul>
-				<a class="plan-button" href="/contact">Talk to sales</a>
-			</article>
-		</div>
-
-		<div class="cta-section">
-			<a href="/demo" class="cta-button">
-				Try it free - save 4+ hours every week
-			</a>
-		</div>
+<section id="pricing">
+	<div>
+		<h2>Contract</h2>
+		<p>Inaugurate your department of Consultology</p>
 	</div>
+
+	<div class="pricing-grid">
+		<fluent-card>
+			<h3>Attending</h3>
+			<p>Create consult notes, templates, and workflows.</p>
+			<div class="price">
+				<span class="amount">$250</span>
+				<span class="period">/month</span>
+			</div>
+			<ul>
+				<li>Creates pre-visit consult notes from referral package</li>
+				<li>Concisely summarizes investigations how you like it</li>
+				<li>Fully customizable templates</li>
+			</ul>
+			<fluent-button href="/demo">Start free trial</fluent-button>
+		</fluent-card>
+
+		<fluent-card>
+			<h3>Resident</h3>
+			<p>Prepping the patient for visit.</p>
+			<div class="price">
+				<span class="amount">$125</span>
+				<span class="period">/month</span>
+			</div>
+			<ul>
+				<li>Customizable patient questionnaire</li>
+				<li>Virtual patient onboarding</li>
+				<li>Prepare draft pre-visit HPI and assessment plan</li>
+			</ul>
+			<fluent-button href="/demo">Book a demo</fluent-button>
+		</fluent-card>
+
+		<fluent-card>
+			<h3>Student</h3>
+			<p>A helping hand during your visit.</p>
+			<div class="price">
+				<span class="amount">$75</span>
+				<span class="period">/month</span>
+			</div>
+			<ul>
+				<li>Updates HPI during visit</li>
+				<li>Summarizes patients' key concerns</li>
+				<li>Finalizes assessment plan based on your recommendations</li>
+			</ul>
+			<fluent-button href="/contact">Talk to sales</fluent-button>
+		</fluent-card>
+	</div>
+
+	<fluent-button appearance="accent" href="/demo">
+		Try it free - save 4+ hours every week
+	</fluent-button>
 </section>
 
 <style>
-	.pricing {
-		padding: 6rem 2rem;
-		background: white;
-	}
-
-	.container {
-		max-width: 1200px;
-		margin: 0 auto;
-	}
-
-	.section-header {
+	section {
+		padding: var(--spacingVerticalXXXL) var(--spacingHorizontalL);
+		background: var(--colorNeutralBackground2);
 		text-align: center;
-		margin-bottom: 4rem;
 	}
 
-	.section-title {
-		font-size: 3rem;
-		font-weight: 700;
-		color: #1f2937;
-		margin-bottom: 1rem;
+	h2 {
+		color: var(--colorNeutralForeground1);
+		margin-bottom: var(--spacingVerticalM);
 	}
 
-	.section-subtitle {
-		font-size: 1.25rem;
-		color: #6b7280;
-		max-width: 600px;
-		margin: 0 auto;
-		line-height: 1.6;
+	section > div > p {
+		color: var(--colorNeutralForeground2);
+		margin-bottom: var(--spacingVerticalXXL);
 	}
 
 	.pricing-grid {
 		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 2.5rem;
-		margin-bottom: 4rem;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: var(--spacingHorizontalXL);
+		margin-bottom: var(--spacingVerticalXXL);
 	}
 
-	.pricing-card {
-		background: rgba(255, 255, 255, 0.95);
-		border: 1px solid #e5e7eb;
-		border-radius: 0;
-		box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
-		padding: 2.5rem 2rem;
+	fluent-card {
+		padding: var(--spacingVerticalXL) var(--spacingHorizontalL);
 		display: flex;
 		flex-direction: column;
-		gap: 1.5rem;
-		min-height: 100%;
-		position: relative;
-		transition:
-			border-color 0.3s ease,
-			box-shadow 0.3s ease;
+		gap: var(--spacingVerticalL);
 	}
 
-	.pricing-card:hover {
-		border-color: #0d9488;
-		box-shadow:
-			0 20px 45px rgba(15, 23, 42, 0.08),
-			0 0 0 4px rgba(13, 148, 136, 0.15);
+	h3 {
+		color: var(--colorNeutralForeground1);
 	}
 
-	.pricing-card.featured {
-		background: linear-gradient(145deg, #0f766e, #0d9488);
-		border-color: transparent;
-		color: white;
-		box-shadow: 0 30px 60px rgba(13, 148, 136, 0.35);
+	fluent-card > p {
+		color: var(--colorNeutralForeground2);
 	}
 
-	.plan-badge {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.5rem;
-		background: rgba(255, 255, 255, 0.15);
-		color: white;
-		border-radius: 0;
-		padding: 0.35rem 0.9rem;
-		font-size: 0.85rem;
-		font-weight: 600;
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
-	}
-
-	.plan-name {
-		font-size: 1.75rem;
-		font-weight: 700;
-		color: #0f172a;
-	}
-
-	.pricing-card.featured .plan-name {
-		color: white;
-	}
-
-	.plan-description {
-		color: #4b5563;
-		line-height: 1.7;
-		font-size: 1rem;
-	}
-
-	.pricing-card.featured .plan-description {
-		color: rgba(255, 255, 255, 0.85);
-	}
-
-	.plan-price {
+	.price {
 		display: flex;
 		align-items: baseline;
-		gap: 0.5rem;
+		justify-content: center;
+		gap: var(--spacingHorizontalS);
 	}
 
-	.price-amount {
-		font-size: 2.5rem;
-		font-weight: 700;
-		color: #0f172a;
+	.amount {
+		color: var(--colorNeutralForeground1);
 	}
 
-	.pricing-card.featured .price-amount {
-		color: white;
+	.period {
+		color: var(--colorNeutralForeground2);
 	}
 
-	.price-period {
-		font-size: 1rem;
-		color: #6b7280;
-		font-weight: 500;
-	}
-
-	.pricing-card.featured .price-period {
-		color: rgba(255, 255, 255, 0.75);
-	}
-
-	.plan-features {
+	ul {
 		list-style: none;
-		margin: 0;
 		padding: 0;
+		margin: 0;
 		display: flex;
 		flex-direction: column;
-		gap: 0.75rem;
+		gap: var(--spacingVerticalS);
+		text-align: left;
 	}
 
-	.plan-features li {
+	li {
+		color: var(--colorNeutralForeground2);
+		padding-left: var(--spacingHorizontalL);
 		position: relative;
-		padding-left: 1.5rem;
-		color: #4b5563;
-		line-height: 1.6;
-		font-size: 0.95rem;
 	}
 
-	.pricing-card.featured .plan-features li {
-		color: rgba(255, 255, 255, 0.85);
-	}
-
-	.plan-features li::before {
-		content: "+";
+	li::before {
+		content: "✓";
 		position: absolute;
 		left: 0;
-		top: 0;
-		color: #0d9488;
-		font-weight: 700;
+		color: var(--colorBrandForeground1);
 	}
 
-	.pricing-card.featured .plan-features li::before {
-		color: white;
-	}
-
-	.plan-button {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		padding: 0.9rem 1.5rem;
-		border-radius: 0;
-		background: #0d9488;
-		border: 2px solid transparent;
-		color: white;
-		text-decoration: none;
-		font-weight: 600;
-		font-size: 1rem;
+	fluent-card fluent-button {
 		margin-top: auto;
-		transition:
-			border-color 0.3s ease,
-			box-shadow 0.3s ease,
-			background 0.3s ease;
-	}
-
-	.plan-button:hover {
-		border-color: rgba(13, 148, 136, 0.65);
-		box-shadow:
-			0 14px 30px rgba(13, 148, 136, 0.35),
-			0 0 0 4px rgba(13, 148, 136, 0.15);
-	}
-
-	.pricing-card.featured .plan-button {
-		background: white;
-		color: #0f766e;
-	}
-
-	.pricing-card.featured:hover {
-		border-color: rgba(255, 255, 255, 0.65);
-		box-shadow:
-			0 30px 60px rgba(13, 148, 136, 0.35),
-			0 0 0 4px rgba(255, 255, 255, 0.35);
-	}
-
-	.pricing-card.featured .plan-button:hover {
-		background: #f4fdfb;
-		color: #0b5c55;
-		border-color: rgba(255, 255, 255, 0.75);
-		box-shadow:
-			0 14px 30px rgba(255, 255, 255, 0.25),
-			0 0 0 4px rgba(255, 255, 255, 0.25);
-	}
-
-	.cta-section {
-		text-align: center;
-	}
-
-	.cta-button {
-		background: #0d9488;
-		color: white;
-		padding: 1.2rem 2.5rem;
-		border-radius: 0;
-		text-decoration: none;
-		font-weight: 600;
-		font-size: 1.1rem;
-		transition: all 0.3s ease;
-		display: inline-block;
-		box-shadow: 0 4px 20px rgba(13, 148, 136, 0.3);
-	}
-
-	.cta-button:hover {
-		background: #0f766e;
-		transform: translateY(-2px);
-		box-shadow: 0 8px 30px rgba(13, 148, 136, 0.4);
-	}
-
-	/* Mobile styles */
-	@media (max-width: 768px) {
-		.pricing {
-			padding: 4rem 1rem;
-		}
-
-		.section-title {
-			font-size: 2.5rem;
-		}
-
-		.section-subtitle {
-			font-size: 1.1rem;
-		}
-
-		.pricing-grid {
-			grid-template-columns: 1fr;
-			gap: 2rem;
-		}
-
-		.pricing-card {
-			padding: 2.25rem 1.75rem;
-		}
-
-		.plan-name {
-			font-size: 1.5rem;
-		}
-
-		.plan-price {
-			flex-direction: column;
-			align-items: flex-start;
-			gap: 0.25rem;
-		}
-
-		.plan-button {
-			width: 100%;
-		}
-
-		.cta-button {
-			padding: 1rem 2rem;
-			font-size: 1rem;
-		}
-	}
-
-	@media (max-width: 480px) {
-		.section-title {
-			font-size: 2rem;
-		}
-
-		.price-amount {
-			font-size: 2.1rem;
-		}
-
-		.plan-features li {
-			font-size: 0.9rem;
-		}
 	}
 </style>

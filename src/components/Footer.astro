@@ -1,174 +1,80 @@
 ---
-// Footer component matching cleverconsult.ai style
 ---
 
-<footer class="footer">
-  <div class="container">
-    <div class="footer-content">
-      <div class="footer-brand">
-        <h3>Consultologist</h3>
-        <p>Leading the future of business consulting through artificial intelligence and data-driven insights.</p>
-        <div class="social-links">
-          <a href="#" class="social-link">📧</a>
-          <a href="#" class="social-link">💼</a>
-          <a href="#" class="social-link">🐦</a>
-          <a href="#" class="social-link">📘</a>
-        </div>
-      </div>
-      
-    </div>
-    
-    <div class="footer-bottom">
-      <p>&copy; 2025 Consultologist. All rights reserved.</p>
-      <div class="footer-legal">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
-        <a href="#">Data Security</a>
-      </div>
-    </div>
-  </div>
+<footer>
+	<div class="footer-content">
+		<div class="footer-brand">
+			<h3>Consultologist</h3>
+			<p>Leading the future of business consulting through artificial intelligence and data-driven insights.</p>
+		</div>
+	</div>
+
+	<fluent-divider></fluent-divider>
+
+	<div class="footer-bottom">
+		<p>&copy; 2025 Consultologist. All rights reserved.</p>
+		<div class="footer-links">
+			<fluent-anchor href="#">Privacy Policy</fluent-anchor>
+			<fluent-anchor href="#">Terms of Service</fluent-anchor>
+			<fluent-anchor href="#">Data Security</fluent-anchor>
+		</div>
+	</div>
 </footer>
 
 <style>
-  .footer {
-    background: #1f2937;
-    color: white;
-    padding: 3rem 2rem 1rem;
-  }
+	footer {
+		background: var(--colorNeutralBackground3);
+		color: var(--colorNeutralForeground1);
+		padding: var(--spacingVerticalXXL) var(--spacingHorizontalL);
+	}
 
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
+	.footer-content {
+		max-width: 1200px;
+		margin: 0 auto var(--spacingVerticalXL);
+	}
 
-  .footer-content {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 3rem;
-    margin-bottom: 2rem;
-   align-items: flex-start;
-  }
+	.footer-brand h3 {
+		color: var(--colorBrandForeground1);
+		margin-bottom: var(--spacingVerticalM);
+	}
 
-  .footer-brand h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #60a5fa;
-    margin-bottom: 1rem;
-  }
+	.footer-brand p {
+		color: var(--colorNeutralForeground2);
+	}
 
-  .footer-brand p {
-    color: #d1d5db;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-  }
+	fluent-divider {
+		margin: var(--spacingVerticalL) 0;
+	}
 
-  .social-links {
-    display: flex;
-    gap: 1rem;
-   margin-left: auto;
-   align-self: flex-end;
-  }
+	.footer-bottom {
+		max-width: 1200px;
+		margin: 0 auto;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: var(--spacingVerticalL);
+	}
 
-  .social-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-  }
+	.footer-bottom p {
+		color: var(--colorNeutralForeground2);
+	}
 
-  .social-link:hover {
-    background: rgba(96, 165, 250, 0.2);
-    transform: translateY(-2px);
-  }
+	.footer-links {
+		display: flex;
+		gap: var(--spacingHorizontalL);
+		flex-wrap: wrap;
+	}
 
-  .footer-links {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-  }
+	@media (max-width: 768px) {
+		.footer-bottom {
+			flex-direction: column;
+			text-align: center;
+		}
 
-  .link-group h4 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: #f9fafb;
-  }
-
-  .link-group ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .link-group li {
-    margin-bottom: 0.5rem;
-  }
-
-  .link-group a {
-    color: #d1d5db;
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-
-  .link-group a:hover {
-    color: #60a5fa;
-  }
-
-  .footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 2rem;
-    border-top: 1px solid #374151;
-    color: #9ca3af;
-  }
-
-  .footer-legal {
-    display: flex;
-    gap: 2rem;
-  }
-
-  .footer-legal a {
-    color: #9ca3af;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.3s ease;
-  }
-
-  .footer-legal a:hover {
-    color: #60a5fa;
-  }
-
-  /* Mobile styles */
-  @media (max-width: 768px) {
-    .footer {
-      padding: 2rem 1rem 1rem;
-    }
-
-    .footer-content {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-
-    .footer-links {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-
-    .footer-bottom {
-      flex-direction: column;
-      gap: 1rem;
-      text-align: center;
-    }
-
-    .footer-legal {
-      gap: 1rem;
-    }
-  }
+		.footer-links {
+			flex-direction: column;
+			align-items: center;
+		}
+	}
 </style>

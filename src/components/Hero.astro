@@ -1,200 +1,44 @@
 ---
-// Hero section matching cleverconsult.ai style
 ---
 
-<section id="home" class="hero">
-	<div class="hero-container">
-		<div class="hero-content">
-			<h1 class="hero-title">
-				Consultologist: A physician specializing in consults
-			</h1>
-
-			<div class="hero-list-item">
-				<p class="hero-description">
-					You handle <em>your</em> speciality, we handle <em>ours</em>
-				</p>
-			</div>
-
-			<div class="hero-buttons">
-				<a href="/demo" class="btn btn-primary"
-					>Try Consultologist Free - Save 4+ Hours/Week</a
-				>
-			</div>
-		</div>
-	</div>
+<section id="home">
+	<fluent-card>
+		<h1>Consultologist: A physician specializing in consults</h1>
+		<p>You handle <em>your</em> speciality, we handle <em>ours</em></p>
+		<fluent-button appearance="accent" href="/demo">
+			Try Consultologist Free - Save 4+ Hours/Week
+		</fluent-button>
+	</fluent-card>
 </section>
 
 <style>
-	.hero {
+	section {
 		min-height: 100vh;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: 12rem 2rem 4rem;
-		background:
-			linear-gradient(
-				135deg,
-				rgba(45, 212, 191, 0.85) 0%,
-				rgba(8, 145, 178, 0.85) 50%,
-				rgba(14, 116, 144, 0.85) 100%
-			),
-			url("/dictionary-background.svg");
-		background-size: cover;
-		background-position: center;
-		background-repeat: no-repeat;
-		position: relative;
-		overflow: hidden;
+		padding: calc(var(--spacingVerticalXXXL) * 2) var(--spacingHorizontalL);
+		background: var(--colorBrandBackground);
+	}
+
+	fluent-card {
 		text-align: center;
-	}
-
-	.hero::before {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background-image:
-			radial-gradient(
-				circle at 20% 80%,
-				rgba(255, 255, 255, 0.1) 0%,
-				transparent 50%
-			),
-			radial-gradient(
-				circle at 80% 20%,
-				rgba(255, 255, 255, 0.1) 0%,
-				transparent 50%
-			),
-			radial-gradient(
-				circle at 40% 40%,
-				rgba(255, 255, 255, 0.05) 0%,
-				transparent 50%
-			);
-		pointer-events: none;
-	}
-
-	.hero-container {
+		padding: var(--spacingVerticalXXL) var(--spacingHorizontalXL);
 		max-width: 1200px;
-		margin: 0 auto;
-		position: relative;
-		z-index: 2;
 	}
 
-	.hero-content {
-		color: white;
+	h1 {
+		color: var(--colorNeutralForeground1);
+		margin-bottom: var(--spacingVerticalXL);
 	}
 
-	.hero-title {
-		font-size: 3.5rem;
-		font-weight: 800;
-		line-height: 1.1;
-		margin-bottom: 2rem;
-		animation: slideInUp 1s ease-out;
-		color: white;
+	p {
+		color: var(--colorNeutralForeground2);
+		margin-bottom: var(--spacingVerticalXXL);
 	}
 
-	.hero-list-item {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 1rem;
-		margin-bottom: 3rem;
-		animation: slideInUp 1s ease-out 0.2s both;
-	}
-
-	.list-icon {
-		flex-shrink: 0;
-	}
-
-	.hero-description {
-		font-size: 1.3rem;
-		line-height: 1.6;
-		color: rgba(255, 255, 255, 0.9);
-		margin: 0;
-	}
-
-	.hero-description em {
+	em {
 		font-style: italic;
-		color: #ffd700;
 		font-weight: 600;
-	}
-
-	.hero-buttons {
-		display: flex;
-		justify-content: center;
-		animation: slideInUp 1s ease-out 0.4s both;
-	}
-
-	.btn {
-		padding: 1.2rem 2.5rem;
-		border-radius: 0;
-		text-decoration: none;
-		font-weight: 600;
-		font-size: 1.1rem;
-		transition: all 0.3s ease;
-		display: inline-block;
-	}
-
-	.btn-primary {
-		background: linear-gradient(45deg, #ffd700, #ffed4e);
-		color: #1a1a1a;
-		box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
-	}
-
-	.btn-primary:hover {
-		background: linear-gradient(45deg, #ffed4e, #ffd700);
-		transform: translateY(-2px);
-		box-shadow: 0 8px 30px rgba(255, 215, 0, 0.4);
-	}
-
-	@keyframes slideInUp {
-		from {
-			opacity: 0;
-			transform: translateY(30px);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
-	}
-
-	/* Mobile styles */
-	@media (max-width: 768px) {
-		.hero {
-			padding: 10rem 5% 2rem;
-		}
-
-		.hero-title {
-			font-size: 2.2rem;
-		}
-
-		.hero-description {
-			font-size: 1.15rem;
-		}
-
-		.hero-list-item {
-			flex-direction: column;
-			gap: 0.75rem;
-		}
-
-		.btn {
-			padding: 1rem 2rem;
-			font-size: 1rem;
-		}
-	}
-
-	@media (max-width: 480px) {
-		.hero-title {
-			font-size: 1.8rem;
-		}
-
-		.hero-description {
-			font-size: 1rem;
-		}
-
-		.btn {
-			padding: 0.9rem 1.5rem;
-			font-size: 0.9rem;
-		}
 	}
 </style>
