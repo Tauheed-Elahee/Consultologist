@@ -2,32 +2,37 @@
 ---
 
 <header>
-	<fluent-toolbar>
-		<fluent-anchor href="/" slot="start">
-			<span>Consultologist</span>
-		</fluent-anchor>
-
-		<div slot="end" style="display: flex; gap: 1rem; align-items: center;">
-			<fluent-anchor href="/#home" data-scroll-target="#home">Home</fluent-anchor>
-			<fluent-anchor href="/#how-it-works" data-scroll-target="#how-it-works">How it works</fluent-anchor>
-			<fluent-anchor href="/#features" data-scroll-target="#features">Features</fluent-anchor>
-			<fluent-anchor href="/#pricing" data-scroll-target="#pricing">Pricing</fluent-anchor>
-			<fluent-anchor href="/#blog" data-scroll-target="#blog">Blog</fluent-anchor>
-			<fluent-anchor href="https://app.consultologist.ai">Sign in</fluent-anchor>
-			<fluent-button appearance="accent" href="/demo">Try it free</fluent-button>
+	<nav>
+		<div class="nav-brand">
+			<fluent-anchor href="/" appearance="subtle">
+				<span class="brand-text">Consultologist</span>
+			</fluent-anchor>
 		</div>
 
-		<fluent-button id="nav-toggle" slot="end" class="mobile-toggle">☰</fluent-button>
-	</fluent-toolbar>
+		<div class="nav-links">
+			<fluent-anchor href="/#home" appearance="subtle" data-scroll-target="#home">Home</fluent-anchor>
+			<fluent-anchor href="/#how-it-works" appearance="subtle" data-scroll-target="#how-it-works">How it works</fluent-anchor>
+			<fluent-anchor href="/#features" appearance="subtle" data-scroll-target="#features">Features</fluent-anchor>
+			<fluent-anchor href="/#pricing" appearance="subtle" data-scroll-target="#pricing">Pricing</fluent-anchor>
+			<fluent-anchor href="/#blog" appearance="subtle" data-scroll-target="#blog">Blog</fluent-anchor>
+			<fluent-anchor href="https://app.consultologist.ai" appearance="subtle">Sign in</fluent-anchor>
+		</div>
+
+		<div class="nav-cta">
+			<fluent-button appearance="accent" id="try-button">Try it free</fluent-button>
+		</div>
+
+		<fluent-button id="nav-toggle" appearance="subtle" class="mobile-toggle">☰</fluent-button>
+	</nav>
 
 	<div id="mobile-menu" class="mobile-menu">
-		<fluent-anchor href="/#home" data-scroll-target="#home">Home</fluent-anchor>
-		<fluent-anchor href="/#how-it-works" data-scroll-target="#how-it-works">How it works</fluent-anchor>
-		<fluent-anchor href="/#features" data-scroll-target="#features">Features</fluent-anchor>
-		<fluent-anchor href="/#pricing" data-scroll-target="#pricing">Pricing</fluent-anchor>
-		<fluent-anchor href="/#blog" data-scroll-target="#blog">Blog</fluent-anchor>
-		<fluent-anchor href="https://app.consultologist.ai">Sign in</fluent-anchor>
-		<fluent-button appearance="accent" href="/demo">Try it free</fluent-button>
+		<fluent-anchor href="/#home" appearance="subtle" data-scroll-target="#home">Home</fluent-anchor>
+		<fluent-anchor href="/#how-it-works" appearance="subtle" data-scroll-target="#how-it-works">How it works</fluent-anchor>
+		<fluent-anchor href="/#features" appearance="subtle" data-scroll-target="#features">Features</fluent-anchor>
+		<fluent-anchor href="/#pricing" appearance="subtle" data-scroll-target="#pricing">Pricing</fluent-anchor>
+		<fluent-anchor href="/#blog" appearance="subtle" data-scroll-target="#blog">Blog</fluent-anchor>
+		<fluent-anchor href="https://app.consultologist.ai" appearance="subtle">Sign in</fluent-anchor>
+		<fluent-button appearance="accent" id="mobile-try-button">Try it free</fluent-button>
 	</div>
 </header>
 
@@ -42,24 +47,68 @@
 		box-shadow: var(--shadow4);
 	}
 
+	nav {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: var(--spacingVerticalM) var(--spacingHorizontalXL);
+		max-width: 1400px;
+		margin: 0 auto;
+	}
+
+	.nav-brand {
+		flex-shrink: 0;
+	}
+
+	.brand-text {
+		font-size: 20px;
+		font-weight: 600;
+		color: var(--colorBrandForeground1);
+	}
+
+	.nav-links {
+		display: flex;
+		gap: var(--spacingHorizontalL);
+		align-items: center;
+		flex: 1;
+		justify-content: center;
+	}
+
+	.nav-cta {
+		flex-shrink: 0;
+	}
+
 	.mobile-toggle {
 		display: none;
+		font-size: 24px;
 	}
 
 	.mobile-menu {
 		display: none;
 		flex-direction: column;
-		padding: var(--spacingVerticalM);
+		padding: var(--spacingVerticalM) var(--spacingHorizontalL);
 		gap: var(--spacingVerticalS);
 		background: var(--colorNeutralBackground1);
+		box-shadow: var(--shadow4);
 	}
 
 	.mobile-menu.active {
 		display: flex;
 	}
 
+	@media (max-width: 1024px) {
+		.nav-links {
+			gap: var(--spacingHorizontalM);
+		}
+	}
+
 	@media (max-width: 768px) {
-		fluent-toolbar div[slot="end"]:not(.mobile-toggle) {
+		nav {
+			padding: var(--spacingVerticalM) var(--spacingHorizontalL);
+		}
+
+		.nav-links,
+		.nav-cta {
 			display: none;
 		}
 
@@ -72,6 +121,20 @@
 <script>
 	const navToggle = document.getElementById("nav-toggle");
 	const mobileMenu = document.getElementById("mobile-menu");
+	const tryButton = document.getElementById("try-button");
+	const mobileTryButton = document.getElementById("mobile-try-button");
+
+	if (tryButton) {
+		tryButton.addEventListener("click", () => {
+			window.location.href = "/demo";
+		});
+	}
+
+	if (mobileTryButton) {
+		mobileTryButton.addEventListener("click", () => {
+			window.location.href = "/demo";
+		});
+	}
 
 	if (navToggle && mobileMenu) {
 		navToggle.addEventListener("click", () => {
