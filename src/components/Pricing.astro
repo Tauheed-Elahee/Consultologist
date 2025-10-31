@@ -11,55 +11,63 @@
 			</p>
 		</div>
 
-		<div class="steps-grid">
-			<div class="step-card">
-				<div class="step-icon">
-					<img
-						src="/image.png"
-						alt="Send referral package"
-						class="step-image"
-					/>
-				</div>
-				<div class="step-number">1</div>
-				<h3 class="step-title">Send referral package</h3>
-				<p class="step-description">
-					Fax the referral package to your unique Consultologist
-					number and have your MOA send out a custom patient
-					questionnaire.
+		<div class="pricing-grid">
+			<article class="pricing-card">
+				<p class="plan-name">Starter</p>
+				<p class="plan-description">
+					Perfect for solo clinicians looking to automate
+					documentation.
 				</p>
-			</div>
+				<p class="plan-price">
+					<span class="price-amount">$79</span>
+					<span class="price-period">/month</span>
+				</p>
+				<ul class="plan-features">
+					<li>Up to 75 consult notes per month</li>
+					<li>Secure Consultologist fax number</li>
+					<li>Access to baseline templates</li>
+					<li>Email support</li>
+				</ul>
+				<a class="plan-button" href="/demo">Start free trial</a>
+			</article>
 
-			<div class="step-card">
-				<div class="step-icon">
-					<img
-						src="/image.png"
-						alt="Our AI drafts the note"
-						class="step-image"
-					/>
-				</div>
-				<div class="step-number">2</div>
-				<h3 class="step-title">Our AI drafts the note</h3>
-				<p class="step-description">
-					Consultologist creates your consult note by transforming the
-					data from the referral package and patient questionnaire.
+			<article class="pricing-card featured">
+				<p class="plan-badge">Most Popular</p>
+				<p class="plan-name">Practice</p>
+				<p class="plan-description">
+					Designed for growing teams who need deeper customization.
 				</p>
-			</div>
+				<p class="plan-price">
+					<span class="price-amount">$149</span>
+					<span class="price-period">/month</span>
+				</p>
+				<ul class="plan-features">
+					<li>Unlimited consult notes</li>
+					<li>Advanced workflow automation</li>
+					<li>Customizable templates & branding</li>
+					<li>Priority in-app support</li>
+				</ul>
+				<a class="plan-button" href="/demo">Book a demo</a>
+			</article>
 
-			<div class="step-card">
-				<div class="step-icon">
-					<img
-						src="/image.png"
-						alt="Copy to EMR"
-						class="step-image"
-					/>
-				</div>
-				<div class="step-number">3</div>
-				<h3 class="step-title">Copy to EMR</h3>
-				<p class="step-description">
-					Copy the drafted consult note directly into your EMR and
-					proceed with your typical clinical encounter.
+			<article class="pricing-card">
+				<p class="plan-name">Enterprise</p>
+				<p class="plan-description">
+					For organizations that require scale, compliance, and
+					support.
 				</p>
-			</div>
+				<p class="plan-price">
+					<span class="price-amount">Custom</span>
+					<span class="price-period">pricing</span>
+				</p>
+				<ul class="plan-features">
+					<li>Dedicated success manager</li>
+					<li>Enterprise-grade security controls</li>
+					<li>Deep EHR integrations</li>
+					<li>24/7 support & onboarding</li>
+				</ul>
+				<a class="plan-button" href="/contact">Talk to sales</a>
+			</article>
 		</div>
 
 		<div class="cta-section">
@@ -101,68 +109,167 @@
 		line-height: 1.6;
 	}
 
-	.steps-grid {
+	.pricing-grid {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 3rem;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 2.5rem;
 		margin-bottom: 4rem;
 	}
 
-	.step-card {
-		text-align: center;
+	.pricing-card {
+		background: rgba(255, 255, 255, 0.95);
+		border: 1px solid #e5e7eb;
+		border-radius: 24px;
+		box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+		padding: 2.5rem 2rem;
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+		min-height: 100%;
 		position: relative;
+		transition:
+			transform 0.3s ease,
+			box-shadow 0.3s ease;
 	}
 
-	.step-icon {
-		width: 280px;
-		height: 200px;
-		background: linear-gradient(135deg, #a7f3d0 0%, #6ee7b7 100%);
-		border-radius: 20px;
+	.pricing-card:hover {
+		transform: translateY(-8px);
+		box-shadow: 0 30px 50px rgba(15, 23, 42, 0.15);
+	}
+
+	.pricing-card.featured {
+		background: linear-gradient(145deg, #0f766e, #0d9488);
+		border-color: transparent;
+		color: white;
+		box-shadow: 0 30px 60px rgba(13, 148, 136, 0.35);
+	}
+
+	.plan-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		background: rgba(255, 255, 255, 0.15);
+		color: white;
+		border-radius: 999px;
+		padding: 0.35rem 0.9rem;
+		font-size: 0.85rem;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+	}
+
+	.plan-name {
+		font-size: 1.75rem;
+		font-weight: 700;
+		color: #0f172a;
+	}
+
+	.pricing-card.featured .plan-name {
+		color: white;
+	}
+
+	.plan-description {
+		color: #4b5563;
+		line-height: 1.7;
+		font-size: 1rem;
+	}
+
+	.pricing-card.featured .plan-description {
+		color: rgba(255, 255, 255, 0.85);
+	}
+
+	.plan-price {
 		display: flex;
+		align-items: baseline;
+		gap: 0.5rem;
+	}
+
+	.price-amount {
+		font-size: 2.5rem;
+		font-weight: 700;
+		color: #0f172a;
+	}
+
+	.pricing-card.featured .price-amount {
+		color: white;
+	}
+
+	.price-period {
+		font-size: 1rem;
+		color: #6b7280;
+		font-weight: 500;
+	}
+
+	.pricing-card.featured .price-period {
+		color: rgba(255, 255, 255, 0.75);
+	}
+
+	.plan-features {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+
+	.plan-features li {
+		position: relative;
+		padding-left: 1.5rem;
+		color: #4b5563;
+		line-height: 1.6;
+		font-size: 0.95rem;
+	}
+
+	.pricing-card.featured .plan-features li {
+		color: rgba(255, 255, 255, 0.85);
+	}
+
+	.plan-features li::before {
+		content: "+";
+		position: absolute;
+		left: 0;
+		top: 0;
+		color: #0d9488;
+		font-weight: 700;
+	}
+
+	.pricing-card.featured .plan-features li::before {
+		color: white;
+	}
+
+	.plan-button {
+		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		margin: 0 auto 2rem;
-		position: relative;
-		overflow: hidden;
-	}
-
-	.step-image {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		border-radius: 20px;
-	}
-
-	.step-number {
-		position: absolute;
-		top: -10px;
-		left: 20px;
+		padding: 0.9rem 1.5rem;
+		border-radius: 999px;
 		background: #0d9488;
 		color: white;
-		width: 40px;
-		height: 40px;
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 1.5rem;
-		font-weight: 700;
-		box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
-	}
-
-	.step-title {
-		font-size: 1.5rem;
+		text-decoration: none;
 		font-weight: 600;
-		color: #1f2937;
-		margin-bottom: 1rem;
+		font-size: 1rem;
+		margin-top: auto;
+		transition:
+			transform 0.3s ease,
+			box-shadow 0.3s ease,
+			background 0.3s ease;
 	}
 
-	.step-description {
-		color: #6b7280;
-		line-height: 1.6;
-		font-size: 1rem;
-		max-width: 300px;
-		margin: 0 auto;
+	.plan-button:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 14px 30px rgba(13, 148, 136, 0.35);
+	}
+
+	.pricing-card.featured .plan-button {
+		background: white;
+		color: #0f766e;
+	}
+
+	.pricing-card.featured .plan-button:hover {
+		background: #f4fdfb;
+		color: #0b5c55;
+		box-shadow: 0 14px 30px rgba(255, 255, 255, 0.25);
 	}
 
 	.cta-section {
@@ -202,18 +309,27 @@
 			font-size: 1.1rem;
 		}
 
-		.steps-grid {
+		.pricing-grid {
 			grid-template-columns: 1fr;
-			gap: 3rem;
+			gap: 2rem;
 		}
 
-		.step-icon {
-			width: 250px;
-			height: 180px;
+		.pricing-card {
+			padding: 2.25rem 1.75rem;
 		}
 
-		.step-title {
-			font-size: 1.25rem;
+		.plan-name {
+			font-size: 1.5rem;
+		}
+
+		.plan-price {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 0.25rem;
+		}
+
+		.plan-button {
+			width: 100%;
 		}
 
 		.cta-button {
@@ -227,9 +343,12 @@
 			font-size: 2rem;
 		}
 
-		.step-icon {
-			width: 200px;
-			height: 150px;
+		.price-amount {
+			font-size: 2.1rem;
+		}
+
+		.plan-features li {
+			font-size: 0.9rem;
 		}
 	}
 </style>
