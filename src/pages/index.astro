@@ -21,7 +21,21 @@ import Pricing from "../components/Pricing.astro";
 		<title>
 			Consultologist - You handle your specialty, we handle ours.
 		</title>
-		<script src="../fluentui-setup.ts"></script>
+		<link rel="stylesheet" href="/styles/fluent-tokens.css" />
+		<script is:inline src="/vendor/fluent-web-components.min.js"></script>
+		<script is:inline>
+			provideFluentDesignSystem().register(
+				fluentButton(),
+				fluentCard(),
+				fluentAnchor(),
+				fluentBadge(),
+				fluentTextField(),
+				fluentTextArea(),
+				fluentProgressRing(),
+				fluentDivider(),
+				fluentToolbar()
+			);
+		</script>
 	</head>
 	<body>
 		<Header />

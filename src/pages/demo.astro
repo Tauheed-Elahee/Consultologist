@@ -16,7 +16,21 @@ import Footer from "../components/Footer.astro";
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Consultologist - AI-Powered Business Consulting Solutions</title>
-		<script src="../fluentui-setup.ts"></script>
+		<link rel="stylesheet" href="/styles/fluent-tokens.css" />
+		<script is:inline src="/vendor/fluent-web-components.min.js"></script>
+		<script is:inline>
+			provideFluentDesignSystem().register(
+				fluentButton(),
+				fluentCard(),
+				fluentAnchor(),
+				fluentBadge(),
+				fluentTextField(),
+				fluentTextArea(),
+				fluentProgressRing(),
+				fluentDivider(),
+				fluentToolbar()
+			);
+		</script>
 	</head>
 	<body>
 		<Header />
