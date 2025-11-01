@@ -1,390 +1,406 @@
 :root {
-  color-scheme: light;
-  --brand-accent: #0067b8;
-  --brand-accent-dark: #005a9e;
-  --brand-accent-darker: #004b87;
-  --brand-accent-soft: #e6f0fa;
-  --neutral-0: #ffffff;
-  --neutral-10: #f5f6f8;
-  --neutral-20: #eef1f6;
-  --neutral-30: #e4e8ef;
-  --neutral-40: #d0d7e2;
-  --neutral-60: #8a96a3;
-  --text-strong: #1f1f1f;
-  --text-default: #4d4d4d;
-  --text-muted: #6b7280;
-  --shadow-soft: 0 6px 24px rgba(15, 34, 58, 0.08);
-  --shadow-medium: 0 12px 32px rgba(12, 23, 38, 0.12);
-  --layout-content-max-width: 1400px;
-  --header-height: 80px;
-  --section-padding-desktop: 120px;
-  --section-padding-tablet: 96px;
-  --section-padding-mobile: 72px;
-  --container-horizontal-padding-desktop: 80px;
-  --container-horizontal-padding-tablet: 48px;
-  --container-horizontal-padding-mobile: 24px;
-  font-family: var(--fontFamilyBase);
-  background-color: var(--neutral-0);
-  color: var(--text-default);
+	color-scheme: light;
+	--brand-accent: #0067b8;
+	--brand-accent-dark: #005a9e;
+	--brand-accent-darker: #004b87;
+	--brand-accent-soft: #e6f0fa;
+	--neutral-0: #ffffff;
+	--neutral-10: #f5f6f8;
+	--neutral-20: #eef1f6;
+	--neutral-30: #e4e8ef;
+	--neutral-40: #d0d7e2;
+	--neutral-60: #8a96a3;
+	--text-strong: #1f1f1f;
+	--text-default: #4d4d4d;
+	--text-muted: #6b7280;
+	--shadow-soft: 0 6px 24px rgba(15, 34, 58, 0.08);
+	--shadow-medium: 0 12px 32px rgba(12, 23, 38, 0.12);
+	--layout-content-max-width: 1400px;
+	--header-height: 80px;
+	--section-padding-desktop: 120px;
+	--section-padding-tablet: 96px;
+	--section-padding-mobile: 72px;
+	--container-horizontal-padding-desktop: 80px;
+	--container-horizontal-padding-tablet: 48px;
+	--container-horizontal-padding-mobile: 24px;
+	font-family: var(--fontFamilyBase);
+	background-color: var(--neutral-0);
+	color: var(--text-default);
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 html {
-  scroll-behavior: smooth;
+	scroll-behavior: smooth;
 }
 
 body {
-  font-family: var(--fontFamilyBase);
-  font-size: var(--fontSizeBase300);
-  line-height: 1.5;
-  color: var(--text-default);
-  background: var(--neutral-0);
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-  animation: fade-in 0.6s ease;
+	font-family: var(--fontFamilyBase);
+	font-size: var(--fontSizeBase300);
+	line-height: 1.5;
+	color: var(--text-default);
+	background: var(--neutral-0);
+	-webkit-font-smoothing: antialiased;
+	overflow-x: hidden;
+	animation: fade-in 0.6s ease;
 }
 
 img,
 svg {
-  max-width: 100%;
-  height: auto;
+	max-width: 100%;
+	height: auto;
 }
 
 main {
-  padding-top: var(--header-height);
+	padding-top: 0;
 }
 
 .container {
-  width: min(var(--layout-content-max-width), 100%);
-  margin: 0 auto;
-  padding-left: var(--container-horizontal-padding-desktop);
-  padding-right: var(--container-horizontal-padding-desktop);
+	width: min(var(--layout-content-max-width), 100%);
+	margin: 0 auto;
+	padding-left: var(--container-horizontal-padding-desktop);
+	padding-right: var(--container-horizontal-padding-desktop);
 }
 
 .page-section {
-  padding-top: var(--section-padding-desktop);
-  padding-bottom: var(--section-padding-desktop);
+	padding-top: var(--section-padding-desktop);
+	padding-bottom: var(--section-padding-desktop);
 }
 
 section[data-background="light"] {
-  background: var(--neutral-0);
+	background: var(--neutral-0);
 }
 
 section[data-background="soft"] {
-  background: var(--neutral-10);
+	background: var(--neutral-10);
 }
 
 section[data-background="tint"] {
-  background: var(--neutral-20);
+	background: var(--neutral-20);
 }
 
 h1,
 h2,
 h3,
 h4 {
-  color: var(--text-strong);
-  font-family: var(--fontFamilyStrong);
-  letter-spacing: -0.01em;
+	color: var(--text-strong);
+	font-family: var(--fontFamilyStrong);
+	letter-spacing: -0.01em;
 }
 
 h1 {
-  font-size: clamp(3rem, 4vw + 1rem, 3.5rem);
-  line-height: 1.1;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+	font-size: clamp(3rem, 4vw + 1rem, 3.5rem);
+	line-height: 1.1;
+	font-weight: 600;
+	letter-spacing: -0.02em;
 }
 
 h2 {
-  font-size: clamp(2.25rem, 2.5vw + 1rem, 2.75rem);
-  line-height: 1.2;
-  font-weight: 600;
+	font-size: clamp(2.25rem, 2.5vw + 1rem, 2.75rem);
+	line-height: 1.2;
+	font-weight: 600;
 }
 
 h3 {
-  font-size: clamp(1.75rem, 2vw + 0.5rem, 2.25rem);
-  line-height: 1.3;
-  font-weight: 600;
+	font-size: clamp(1.75rem, 2vw + 0.5rem, 2.25rem);
+	line-height: 1.3;
+	font-weight: 600;
 }
 
 h4 {
-  font-size: clamp(1.25rem, 1.2vw + 0.75rem, 1.5rem);
-  line-height: 1.4;
-  font-weight: 600;
+	font-size: clamp(1.25rem, 1.2vw + 0.75rem, 1.5rem);
+	line-height: 1.4;
+	font-weight: 600;
 }
 
 p,
 li {
-  font-size: 1rem;
-  color: var(--text-default);
-  line-height: 1.6;
+	font-size: 1rem;
+	color: var(--text-default);
+	line-height: 1.6;
 }
 
 small {
-  font-size: 0.875rem;
-  color: var(--text-muted);
+	font-size: 0.875rem;
+	color: var(--text-muted);
 }
 
 a,
 fluent-anchor {
-  color: var(--brand-accent);
-  text-decoration: none;
-  transition: color 0.2s ease;
+	color: var(--brand-accent);
+	text-decoration: none;
+	transition: color 0.2s ease;
 }
 
 a:hover,
 fluent-anchor:hover {
-  color: var(--brand-accent-dark);
+	color: var(--brand-accent-dark);
 }
 
 a:focus-visible {
-  outline: 3px solid rgba(0, 103, 184, 0.45);
-  outline-offset: 3px;
+	outline: 3px solid rgba(0, 103, 184, 0.45);
+	outline-offset: 3px;
 }
 
 fluent-anchor::part(control):focus-visible {
-  outline: 3px solid rgba(0, 103, 184, 0.45);
-  outline-offset: 3px;
+	outline: 3px solid rgba(0, 103, 184, 0.45);
+	outline-offset: 3px;
 }
 
-
 .text-muted {
-  color: var(--text-muted);
+	color: var(--text-muted);
 }
 
 .text-strong {
-  color: var(--text-strong);
+	color: var(--text-strong);
 }
 
 .weight-semibold {
-  font-weight: 600;
+	font-weight: 600;
 }
 
 .weight-bold {
-  font-weight: 700;
+	font-weight: 700;
 }
 
 .fluid-copy {
-  font-size: clamp(1rem, 0.8vw + 0.9rem, 1.125rem);
+	font-size: clamp(1rem, 0.8vw + 0.9rem, 1.125rem);
 }
 
 .section-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.25rem 0.75rem;
-  border-radius: 999px;
-  background: var(--brand-accent-soft);
-  color: var(--brand-accent);
-  font-weight: 600;
-  font-size: 0.875rem;
-  text-transform: uppercase;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.25rem 0.75rem;
+	border-radius: 999px;
+	background: var(--brand-accent-soft);
+	color: var(--brand-accent);
+	font-weight: 600;
+	font-size: 0.875rem;
+	text-transform: uppercase;
 }
 
 .fluid-grid {
-  display: grid;
-  gap: var(--spacingVerticalL);
+	display: grid;
+	gap: var(--spacingVerticalL);
 }
 
 fluent-card {
-  border: 1px solid var(--colorNeutralStroke1);
-  border-radius: var(--surfaceCornerRadius);
-  background: var(--colorNeutralCardBackground);
-  box-shadow: var(--shadow-soft);
-  padding: var(--spacingVerticalL) var(--spacingHorizontalL);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+	border: 1px solid var(--colorNeutralStroke1);
+	border-radius: var(--surfaceCornerRadius);
+	background: var(--colorNeutralCardBackground);
+	box-shadow: var(--shadow-soft);
+	padding: var(--spacingVerticalL) var(--spacingHorizontalL);
+	transition:
+		transform 0.25s ease,
+		box-shadow 0.25s ease,
+		border-color 0.25s ease;
 }
 
 fluent-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow8);
-  border-color: var(--brand-accent);
+	transform: translateY(-6px);
+	box-shadow: var(--shadow8);
+	border-color: var(--brand-accent);
 }
 
 fluent-button::part(control) {
-  min-height: 48px;
-  padding: 0 1.75rem;
-  border-radius: var(--controlCornerRadius);
-  font-weight: 600;
-  font-size: 1rem;
-  letter-spacing: 0.01em;
-  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+	min-height: 48px;
+	padding: 0 1.75rem;
+	border-radius: var(--controlCornerRadius);
+	font-weight: 600;
+	font-size: 1rem;
+	letter-spacing: 0.01em;
+	transition:
+		background-color 0.2s ease,
+		color 0.2s ease,
+		box-shadow 0.2s ease,
+		transform 0.2s ease;
 }
 
 fluent-button::part(control):focus-visible {
-  outline: 3px solid rgba(0, 103, 184, 0.45);
-  outline-offset: 2px;
+	outline: 3px solid rgba(0, 103, 184, 0.45);
+	outline-offset: 2px;
 }
 
 fluent-button[appearance="accent"]::part(control) {
-  background: var(--brand-accent);
-  color: var(--colorNeutralForegroundOnBrand);
-  box-shadow: var(--shadow-soft);
+	background: var(--brand-accent);
+	color: var(--colorNeutralForegroundOnBrand);
+	box-shadow: var(--shadow-soft);
 }
 
 fluent-button[appearance="accent"]::part(control):hover {
-  background: var(--brand-accent-dark);
-  box-shadow: var(--shadow8);
-  transform: translateY(-1px);
+	background: var(--brand-accent-dark);
+	box-shadow: var(--shadow8);
+	transform: translateY(-1px);
 }
 
 fluent-button[appearance="accent"]::part(control):active {
-  background: var(--brand-accent-darker);
-  transform: translateY(0);
+	background: var(--brand-accent-darker);
+	transform: translateY(0);
 }
 
 fluent-button[appearance="outline"]::part(control) {
-  background: transparent;
-  border: 1px solid var(--brand-accent);
-  color: var(--brand-accent);
+	background: transparent;
+	border: 1px solid var(--brand-accent);
+	color: var(--brand-accent);
 }
 
 fluent-button[appearance="outline"]::part(control):hover {
-  background: rgba(0, 103, 184, 0.08);
+	background: rgba(0, 103, 184, 0.08);
 }
 
 fluent-button[appearance="subtle"]::part(control),
 fluent-button[appearance="stealth"]::part(control) {
-  background: transparent;
-  color: var(--text-default);
-  min-height: 44px;
-  padding: 0 1.25rem;
+	background: transparent;
+	color: var(--text-default);
+	min-height: 44px;
+	padding: 0 1.25rem;
 }
 
 fluent-button[appearance="subtle"]::part(control):hover,
 fluent-button[appearance="stealth"]::part(control):hover {
-  background: rgba(0, 0, 0, 0.04);
+	background: rgba(0, 0, 0, 0.04);
 }
 
 fluent-anchor::part(control) {
-  color: inherit;
-  font-weight: 500;
-  padding: 0;
+	color: inherit;
+	font-weight: 500;
+	padding: 0;
 }
 
 fluent-anchor::part(control):hover {
-  color: var(--brand-accent-dark);
+	color: var(--brand-accent-dark);
 }
 
 .header-shadow {
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
 }
 
 .hero-gradient {
-  background: linear-gradient(135deg, rgba(237, 243, 255, 0.95) 0%, rgba(240, 228, 255, 0.9) 50%, rgba(230, 245, 255, 0.95) 100%);
+	background: linear-gradient(
+		135deg,
+		rgba(237, 243, 255, 0.95) 0%,
+		rgba(240, 228, 255, 0.9) 50%,
+		rgba(230, 245, 255, 0.95) 100%
+	);
 }
 
 .hero-gradient::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(115deg, rgba(255, 204, 236, 0.45) 0%, rgba(230, 245, 255, 0.6) 50%, rgba(255, 214, 242, 0.3) 100%);
-  z-index: 0;
+	content: "";
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	background: linear-gradient(
+		115deg,
+		rgba(255, 204, 236, 0.45) 0%,
+		rgba(230, 245, 255, 0.6) 50%,
+		rgba(255, 214, 242, 0.3) 100%
+	);
+	z-index: 0;
 }
 
 .hero-content {
-  position: relative;
-  z-index: 1;
+	position: relative;
+	z-index: 1;
 }
 
 .card-eyebrow {
-  font-size: 0.875rem;
-  text-transform: uppercase;
-  color: var(--brand-accent);
-  letter-spacing: 0.08em;
-  font-weight: 600;
+	font-size: 0.875rem;
+	text-transform: uppercase;
+	color: var(--brand-accent);
+	letter-spacing: 0.08em;
+	font-weight: 600;
 }
 
 .card-meta {
-  font-size: 0.9375rem;
-  color: var(--text-muted);
+	font-size: 0.9375rem;
+	color: var(--text-muted);
 }
 
 @media (max-width: 1400px) {
-  .container {
-    padding-left: var(--container-horizontal-padding-tablet);
-    padding-right: var(--container-horizontal-padding-tablet);
-  }
+	.container {
+		padding-left: var(--container-horizontal-padding-tablet);
+		padding-right: var(--container-horizontal-padding-tablet);
+	}
 
-  .page-section {
-    padding-top: var(--section-padding-tablet);
-    padding-bottom: var(--section-padding-tablet);
-  }
+	.page-section {
+		padding-top: var(--section-padding-tablet);
+		padding-bottom: var(--section-padding-tablet);
+	}
 }
 
 @media (max-width: 768px) {
-  :root {
-    --header-height: 72px;
-  }
+	:root {
+		--header-height: 72px;
+	}
 
-  .container {
-    padding-left: var(--container-horizontal-padding-mobile);
-    padding-right: var(--container-horizontal-padding-mobile);
-  }
+	.container {
+		padding-left: var(--container-horizontal-padding-mobile);
+		padding-right: var(--container-horizontal-padding-mobile);
+	}
 
-  .page-section {
-    padding-top: var(--section-padding-mobile);
-    padding-bottom: var(--section-padding-mobile);
-  }
+	.page-section {
+		padding-top: var(--section-padding-mobile);
+		padding-bottom: var(--section-padding-mobile);
+	}
 
-  h1 {
-    font-size: clamp(2.25rem, 6vw + 1.25rem, 2.75rem);
-  }
+	h1 {
+		font-size: clamp(2.25rem, 6vw + 1.25rem, 2.75rem);
+	}
 
-  h2 {
-    font-size: clamp(1.85rem, 4vw + 1rem, 2.25rem);
-  }
+	h2 {
+		font-size: clamp(1.85rem, 4vw + 1rem, 2.25rem);
+	}
 
-  h3 {
-    font-size: clamp(1.45rem, 3vw + 0.85rem, 1.85rem);
-  }
+	h3 {
+		font-size: clamp(1.45rem, 3vw + 0.85rem, 1.85rem);
+	}
 
-  fluent-card {
-    padding: var(--spacingVerticalM) var(--spacingHorizontalM);
-  }
+	fluent-card {
+		padding: var(--spacingVerticalM) var(--spacingHorizontalM);
+	}
 
-  fluent-button::part(control) {
-    width: 100%;
-    justify-content: center;
-  }
+	fluent-button::part(control) {
+		width: 100%;
+		justify-content: center;
+	}
 }
 
 @media (max-width: 480px) {
-  h1 {
-    font-size: clamp(2rem, 7vw + 1rem, 2.5rem);
-  }
+	h1 {
+		font-size: clamp(2rem, 7vw + 1rem, 2.5rem);
+	}
 
-  h2 {
-    font-size: clamp(1.65rem, 5vw + 0.9rem, 2rem);
-  }
+	h2 {
+		font-size: clamp(1.65rem, 5vw + 0.9rem, 2rem);
+	}
 }
 @keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+	from {
+		opacity: 0;
+		transform: translateY(12px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
 
-  body {
-    animation: none;
-  }
+	body {
+		animation: none;
+	}
 }
