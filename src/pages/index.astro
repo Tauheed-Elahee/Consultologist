@@ -5,38 +5,34 @@ import About from "../components/About.astro";
 import Services from "../components/Services.astro";
 import Footer from "../components/Footer.astro";
 import Pricing from "../components/Pricing.astro";
+import Contact from "../components/Contact.astro";
+import "../styles/theme.css";
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="theme-color" content="#0067B8" />
 		<meta
 			name="description"
-			content="Consultologist - You handle your specialty, we handle ours."
+			content="Consultologist delivers Microsoft-grade AI automation for specialist consult workflows with Segoe UI design and Fluent UI components."
 		/>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta property="og:title" content="Consultologist | Microsoft-grade consult automation" />
+		<meta property="og:description" content="Draft consult notes, automate referrals, and deliver Microsoft-quality patient experiences with Consultologist." />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://consultologist.ai/" />
+		<meta property="og:image" content="/image.png" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="Consultologist | Microsoft-grade consult automation" />
+		<meta name="twitter:description" content="Generous white space, Segoe UI typography, and Fluent UI components power Consultologist's AI consult platform." />
+		<meta name="twitter:image" content="/image.png" />
+		<link rel="canonical" href="https://consultologist.ai/" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>
-			Consultologist - You handle your specialty, we handle ours.
-		</title>
+		<title>Consultologist - You handle your specialty, we handle ours.</title>
 		<script src="../fluentui-setup.ts"></script>
-		<!-- <link rel="stylesheet" href="/styles/fluent-tokens.css" />
-		<script is:inline src="/vendor/fluent-web-components.min.js"></script>
-		<script is:inline>
-			provideFluentDesignSystem().register(
-				fluentButton(),
-				fluentCard(),
-				fluentAnchor(),
-				fluentBadge(),
-				fluentTextField(),
-				fluentTextArea(),
-				fluentProgressRing(),
-				fluentDivider(),
-				fluentToolbar()
-			);
-		</script> -->
 	</head>
 	<body>
 		<Header />
@@ -45,31 +41,8 @@ import Pricing from "../components/Pricing.astro";
 			<About />
 			<Services />
 			<Pricing />
+			<Contact />
 		</main>
 		<Footer />
 	</body>
 </html>
-
-<style is:global>
-	* {
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-	}
-
-	html {
-		scroll-behavior: smooth;
-	}
-
-	body {
-		font-family: var(--fontFamilyBase);
-		line-height: 1.6;
-		color: var(--colorNeutralForeground1);
-		background: var(--colorNeutralBackground1);
-		overflow-x: hidden;
-	}
-
-	main {
-		padding-top: 0;
-	}
-</style>

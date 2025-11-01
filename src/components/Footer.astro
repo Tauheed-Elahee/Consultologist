@@ -1,80 +1,232 @@
 ---
 ---
 
-<footer>
-	<div class="footer-content">
+<footer class="site-footer">
+	<div class="container footer-top">
 		<div class="footer-brand">
-			<h3>Consultologist</h3>
-			<p>Leading the future of business consulting through artificial intelligence and data-driven insights.</p>
+			<a class="brand-link" href="/" aria-label="Consultologist home">
+				<div class="brand-mark" aria-hidden="true"></div>
+				<div>
+					<h3>Consultologist</h3>
+					<p>Microsoft-grade automation for specialist consult workflows.</p>
+				</div>
+			</a>
+			<div class="footer-social" aria-label="Consultologist social links">
+				<a href="https://linkedin.com" aria-label="LinkedIn">
+					<svg viewBox="0 0 24 24" role="img" focusable="false">
+						<path d="M5.5 8.25H8.5V19H5.5V8.25ZM7 5.5C7.9665 5.5 8.75 6.2835 8.75 7.25C8.75 8.2165 7.9665 9 7 9C6.0335 9 5.25 8.2165 5.25 7.25C5.25 6.2835 6.0335 5.5 7 5.5ZM10.75 8.25H13.62L13.99 9.745H14.05C14.58 8.8 15.68 7.75 17.43 7.75C20.38 7.75 20.95 9.69 20.95 12.42V19H17.95V12.99C17.95 11.7 17.93 10.06 16.19 10.06C14.45 10.06 14.19 11.44 14.19 12.9V19H11.19V8.25H10.75Z" fill="currentColor" />
+					</svg>
+				</a>
+				<a href="https://twitter.com" aria-label="X (Twitter)">
+					<svg viewBox="0 0 24 24" role="img" focusable="false">
+						<path d="M5.25 5H9.13L13.02 10.77L17.63 5H19.75L14.41 11.4L20.25 19H16.37L12.1 12.92L7 19H4.88L10.53 12.35L5.25 5ZM16.7 17.36L8.65 6.64H7.27L15.37 17.36H16.7Z" fill="currentColor" />
+					</svg>
+				</a>
+				<a href="https://youtube.com" aria-label="YouTube">
+					<svg viewBox="0 0 24 24" role="img" focusable="false">
+						<path d="M21.2 7.2c-.2-.9-.9-1.6-1.8-1.8C17.3 5 12 5 12 5s-5.3 0-7.4.4c-.9.2-1.6.9-1.8 1.8C2.4 9.3 2.4 12 2.4 12s0 2.7.4 4.8c.2.9.9 1.6 1.8 1.8C6.7 19 12 19 12 19s5.3 0 7.4-.4c.9-.2 1.6-.9 1.8-1.8.4-2.1.4-4.8.4-4.8s0-2.7-.4-4.8ZM10.5 14.8V9.2L15.5 12l-5 2.8Z" fill="currentColor" />
+					</svg>
+				</a>
+			</div>
+		</div>
+
+		<div class="footer-columns">
+			<div>
+				<span class="column-title">Product</span>
+				<ul>
+					<li><a href="/#features" data-scroll-target="#features">Features</a></li>
+					<li><a href="/#pricing" data-scroll-target="#pricing">Pricing</a></li>
+					<li><a href="/demo">Demo</a></li>
+					<li><a href="/#contact" data-scroll-target="#contact">Contact</a></li>
+				</ul>
+			</div>
+			<div>
+				<span class="column-title">Resources</span>
+				<ul>
+					<li><a href="#">Case studies</a></li>
+					<li><a href="#">Security overview</a></li>
+					<li><a href="#">Implementation guide</a></li>
+					<li><a href="#">Support</a></li>
+				</ul>
+			</div>
+			<div>
+				<span class="column-title">Company</span>
+				<ul>
+					<li><a href="#">About</a></li>
+					<li><a href="#">Careers</a></li>
+					<li><a href="#">Partners</a></li>
+					<li><a href="mailto:hello@consultologist.ai">Email us</a></li>
+				</ul>
+			</div>
+			<div>
+				<span class="column-title">Legal</span>
+				<ul>
+					<li><a href="#">Privacy policy</a></li>
+					<li><a href="#">Terms of service</a></li>
+					<li><a href="#">Security</a></li>
+					<li><a href="#">Accessibility</a></li>
+				</ul>
+			</div>
 		</div>
 	</div>
 
-	<fluent-divider></fluent-divider>
-
-	<div class="footer-bottom">
-		<p>&copy; 2025 Consultologist. All rights reserved.</p>
+	<div class="footer-bottom container">
+		<p>&copy; {new Date().getFullYear()} Consultologist. All rights reserved.</p>
 		<div class="footer-links">
-			<fluent-anchor href="#">Privacy Policy</fluent-anchor>
-			<fluent-anchor href="#">Terms of Service</fluent-anchor>
-			<fluent-anchor href="#">Data Security</fluent-anchor>
+			<a href="#">Privacy</a>
+			<a href="#">Terms</a>
+			<a href="#">Responsible AI</a>
 		</div>
 	</div>
 </footer>
 
 <style>
-	footer {
-		background: var(--colorNeutralBackground3);
-		color: var(--colorNeutralForeground1);
-		padding: var(--spacingVerticalXXL) var(--spacingHorizontalL);
+	.site-footer {
+		background: #0b1320;
+		color: rgba(255, 255, 255, 0.82);
+		padding-top: calc(var(--section-padding-desktop) / 2);
+		padding-bottom: calc(var(--section-padding-desktop) / 2);
 	}
 
-	.footer-content {
-		max-width: 1200px;
-		margin: 0 auto var(--spacingVerticalXL);
+	.footer-top {
+		display: grid;
+		grid-template-columns: minmax(0, 1.5fr) minmax(0, 2fr);
+		gap: var(--spacingHorizontalXL);
+		padding-top: calc(var(--section-padding-desktop) / 2);
+		padding-bottom: calc(var(--section-padding-desktop) / 2);
+	}
+
+	.footer-brand {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacingVerticalM);
+	}
+
+	.brand-link {
+		display: flex;
+		align-items: center;
+		gap: var(--spacingHorizontalS);
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.brand-mark {
+		width: 42px;
+		height: 42px;
+		border-radius: 10px;
+		background: linear-gradient(135deg, #0067b8 0%, #005a9e 100%);
+		box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.2), 0 12px 24px rgba(0, 103, 184, 0.3);
 	}
 
 	.footer-brand h3 {
-		color: var(--colorBrandForeground1);
-		margin-bottom: var(--spacingVerticalM);
+		font-size: 1.5rem;
+		color: #ffffff;
 	}
 
 	.footer-brand p {
-		color: var(--colorNeutralForeground2);
+		color: rgba(255, 255, 255, 0.65);
+		max-width: 320px;
 	}
 
-	fluent-divider {
-		margin: var(--spacingVerticalL) 0;
+	.footer-social {
+		display: flex;
+		gap: 0.75rem;
+	}
+
+	.footer-social a {
+		width: 38px;
+		height: 38px;
+		border-radius: 10px;
+		display: grid;
+		place-items: center;
+		background: rgba(255, 255, 255, 0.08);
+		color: #f5f9ff;
+		transition: background 0.2s ease, transform 0.2s ease;
+	}
+
+	.footer-social a:hover {
+		background: rgba(255, 255, 255, 0.2);
+		transform: translateY(-2px);
+	}
+
+	.footer-columns {
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: var(--spacingHorizontalL);
+	}
+
+	.column-title {
+		display: block;
+		font-weight: 600;
+		margin-bottom: var(--spacingVerticalS);
+		color: rgba(255, 255, 255, 0.9);
+	}
+
+	.footer-columns ul {
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: 0.65rem;
+		padding: 0;
+		margin: 0;
+	}
+
+	.footer-columns a {
+		color: rgba(255, 255, 255, 0.7);
+		text-decoration: none;
+		transition: color 0.2s ease;
+	}
+
+	.footer-columns a:hover {
+		color: #ffffff;
 	}
 
 	.footer-bottom {
-		max-width: 1200px;
-		margin: 0 auto;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		flex-wrap: wrap;
-		gap: var(--spacingVerticalL);
-	}
-
-	.footer-bottom p {
-		color: var(--colorNeutralForeground2);
+		gap: var(--spacingHorizontalM);
+		border-top: 1px solid rgba(255, 255, 255, 0.08);
+		padding-top: var(--spacingVerticalM);
+		padding-bottom: var(--spacingVerticalS);
 	}
 
 	.footer-links {
 		display: flex;
-		gap: var(--spacingHorizontalL);
-		flex-wrap: wrap;
+		gap: var(--spacingHorizontalS);
 	}
 
-	@media (max-width: 768px) {
+	.footer-links a {
+		color: rgba(255, 255, 255, 0.7);
+		text-decoration: none;
+	}
+
+	.footer-links a:hover {
+		color: #ffffff;
+	}
+
+	@media (max-width: 1024px) {
+		.footer-top {
+			grid-template-columns: 1fr;
+		}
+
+		.footer-columns {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 640px) {
+		.footer-columns {
+			grid-template-columns: 1fr;
+		}
+
 		.footer-bottom {
 			flex-direction: column;
-			text-align: center;
+			align-items: flex-start;
 		}
 
 		.footer-links {
-			flex-direction: column;
-			align-items: center;
+			flex-wrap: wrap;
 		}
 	}
 </style>

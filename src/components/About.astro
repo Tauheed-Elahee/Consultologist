@@ -1,82 +1,119 @@
 ---
 ---
 
-<section id="how-it-works">
-	<div>
-		<h2>Easy as 1, 2, 3</h2>
-		<p>Create your custom consult notes instantly.</p>
+<section id="how-it-works" class="page-section" data-background="soft">
+	<div class="container about-section">
+		<div class="section-header">
+			<span class="section-eyebrow">Workflow</span>
+			<h2>From referral package to polished consult in minutes.</h2>
+			<p class="section-description">
+				Consultologist unifies referral intake, patient questionnaires, and automated drafting into a guided workflow that mirrors Microsoft's product craftsmanship.
+			</p>
+		</div>
+
+		<div class="steps-grid">
+			<fluent-card class="step-card">
+				<div class="step-icon">1</div>
+				<h3>Send referral package</h3>
+				<p>
+					Fax or upload directly to your Consultologist workspace and trigger a tailored patient questionnaire with Microsoft-grade compliance safeguards.
+				</p>
+			</fluent-card>
+
+			<fluent-card class="step-card">
+				<div class="step-icon">2</div>
+				<h3>AI drafts the consult</h3>
+				<p>
+					Our AI synthesizes referral artifacts and patient responses, generating structured consult notes with consistent formatting and clinical tone.
+				</p>
+			</fluent-card>
+
+			<fluent-card class="step-card">
+				<div class="step-icon">3</div>
+				<h3>Review and share</h3>
+				<p>
+					Approve the draft, export to your EMR, and share securely with referring physicians—all within a Microsoft-inspired interface your team already understands.
+				</p>
+			</fluent-card>
+		</div>
+
+		<div class="section-cta">
+			<fluent-button appearance="accent" href="/demo">Start your free trial</fluent-button>
+			<fluent-button appearance="outline" data-scroll-target="#contact" href="/#contact">Talk to an expert</fluent-button>
+		</div>
 	</div>
-
-	<div class="steps-grid">
-		<fluent-card>
-			<fluent-badge>1</fluent-badge>
-			<h3>Send referral package</h3>
-			<p>
-				Fax the referral package to your unique Consultologist number and have your MOA send out a custom patient questionnaire.
-			</p>
-		</fluent-card>
-
-		<fluent-card>
-			<fluent-badge>2</fluent-badge>
-			<h3>Our AI drafts the note</h3>
-			<p>
-				Consultologist creates your consult note by transforming the data from the referral package and patient questionnaire.
-			</p>
-		</fluent-card>
-
-		<fluent-card>
-			<fluent-badge>3</fluent-badge>
-			<h3>Copy to EMR</h3>
-			<p>
-				Copy the drafted consult note directly into your EMR and proceed with your typical clinical encounter.
-			</p>
-		</fluent-card>
-	</div>
-
-	<fluent-button appearance="accent" href="/demo">
-		Try it free - save 4+ hours every week
-	</fluent-button>
 </section>
 
 <style>
-	section {
-		padding: var(--spacingVerticalXXXL) var(--spacingHorizontalL);
-		background: var(--colorNeutralBackground2);
-		text-align: center;
+	.about-section {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacingVerticalXXL);
 	}
 
-	h2 {
-		color: var(--colorNeutralForeground1);
-		margin-bottom: var(--spacingVerticalM);
+	.section-header {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacingVerticalS);
+		max-width: 760px;
 	}
 
-	section > p {
-		color: var(--colorNeutralForeground2);
-		margin-bottom: var(--spacingVerticalXXL);
+	.section-description {
+		font-size: 1.1rem;
+		line-height: 1.7;
+		color: var(--text-muted);
 	}
 
 	.steps-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		gap: var(--spacingHorizontalXL);
-		margin-bottom: var(--spacingVerticalXXL);
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: var(--spacingHorizontalL);
 	}
 
-	fluent-card {
+	.step-card {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacingVerticalS);
 		padding: var(--spacingVerticalXL) var(--spacingHorizontalL);
-		text-align: center;
 	}
 
-	fluent-badge {
-		margin-bottom: var(--spacingVerticalL);
+	.step-icon {
+		width: 48px;
+		height: 48px;
+		display: grid;
+		place-items: center;
+		border-radius: 16px;
+		background: rgba(0, 103, 184, 0.12);
+		color: var(--brand-accent);
+		font-weight: 600;
+		font-size: 1.1rem;
 	}
 
-	h3 {
-		color: var(--colorNeutralForeground1);
-		margin-bottom: var(--spacingVerticalM);
+	.section-cta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--spacingHorizontalS);
 	}
 
-	fluent-card p {
-		color: var(--colorNeutralForeground2);
+	@media (max-width: 1024px) {
+		.steps-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 768px) {
+		.section-header {
+			text-align: center;
+			margin: 0 auto;
+		}
+
+		.steps-grid {
+			grid-template-columns: 1fr;
+			gap: var(--spacingVerticalL);
+		}
+
+		.section-cta {
+			justify-content: center;
+		}
 	}
 </style>

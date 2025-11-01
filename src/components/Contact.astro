@@ -1,133 +1,322 @@
 ---
 ---
 
-<section id="contact">
-	<div>
-		<h2>Ready to Transform Your Practice?</h2>
-		<p>Checkout how Consultologist AI can make consults for you.</p>
-	</div>
+<section id="contact" class="page-section" data-background="light">
+	<div class="container contact-section">
+		<div class="section-header">
+			<span class="section-eyebrow">Contact</span>
+			<h2>Ready to transform your consult workflow?</h2>
+			<p class="section-description">
+				Share a sample consult scenario and we will craft a Microsoft-style experience tailored to your practice—complete with AI automation and security guidance.
+			</p>
+		</div>
 
-	<div class="form-container">
-		<fluent-text-area
-			id="comments"
-			placeholder="Enter your consultation details here..."
-			rows="6"
-		></fluent-text-area>
+		<div class="contact-grid">
+			<fluent-card class="contact-card">
+				<form class="contact-form" id="consultologist-form" novalidate>
+					<div class="input-row">
+						<label class="input-field">
+							<span>Full name</span>
+							<fluent-text-field id="contact-name" placeholder="Dr. Jane Smith"></fluent-text-field>
+						</label>
+						<label class="input-field">
+							<span>Email</span>
+							<fluent-text-field id="contact-email" type="email" placeholder="you@clinic.ca"></fluent-text-field>
+						</label>
+					</div>
 
-		<fluent-button appearance="accent" id="consultologist-send">
-			Send to Consultologist
-		</fluent-button>
+					<label class="input-field">
+						<span>Clinic or organization</span>
+						<fluent-text-field id="contact-organization" placeholder="City Gastroenterology"></fluent-text-field>
+					</label>
 
-		<fluent-card id="consultologist-response" class="response-card">
-		</fluent-card>
+					<label class="input-field">
+						<span>Consult details</span>
+						<fluent-text-area
+							id="comments"
+							placeholder="Describe the consult scenario, goals, and any privacy considerations..."
+							rows="6"
+						></fluent-text-area>
+					</label>
+
+					<div class="form-actions">
+						<fluent-button appearance="accent" type="submit" id="consultologist-send">
+							Send to Consultologist
+						</fluent-button>
+						<fluent-button appearance="outline" data-scroll-target="#pricing" href="/#pricing">View pricing</fluent-button>
+					</div>
+				</form>
+
+				<div id="consultologist-response" class="response-card" aria-live="polite"></div>
+			</fluent-card>
+
+			<fluent-card class="contact-info-card" aria-hidden="false">
+				<h3>Prefer a guided walkthrough?</h3>
+				<p>
+					Our specialists can co-design your consult workflow, migration path, and compliance posture using the same methodology we apply with Microsoft partners.
+				</p>
+				<ul class="contact-list">
+					<li>
+						<span class="contact-icon" aria-hidden="true">
+							<svg viewBox="0 0 24 24" role="img" focusable="false">
+								<path d="M6.2 4.5h3l1.6 4-2 1.5c1.1 2.2 2.9 3.9 5.1 5l1.5-2 4 1.6v3c0 0.83-0.67 1.5-1.5 1.5C10 19.1 4.9 14 4.7 6C4.66 5.17 5.33 4.5 6.2 4.5Z" fill="currentColor" />
+							</svg>
+						</span>
+						<a href="https://calendly.com/" target="_blank" rel="noreferrer">Schedule a discovery call</a>
+					</li>
+					<li>
+						<span class="contact-icon" aria-hidden="true">
+							<svg viewBox="0 0 24 24" role="img" focusable="false">
+								<path d="M4 6.5C4 5.11929 5.11929 4 6.5 4h11C18.8807 4 20 5.11929 20 6.5v11c0 1.3807-1.1193 2.5-2.5 2.5h-11C5.11929 20 4 18.8807 4 17.5v-11Z" stroke="currentColor" fill="none" stroke-width="1.3" />
+								<path d="M7 9.5 12 13l5-3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
+							</svg>
+						</span>
+						<a href="mailto:hello@consultologist.ai">hello@consultologist.ai</a>
+					</li>
+					<li>
+						<span class="contact-icon" aria-hidden="true">
+							<svg viewBox="0 0 24 24" role="img" focusable="false">
+								<path d="M12 5a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z" stroke="currentColor" stroke-width="1.3" fill="none" />
+								<path d="M5 19.5c0-3.038 3.134-5.5 7-5.5s7 2.462 7 5.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+							</svg>
+						</span>
+						<span>North American &amp; EU clinics supported</span>
+					</li>
+				</ul>
+			</fluent-card>
+		</div>
 	</div>
 </section>
 
 <style>
-	section {
-		padding: var(--spacingVerticalXXXL) var(--spacingHorizontalL);
-		background: var(--colorNeutralBackground1);
-		text-align: center;
+	.contact-section {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacingVerticalXXL);
 	}
 
-	h2 {
-		color: var(--colorNeutralForeground1);
-		margin-bottom: var(--spacingVerticalM);
+	.contact-grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+		gap: var(--spacingHorizontalL);
 	}
 
-	section > div > p {
-		color: var(--colorNeutralForeground2);
-		margin-bottom: var(--spacingVerticalXXL);
-	}
-
-	.form-container {
-		max-width: 800px;
-		margin: 0 auto;
+	.contact-card,
+	.contact-info-card {
 		display: flex;
 		flex-direction: column;
 		gap: var(--spacingVerticalL);
+		padding: var(--spacingVerticalXL) var(--spacingHorizontalL);
 	}
 
-	fluent-text-area {
-		width: 100%;
+	.contact-form {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacingVerticalM);
+	}
+
+	.input-row {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--spacingHorizontalM);
+	}
+
+	.input-field {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		font-size: 0.95rem;
+		color: var(--text-muted);
+	}
+
+	.input-field fluent-text-field::part(control),
+	.input-field fluent-text-area::part(control) {
+		border-radius: var(--controlCornerRadius);
+	}
+
+	.form-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--spacingHorizontalS);
 	}
 
 	.response-card {
-		padding: var(--spacingVerticalL) var(--spacingHorizontalL);
-		min-height: 100px;
-		text-align: left;
+		min-height: 140px;
+		border: 1px dashed rgba(0, 103, 184, 0.2);
+		border-radius: var(--surfaceCornerRadius);
+		padding: var(--spacingVerticalM) var(--spacingHorizontalM);
+		background: rgba(0, 103, 184, 0.04);
+		color: var(--text-default);
 	}
 
-	.loading-message {
-		text-align: center;
-		padding: var(--spacingVerticalXL);
-		color: var(--colorNeutralForeground2);
+	.response-card .loading-message {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.75rem;
 	}
 
-	.error-message {
-		text-align: center;
-		padding: var(--spacingVerticalL);
-		color: var(--colorPaletteRedForeground1);
+	.response-card .error-message {
+		color: #a4262c;
+		font-weight: 600;
+	}
+
+	.contact-info-card {
+		background: linear-gradient(135deg, rgba(0, 103, 184, 0.95) 0%, rgba(0, 85, 153, 0.85) 100%);
+		color: #f5f9ff;
+		box-shadow: 0 28px 60px rgba(0, 46, 102, 0.22);
+	}
+
+	.contact-info-card p {
+		color: rgba(245, 249, 255, 0.85);
+	}
+
+	.contact-info-card a {
+		color: #f5f9ff;
+		text-decoration: underline;
+	}
+
+	.contact-list {
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacingVerticalS);
+		padding: 0;
+		margin: 0;
+	}
+
+	.contact-list li {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.contact-icon {
+		width: 32px;
+		height: 32px;
+		display: grid;
+		place-items: center;
+		border-radius: 10px;
+		background: rgba(255, 255, 255, 0.16);
+		color: #f5f9ff;
+	}
+
+	.contact-icon svg {
+		width: 18px;
+		height: 18px;
+	}
+
+	@media (max-width: 1024px) {
+		.contact-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.contact-info-card {
+			order: -1;
+		}
+
+		.input-row {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.contact-card,
+		.contact-info-card {
+			padding: var(--spacingVerticalL) var(--spacingHorizontalM);
+		}
+
+		.form-actions {
+			flex-direction: column;
+		}
 	}
 </style>
 
 <script>
-	const consultologistButton = document.getElementById('consultologist-send') as HTMLButtonElement;
-	const consultationTextarea = document.getElementById('comments') as any;
-	const responseContainer = document.getElementById('consultologist-response') as HTMLElement;
+	const form = document.getElementById("consultologist-form") as HTMLFormElement | null;
+	const sendButton = document.getElementById("consultologist-send") as HTMLButtonElement | null;
+	const responseContainer = document.getElementById("consultologist-response") as HTMLElement | null;
 
-	if (consultologistButton && consultationTextarea && responseContainer) {
-		consultologistButton.addEventListener('click', async function() {
-			const prompt = consultationTextarea.value?.trim();
+	type ValueElement = HTMLElement & { value?: string | null };
 
-			if (!prompt) {
+	const getFieldValue = (id: string): string => {
+		const element = document.getElementById(id) as ValueElement | null;
+		if (!element) return "";
+		return (element.value ?? "").toString().trim();
+	};
+
+	const setLoadingState = (): void => {
+		if (!sendButton || !responseContainer) return;
+		sendButton.setAttribute("disabled", "true");
+		sendButton.textContent = "Processing...";
+		responseContainer.innerHTML = `
+			<div class="loading-message">
+				<fluent-progress-ring></fluent-progress-ring>
+				<p>Consultologist is analyzing your request and preparing a consult note preview...</p>
+			</div>
+		`;
+	};
+
+	const resetButtonState = (originalLabel: string): void => {
+		if (!sendButton) return;
+		sendButton.removeAttribute("disabled");
+		sendButton.textContent = originalLabel;
+	};
+
+	form?.addEventListener("submit", async (event: SubmitEvent) => {
+		event.preventDefault();
+
+		const name = getFieldValue("contact-name");
+		const email = getFieldValue("contact-email");
+		const organization = getFieldValue("contact-organization");
+		const prompt = getFieldValue("comments");
+
+		if (!prompt) {
+			if (responseContainer) {
 				responseContainer.innerHTML = `
 					<div class="error-message">
-						<p>Please enter consultation details before sending.</p>
+						<p>Please include consult details so we can build the right experience.</p>
 					</div>
 				`;
-				return;
+			}
+			return;
+		}
+
+		const originalLabel = sendButton?.textContent || "Send";
+		setLoadingState();
+
+		try {
+			const composedPrompt = `Contact request\nName: ${name || "N/A"}\nEmail: ${email || "N/A"}\nOrganization: ${organization || "N/A"}\nDetails:\n${prompt}`;
+
+			const response = await fetch("/api/chat", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ prompt: composedPrompt }),
+			});
+
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
 			}
 
-			const originalText = consultologistButton.textContent;
-			consultologistButton.textContent = 'Processing...';
-			consultologistButton.disabled = true;
-
-			responseContainer.innerHTML = `
-				<div class="loading-message">
-					<fluent-progress-ring></fluent-progress-ring>
-					<p>Consultologist is analyzing your input and generating a consultation note...</p>
-				</div>
-			`;
-
-			try {
-				const response = await fetch('/api/chat', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({ prompt })
-				});
-
-				if (!response.ok) {
-					throw new Error(`HTTP error! status: ${response.status}`);
-				}
-
-				const html = await response.text();
+			const html = await response.text();
+			if (responseContainer) {
 				responseContainer.innerHTML = html;
-
-			} catch (error) {
-				console.error('Error calling Consultologist API:', error);
+			}
+		} catch (error) {
+			console.error("Error calling Consultologist API:", error);
+			if (responseContainer) {
 				responseContainer.innerHTML = `
 					<div class="error-message">
-						<h3>⚠️ Error</h3>
-						<p>Sorry, there was an error processing your request. Please check your API key configuration and try again.</p>
+						<h3>We ran into an issue</h3>
+						<p>Please verify your API configuration and try again. If the problem persists, email hello@consultologist.ai.</p>
 					</div>
 				`;
-			} finally {
-				consultologistButton.textContent = originalText;
-				consultologistButton.disabled = false;
 			}
-		});
-	}
+		} finally {
+			resetButtonState(originalLabel);
+		}
+	});
 </script>
+

@@ -1,142 +1,180 @@
 ---
 ---
 
-<section id="pricing">
-	<div>
-		<h2>Contract</h2>
-		<p>Inaugurate your department of Consultology</p>
+<section id="pricing" class="page-section" data-background="tint">
+	<div class="container pricing-section">
+		<div class="section-header">
+			<span class="section-eyebrow">Pricing</span>
+			<h2>Simple plans built for every stage of your practice.</h2>
+			<p class="section-description">
+				Choose a Consultologist bundle that mirrors Microsoft's clarity—transparent pricing, enterprise-grade security, and AI that scales with your clinic.
+			</p>
+		</div>
+
+		<div class="pricing-grid">
+			<fluent-card class="pricing-card highlight">
+				<h3>Attending</h3>
+				<p class="card-meta">For specialists leading consult workflow.</p>
+				<div class="price-display">
+					<span class="currency">$</span>
+					<span class="amount">250</span>
+					<span class="term">/month</span>
+				</div>
+				<ul>
+					<li>Automated referral-to-consult drafting</li>
+					<li>Advanced template & macro controls</li>
+					<li>Microsoft-grade privacy compliance</li>
+				</ul>
+				<fluent-button appearance="accent" href="/demo">Start free trial</fluent-button>
+			</fluent-card>
+
+			<fluent-card class="pricing-card">
+				<h3>Resident</h3>
+				<p class="card-meta">Designed for teams prepping clinics.</p>
+				<div class="price-display">
+					<span class="currency">$</span>
+					<span class="amount">125</span>
+					<span class="term">/month</span>
+				</div>
+				<ul>
+					<li>Adaptive patient questionnaire automation</li>
+					<li>Collaborative note drafting workspace</li>
+					<li>EMR-ready exports and audit trails</li>
+				</ul>
+				<fluent-button appearance="outline" href="/demo">Book a walkthrough</fluent-button>
+			</fluent-card>
+
+			<fluent-card class="pricing-card">
+				<h3>Student</h3>
+				<p class="card-meta">Ideal for supervised clinical rotations.</p>
+				<div class="price-display">
+					<span class="currency">$</span>
+					<span class="amount">75</span>
+					<span class="term">/month</span>
+				</div>
+				<ul>
+					<li>Guided consult storyboard during visits</li>
+					<li>Real-time AI summarization of key findings</li>
+					<li>One-click sharing with attending physicians</li>
+				</ul>
+				<fluent-button appearance="outline" href="/contact">Talk to sales</fluent-button>
+			</fluent-card>
+		</div>
+
+		<div class="section-cta">
+			<fluent-button appearance="accent" href="/demo">Try it free – save hours this week</fluent-button>
+			<fluent-button appearance="subtle" data-scroll-target="#contact" href="/#contact">Contact our team</fluent-button>
+		</div>
 	</div>
-
-	<div class="pricing-grid">
-		<fluent-card>
-			<h3>Attending</h3>
-			<p>Create consult notes, templates, and workflows.</p>
-			<div class="price">
-				<span class="amount">$250</span>
-				<span class="period">/month</span>
-			</div>
-			<ul>
-				<li>Creates pre-visit consult notes from referral package</li>
-				<li>Concisely summarizes investigations how you like it</li>
-				<li>Fully customizable templates</li>
-			</ul>
-			<fluent-button href="/demo">Start free trial</fluent-button>
-		</fluent-card>
-
-		<fluent-card>
-			<h3>Resident</h3>
-			<p>Prepping the patient for visit.</p>
-			<div class="price">
-				<span class="amount">$125</span>
-				<span class="period">/month</span>
-			</div>
-			<ul>
-				<li>Customizable patient questionnaire</li>
-				<li>Virtual patient onboarding</li>
-				<li>Prepare draft pre-visit HPI and assessment plan</li>
-			</ul>
-			<fluent-button href="/demo">Book a demo</fluent-button>
-		</fluent-card>
-
-		<fluent-card>
-			<h3>Student</h3>
-			<p>A helping hand during your visit.</p>
-			<div class="price">
-				<span class="amount">$75</span>
-				<span class="period">/month</span>
-			</div>
-			<ul>
-				<li>Updates HPI during visit</li>
-				<li>Summarizes patients' key concerns</li>
-				<li>Finalizes assessment plan based on your recommendations</li>
-			</ul>
-			<fluent-button href="/contact">Talk to sales</fluent-button>
-		</fluent-card>
-	</div>
-
-	<fluent-button appearance="accent" href="/demo">
-		Try it free - save 4+ hours every week
-	</fluent-button>
 </section>
 
 <style>
-	section {
-		padding: var(--spacingVerticalXXXL) var(--spacingHorizontalL);
-		background: var(--colorNeutralBackground2);
-		text-align: center;
-	}
-
-	h2 {
-		color: var(--colorNeutralForeground1);
-		margin-bottom: var(--spacingVerticalM);
-	}
-
-	section > div > p {
-		color: var(--colorNeutralForeground2);
-		margin-bottom: var(--spacingVerticalXXL);
+	.pricing-section {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacingVerticalXXL);
 	}
 
 	.pricing-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		gap: var(--spacingHorizontalXL);
-		margin-bottom: var(--spacingVerticalXXL);
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: var(--spacingHorizontalL);
 	}
 
-	fluent-card {
-		padding: var(--spacingVerticalXL) var(--spacingHorizontalL);
+	.pricing-card {
 		display: flex;
 		flex-direction: column;
-		gap: var(--spacingVerticalL);
+		gap: var(--spacingVerticalM);
+		padding: var(--spacingVerticalXL) var(--spacingHorizontalL);
+		border: 1px solid rgba(0, 103, 184, 0.12);
+		box-shadow: 0 20px 40px rgba(15, 34, 58, 0.12);
+		transition: transform 0.25s ease, box-shadow 0.25s ease;
 	}
 
-	h3 {
-		color: var(--colorNeutralForeground1);
+	.pricing-card.highlight {
+		border-color: var(--brand-accent);
+		box-shadow: 0 28px 60px rgba(0, 46, 102, 0.22);
 	}
 
-	fluent-card > p {
-		color: var(--colorNeutralForeground2);
+	.pricing-card:hover {
+		transform: translateY(-10px);
+		box-shadow: 0 32px 72px rgba(0, 46, 102, 0.2);
 	}
 
-	.price {
-		display: flex;
+	.price-display {
+		display: inline-flex;
 		align-items: baseline;
-		justify-content: center;
-		gap: var(--spacingHorizontalS);
+		gap: 0.35rem;
+		font-family: var(--fontFamilyStrong);
+	}
+
+	.currency {
+		font-size: 1.25rem;
+		color: var(--text-muted);
 	}
 
 	.amount {
-		color: var(--colorNeutralForeground1);
+		font-size: 2.75rem;
+		font-weight: 700;
+		color: var(--text-strong);
+		letter-spacing: -0.01em;
 	}
 
-	.period {
-		color: var(--colorNeutralForeground2);
+	.term {
+		font-size: 1rem;
+		color: var(--text-muted);
 	}
 
-	ul {
+	.pricing-card ul {
 		list-style: none;
-		padding: 0;
-		margin: 0;
 		display: flex;
 		flex-direction: column;
-		gap: var(--spacingVerticalS);
-		text-align: left;
+		gap: 0.75rem;
+		padding: 0;
+		margin: 0;
 	}
 
-	li {
-		color: var(--colorNeutralForeground2);
-		padding-left: var(--spacingHorizontalL);
+	.pricing-card li {
 		position: relative;
+		padding-left: 1.75rem;
+		color: var(--text-default);
 	}
 
-	li::before {
-		content: "✓";
+	.pricing-card li::before {
+		content: "";
 		position: absolute;
 		left: 0;
-		color: var(--colorBrandForeground1);
+		top: 0.4rem;
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+		background: var(--brand-accent);
+		box-shadow: 0 0 0 3px rgba(0, 103, 184, 0.16);
 	}
 
-	fluent-card fluent-button {
-		margin-top: auto;
+	.section-cta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--spacingHorizontalS);
+	}
+
+	@media (max-width: 1024px) {
+		.pricing-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 720px) {
+		.pricing-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.pricing-card {
+			padding: var(--spacingVerticalL) var(--spacingHorizontalM);
+		}
+
+		.section-cta {
+			justify-content: center;
+		}
 	}
 </style>
