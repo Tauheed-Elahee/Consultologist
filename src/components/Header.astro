@@ -6,8 +6,11 @@
 	<div class="header-bar container">
 		<div class="brand">
 			<a class="brand-link" href="/" aria-label="Consultologist home">
-				<div class="brand-mark" aria-hidden="true"></div>
-				<span class="brand-text">Consultologist</span>
+				<img
+					class="brand-logo"
+					src="/icon.png"
+					alt="Consultologist Logo"
+				/>
 			</a>
 		</div>
 
@@ -16,19 +19,21 @@
 				<li><a href="/#home" data-scroll-target="#home">Home</a></li>
 				<li>
 					<a href="/#how-it-works" data-scroll-target="#how-it-works"
-						>How it works</a>
+						>How it works</a
+					>
 				</li>
 				<li>
 					<a href="/#features" data-scroll-target="#features"
-						>Features</a>
+						>Features</a
+					>
 				</li>
 				<li>
-					<a href="/#pricing" data-scroll-target="#pricing"
-						>Pricing</a>
+					<a href="/#pricing" data-scroll-target="#pricing">Pricing</a
+					>
 				</li>
 				<li>
-					<a href="/#contact" data-scroll-target="#contact"
-						>Contact</a>
+					<a href="/#contact" data-scroll-target="#contact">Contact</a
+					>
 				</li>
 				<li><a href="/#blog" data-scroll-target="#blog">Blog</a></li>
 			</ul>
@@ -181,6 +186,11 @@
 		font-size: 1.125rem;
 		font-weight: 600;
 		letter-spacing: -0.01em;
+	}
+
+	.brand-logo {
+		width: 48px; /* pick the width you want */
+		height: auto; /* keep aspect ratio */
 	}
 
 	.desktop-nav ul {
