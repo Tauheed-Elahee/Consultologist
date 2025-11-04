@@ -199,6 +199,14 @@
 			const computeAdjustedAmount = (entry) =>
 				(entry.basePrice * entry.percentage) / 100;
 
+			const updateButtonLabel = (entry) => {
+				if (entry.button) {
+					entry.button.textContent = `${formatFte(
+						entry.percentage,
+					)} FTE Hired`;
+				}
+			};
+
 			const syncSummaryState = () => {
 				const hasSelections = selections.size > 0;
 
@@ -293,6 +301,7 @@
 							`${value}% utilization`,
 						);
 						updateTotal();
+						updateButtonLabel(entry);
 					});
 
 					dom = {
@@ -319,6 +328,7 @@
 						"aria-valuetext",
 						`${entry.percentage}% utilization`,
 					);
+					updateButtonLabel(entry);
 				}
 			};
 
@@ -362,11 +372,12 @@
 							planName,
 							basePrice: price,
 							percentage: 100,
+							button,
 						};
 						selections.set(planName, entry);
 						ensureBillItem(entry);
 						button.dataset.selected = "true";
-						button.textContent = "Added";
+						updateButtonLabel(entry);
 						setBaseAppearance(button, "accent");
 						button.setAttribute("aria-pressed", "true");
 						card?.classList.add("is-selected");
