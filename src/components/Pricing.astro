@@ -184,52 +184,132 @@
 			const currencyFormatter = new Intl.NumberFormat("en-US", {
 				style: "currency",
 				currency: "USD",
-				maximumFractionDigits: 0,
+				minimumFractionDigits: 2,
+				maximumFractionDigits: 2,
 			});
 
-			const updateBill = () => {
+			const formatCurrency = (amount) => {
+				const normalized = Math.round(amount * 100) / 100;
+				return currencyFormatter.format(normalized);
+			};
+
+			const computeAdjustedAmount = (entry) =>
+				(entry.basePrice * entry.percentage) / 100;
+
+			const syncSummaryState = () => {
+				const hasSelections = selections.size > 0;
+
+				if (billList) {
+					billList.hidden = !hasSelections;
+				}
+
+				if (emptyState) {
+					emptyState.hidden = hasSelections;
+				}
+
+				if (checkoutButton) {
+					if (hasSelections) {
+						checkoutButton.removeAttribute("disabled");
+						checkoutButton.setAttribute("aria-disabled", "false");
+					} else {
+						checkoutButton.setAttribute("disabled", "");
+						checkoutButton.setAttribute("aria-disabled", "true");
+					}
+				}
+			};
+
+			const updateTotal = () => {
+				let total = 0;
+
+				selections.forEach((entry) => {
+					total += computeAdjustedAmount(entry);
+				});
+
+				if (totalAmount) {
+					totalAmount.textContent = `${formatCurrency(total)}/month`;
+				}
+			};
+
+			const ensureBillItem = (entry) => {
 				if (!billList) {
 					return;
 				}
 
-				billList.innerHTML = "";
-				let total = 0;
+				let dom = entry.dom;
 
-				selections.forEach(({ planName, price }) => {
-					total += price;
+				if (!dom || !dom.item.isConnected) {
 					const item = document.createElement("li");
 					item.className = "bill-item";
+					item.dataset.plan = entry.planName;
+
+					const row = document.createElement("div");
+					row.className = "bill-item__row";
+
 					const name = document.createElement("span");
 					name.className = "bill-item__name";
-					name.textContent = planName;
-					const priceText = document.createElement("span");
-					priceText.className = "bill-item__price";
-					priceText.textContent = `${currencyFormatter.format(
+					name.textContent = entry.planName;
+
+					const price = document.createElement("span");
+					price.className = "bill-item__price";
+
+					row.append(name, price);
+
+					const control = document.createElement("div");
+					control.className = "bill-item__control";
+
+					const slider = document.createElement("input");
+					slider.className = "bill-item__slider";
+					slider.type = "range";
+					slider.min = "0";
+					slider.max = "100";
+					slider.step = "1";
+					slider.value = entry.percentage.toString();
+					slider.setAttribute(
+						"aria-label",
+						`${entry.planName} utilization percentage`,
+					);
+
+					const percent = document.createElement("span");
+					percent.className = "bill-item__percent";
+
+					control.append(slider, percent);
+					item.append(row, control);
+					billList.append(item);
+
+					slider.addEventListener("input", () => {
+						const value = Number(slider.value);
+						entry.percentage = value;
+						percent.textContent = `${value}%`;
+						price.textContent = `${formatCurrency(
+							computeAdjustedAmount(entry),
+						)}/month`;
+						slider.setAttribute(
+							"aria-valuetext",
+							`${value}% utilization`,
+						);
+						updateTotal();
+					});
+
+					dom = {
+						item,
 						price,
+						percent,
+						slider,
+					};
+
+					entry.dom = dom;
+				}
+
+				if (dom) {
+					dom.slider.value = entry.percentage.toString();
+					dom.percent.textContent = `${entry.percentage}%`;
+					dom.price.textContent = `${formatCurrency(
+						computeAdjustedAmount(entry),
 					)}/month`;
-					item.append(name, priceText);
-					billList.appendChild(item);
-				});
-
-				billList.hidden = selections.size === 0;
-
-				if (emptyState) {
-					emptyState.hidden = selections.size > 0;
-				}
-
-				if (totalAmount) {
-					totalAmount.textContent = `${currencyFormatter.format(total)}/month`;
-				}
-
-				if (checkoutButton) {
-					const isDisabled = selections.size === 0;
-					if (isDisabled) {
-						checkoutButton.setAttribute("disabled", "");
-						checkoutButton.setAttribute("aria-disabled", "true");
-					} else {
-						checkoutButton.removeAttribute("disabled");
-						checkoutButton.setAttribute("aria-disabled", "false");
-					}
+					dom.slider.setAttribute(
+						"aria-valuetext",
+						`${entry.percentage}% utilization`,
+					);
 				}
 			};
 
@@ -252,6 +332,13 @@
 					const isSelected = button.dataset.selected === "true";
 
 					if (isSelected) {
+						const entry = selections.get(planName);
+						if (entry?.dom?.item) {
+							entry.dom.item.remove();
+						}
+						if (entry) {
+							delete entry.dom;
+						}
 						selections.delete(planName);
 						button.dataset.selected = "false";
 						button.textContent = defaultLabel;
@@ -262,7 +349,13 @@
 						button.setAttribute("aria-pressed", "false");
 						card?.classList.remove("is-selected");
 					} else {
-						selections.set(planName, { planName, price });
+						const entry = {
+							planName,
+							basePrice: price,
+							percentage: 100,
+						};
+						selections.set(planName, entry);
+						ensureBillItem(entry);
 						button.dataset.selected = "true";
 						button.textContent = "Added";
 						setBaseAppearance(button, "accent");
@@ -270,11 +363,13 @@
 						card?.classList.add("is-selected");
 					}
 
-					updateBill();
+					syncSummaryState();
+					updateTotal();
 				});
 			});
 
-			updateBill();
+			syncSummaryState();
+			updateTotal();
 		}
 	}
 </script>
@@ -396,9 +491,8 @@
 
 	:global(.bill-item) {
 		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 1.5rem;
+		flex-direction: column;
+		gap: 0.75rem;
 		padding-bottom: 0.75rem;
 		border-bottom: 1px dashed rgba(0, 103, 184, 0.15);
 		font-weight: 500;
@@ -407,6 +501,13 @@
 	:global(.bill-item:last-child) {
 		border-bottom: none;
 		padding-bottom: 0;
+	}
+
+	:global(.bill-item__row) {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1.5rem;
 	}
 
 	:global(.bill-item__name) {
@@ -421,6 +522,26 @@
 		color: var(--text-strong);
 		font-variant-numeric: tabular-nums;
 		text-align: right;
+	}
+
+	:global(.bill-item__control) {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		color: var(--text-muted);
+		font-size: 0.875rem;
+	}
+
+	:global(.bill-item__slider) {
+		flex: 1;
+		min-width: 0;
+		accent-color: var(--brand-accent);
+	}
+
+	:global(.bill-item__percent) {
+		width: 3.5rem;
+		text-align: right;
+		font-variant-numeric: tabular-nums;
 	}
 
 	.bill-empty {
