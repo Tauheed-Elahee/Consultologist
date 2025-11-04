@@ -394,15 +394,33 @@
 		margin: 0;
 	}
 
-	.bill-item {
+	:global(.bill-item) {
 		display: flex;
-		justify-content: space-between;
 		align-items: center;
+		justify-content: space-between;
+		gap: 1.5rem;
+		padding-bottom: 0.75rem;
+		border-bottom: 1px dashed rgba(0, 103, 184, 0.15);
 		font-weight: 500;
 	}
 
-	.bill-item__price {
+	:global(.bill-item:last-child) {
+		border-bottom: none;
+		padding-bottom: 0;
+	}
+
+	:global(.bill-item__name) {
+		min-width: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	:global(.bill-item__price) {
+		margin-left: auto;
 		color: var(--text-strong);
+		font-variant-numeric: tabular-nums;
+		text-align: right;
 	}
 
 	.bill-empty {
