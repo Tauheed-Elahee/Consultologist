@@ -196,13 +196,11 @@ fluent-card {
 	box-shadow: var(--shadow-soft);
 	padding: var(--spacingVerticalL) var(--spacingHorizontalL);
 	transition:
-		transform 0.25s ease,
 		box-shadow 0.25s ease,
 		border-color 0.25s ease;
 }
 
 fluent-card:hover {
-	transform: translateY(-6px);
 	box-shadow: var(--shadow8);
 	border-color: var(--brand-accent);
 }
@@ -217,8 +215,7 @@ fluent-button::part(control) {
 	transition:
 		background-color 0.2s ease,
 		color 0.2s ease,
-		box-shadow 0.2s ease,
-		transform 0.2s ease;
+		box-shadow 0.2s ease;
 }
 
 fluent-button::part(control):focus-visible {
@@ -235,12 +232,10 @@ fluent-button[appearance="accent"]::part(control) {
 fluent-button[appearance="accent"]::part(control):hover {
 	background: var(--brand-accent-dark);
 	box-shadow: var(--shadow8);
-	transform: translateY(-1px);
 }
 
 fluent-button[appearance="accent"]::part(control):active {
 	background: var(--brand-accent-darker);
-	transform: translateY(0);
 }
 
 fluent-button[appearance="outline"]::part(control) {

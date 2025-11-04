@@ -13,7 +13,7 @@
 		</div>
 
 		<div class="pricing-grid">
-			<fluent-card class="pricing-card highlight">
+			<fluent-card class="pricing-card">
 				<h3>Attending</h3>
 				<p class="card-meta">
 					For specialists leading consult workflow.
@@ -25,12 +25,12 @@
 				</div>
 				<ul>
 					<li>Automated referral-to-consult drafting</li>
-					<li>Advanced template & macro controls</li>
-					<li>Microsoft-grade privacy compliance</li>
+					<li>Template creation and sharing</li>
+					<li>Custom investigations summary</li>
 				</ul>
-				<fluent-button appearance="accent" href="/demo"
-					>Hire AI Agent</fluent-button
-				>
+				<fluent-button appearance="outline" href="/demo">
+					Hire AI Agent
+				</fluent-button>
 			</fluent-card>
 
 			<fluent-card class="pricing-card">
@@ -87,6 +87,30 @@
 	</div>
 </section>
 
+<script>
+	if (typeof window !== "undefined") {
+		const pricingButtons = Array.from(
+			document.querySelectorAll("#pricing fluent-button"),
+		);
+
+		pricingButtons.forEach((button) => {
+			const originalAppearance = button.getAttribute("appearance");
+
+			button.addEventListener("pointerenter", () => {
+				button.setAttribute("appearance", "accent");
+			});
+
+			button.addEventListener("pointerleave", () => {
+				if (originalAppearance) {
+					button.setAttribute("appearance", originalAppearance);
+				} else {
+					button.removeAttribute("appearance");
+				}
+			});
+		});
+	}
+</script>
+
 <style>
 	.pricing-section {
 		display: flex;
@@ -107,19 +131,12 @@
 		padding: var(--spacingVerticalXL) var(--spacingHorizontalL);
 		border: 1px solid rgba(0, 103, 184, 0.12);
 		box-shadow: 0 20px 40px rgba(15, 34, 58, 0.12);
-		transition:
-			transform 0.25s ease,
-			box-shadow 0.25s ease;
-	}
-
-	.pricing-card.highlight {
-		border-color: var(--brand-accent);
-		box-shadow: 0 28px 60px rgba(0, 46, 102, 0.22);
+		transition: box-shadow 0.25s ease;
 	}
 
 	.pricing-card:hover {
-		transform: translateY(-10px);
-		box-shadow: 0 32px 72px rgba(0, 46, 102, 0.2);
+		border-color: var(--brand-accent);
+		box-shadow: 0 28px 60px rgba(0, 46, 102, 0.22);
 	}
 
 	.price-display {
