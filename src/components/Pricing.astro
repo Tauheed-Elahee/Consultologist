@@ -90,7 +90,7 @@
 		</div>
 
 		<div class="pricing-bill" id="pricing-bill" aria-live="polite">
-			<h3 class="bill-title">Estimate Summary</h3>
+			<h3 class="bill-title">Team Contract</h3>
 			<p class="bill-description">
 				Select the agents above to build a personalized monthly
 				estimate.
@@ -113,7 +113,7 @@
 				disabled
 				aria-disabled="true"
 			>
-				Go to checkout
+				Sign Contract
 			</fluent-button>
 		</div>
 
@@ -208,6 +208,7 @@
 				minimumFractionDigits: 2,
 				maximumFractionDigits: 2,
 			});
+			const PLAN_ORDER = ["Attending", "Resident", "Student"] as const;
 
 			const formatCurrency = (amount: number): string => {
 				const normalized = Math.round(amount * 100) / 100;
@@ -305,7 +306,31 @@
 
 					control.append(slider, percent);
 					item.append(row, control);
-					billList.append(item);
+
+					const priority = PLAN_ORDER.indexOf(entry.planName);
+					const existingItems = Array.from(
+						billList.querySelectorAll<HTMLLIElement>(".bill-item"),
+					);
+					const target = existingItems.find((existing) => {
+						const existingPlan = existing.dataset.plan ?? "";
+						const existingPriority =
+							PLAN_ORDER.indexOf(existingPlan);
+						const resolvedExistingPriority =
+							existingPriority === -1
+								? Number.MAX_SAFE_INTEGER
+								: existingPriority;
+						const resolvedPriority =
+							priority === -1
+								? Number.MAX_SAFE_INTEGER
+								: priority;
+						return resolvedExistingPriority > resolvedPriority;
+					});
+
+					if (target) {
+						billList.insertBefore(item, target);
+					} else {
+						billList.append(item);
+					}
 
 					slider.addEventListener("input", () => {
 						const value = Number(slider.value);
