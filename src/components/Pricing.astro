@@ -193,6 +193,9 @@
 				return currencyFormatter.format(normalized);
 			};
 
+			const formatFte = (percentage) =>
+				(Number(percentage) / 100).toFixed(2);
+
 			const computeAdjustedAmount = (entry) =>
 				(entry.basePrice * entry.percentage) / 100;
 
@@ -247,7 +250,6 @@
 
 					const name = document.createElement("span");
 					name.className = "bill-item__name";
-					name.textContent = entry.planName;
 
 					const price = document.createElement("span");
 					price.className = "bill-item__price";
@@ -280,6 +282,9 @@
 						const value = Number(slider.value);
 						entry.percentage = value;
 						percent.textContent = `${value}%`;
+						name.textContent = `${entry.planName} (${formatFte(
+							entry.percentage,
+						)} FTE)`;
 						price.textContent = `${formatCurrency(
 							computeAdjustedAmount(entry),
 						)}/month`;
@@ -295,6 +300,7 @@
 						price,
 						percent,
 						slider,
+						name,
 					};
 
 					entry.dom = dom;
@@ -303,6 +309,9 @@
 				if (dom) {
 					dom.slider.value = entry.percentage.toString();
 					dom.percent.textContent = `${entry.percentage}%`;
+					dom.name.textContent = `${entry.planName} (${formatFte(
+						entry.percentage,
+					)} FTE)`;
 					dom.price.textContent = `${formatCurrency(
 						computeAdjustedAmount(entry),
 					)}/month`;
