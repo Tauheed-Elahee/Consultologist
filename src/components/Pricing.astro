@@ -28,7 +28,12 @@
 					<li>Template creation and sharing</li>
 					<li>Custom investigations summary</li>
 				</ul>
-				<fluent-button appearance="outline" href="/demo">
+				<fluent-button
+					class="select-plan"
+					appearance="outline"
+					data-plan="Attending"
+					data-price="250"
+				>
 					Hire AI Agent
 				</fluent-button>
 			</fluent-card>
@@ -46,9 +51,14 @@
 					<li>Virtual patient onboarding</li>
 					<li>Prepare draft pre-visit HPI and assessment plan</li>
 				</ul>
-				<fluent-button appearance="outline" href="/demo"
-					>Hire AI Agent</fluent-button
+				<fluent-button
+					class="select-plan"
+					appearance="outline"
+					data-plan="Resident"
+					data-price="125"
 				>
+					Hire AI Agent
+				</fluent-button>
 			</fluent-card>
 
 			<fluent-card class="pricing-card">
@@ -68,10 +78,43 @@
 						Finalizes assessment plan based on your recommendations
 					</li>
 				</ul>
-				<fluent-button appearance="outline" href="/contact"
-					>Hire AI Agent</fluent-button
+				<fluent-button
+					class="select-plan"
+					appearance="outline"
+					data-plan="Student"
+					data-price="75"
 				>
+					Hire AI Agent
+				</fluent-button>
 			</fluent-card>
+		</div>
+
+		<div class="pricing-bill" id="pricing-bill" aria-live="polite">
+			<h3 class="bill-title">Estimate Summary</h3>
+			<p class="bill-description">
+				Select the agents above to build a personalized monthly
+				estimate.
+			</p>
+			<ul class="bill-items" id="pricing-bill-items" role="list" hidden>
+			</ul>
+			<p class="bill-empty" id="pricing-bill-empty">
+				No agents selected yet.
+			</p>
+			<div class="bill-total">
+				<span class="bill-total__label">Total</span>
+				<span class="bill-total__amount" id="pricing-total-amount"
+					>$0/month</span
+				>
+			</div>
+			<fluent-button
+				appearance="accent"
+				href="/checkout"
+				id="pricing-checkout"
+				disabled
+				aria-disabled="true"
+			>
+				Go to checkout
+			</fluent-button>
 		</div>
 
 		<div class="section-cta">
@@ -89,25 +132,150 @@
 
 <script>
 	if (typeof window !== "undefined") {
-		const pricingButtons = Array.from(
-			document.querySelectorAll("#pricing fluent-button"),
-		);
+		const pricingSection = document.getElementById("pricing");
 
-		pricingButtons.forEach((button) => {
-			const originalAppearance = button.getAttribute("appearance");
-
-			button.addEventListener("pointerenter", () => {
-				button.setAttribute("appearance", "accent");
-			});
-
-			button.addEventListener("pointerleave", () => {
-				if (originalAppearance) {
-					button.setAttribute("appearance", originalAppearance);
+		if (pricingSection) {
+			const setBaseAppearance = (button, value) => {
+				const appearance = value || "";
+				button.dataset.baseAppearance = appearance;
+				if (appearance) {
+					button.setAttribute("appearance", appearance);
 				} else {
 					button.removeAttribute("appearance");
 				}
+			};
+
+			const getBaseAppearance = (button) => {
+				const stored = button.dataset.baseAppearance;
+				if (stored && stored.length > 0) {
+					return stored;
+				}
+				const initial = button.dataset.initialAppearance;
+				return initial || "";
+			};
+
+			const allButtons = Array.from(
+				pricingSection.querySelectorAll("fluent-button"),
+			);
+
+			allButtons.forEach((button) => {
+				const initialAppearance =
+					button.getAttribute("appearance") || "";
+				button.dataset.initialAppearance = initialAppearance;
+				setBaseAppearance(button, initialAppearance);
+
+				button.addEventListener("pointerenter", () => {
+					button.setAttribute("appearance", "accent");
+				});
+
+				button.addEventListener("pointerleave", () => {
+					setBaseAppearance(button, getBaseAppearance(button));
+				});
 			});
-		});
+
+			const selectButtons = Array.from(
+				pricingSection.querySelectorAll(".select-plan"),
+			);
+			const selections = new Map();
+			const billList = document.getElementById("pricing-bill-items");
+			const emptyState = document.getElementById("pricing-bill-empty");
+			const totalAmount = document.getElementById("pricing-total-amount");
+			const checkoutButton = document.getElementById("pricing-checkout");
+			const currencyFormatter = new Intl.NumberFormat("en-US", {
+				style: "currency",
+				currency: "USD",
+				maximumFractionDigits: 0,
+			});
+
+			const updateBill = () => {
+				if (!billList) {
+					return;
+				}
+
+				billList.innerHTML = "";
+				let total = 0;
+
+				selections.forEach(({ planName, price }) => {
+					total += price;
+					const item = document.createElement("li");
+					item.className = "bill-item";
+					const name = document.createElement("span");
+					name.className = "bill-item__name";
+					name.textContent = planName;
+					const priceText = document.createElement("span");
+					priceText.className = "bill-item__price";
+					priceText.textContent = `${currencyFormatter.format(
+						price,
+					)}/month`;
+					item.append(name, priceText);
+					billList.appendChild(item);
+				});
+
+				billList.hidden = selections.size === 0;
+
+				if (emptyState) {
+					emptyState.hidden = selections.size > 0;
+				}
+
+				if (totalAmount) {
+					totalAmount.textContent = `${currencyFormatter.format(total)}/month`;
+				}
+
+				if (checkoutButton) {
+					const isDisabled = selections.size === 0;
+					if (isDisabled) {
+						checkoutButton.setAttribute("disabled", "");
+						checkoutButton.setAttribute("aria-disabled", "true");
+					} else {
+						checkoutButton.removeAttribute("disabled");
+						checkoutButton.setAttribute("aria-disabled", "false");
+					}
+				}
+			};
+
+			selectButtons.forEach((button) => {
+				const planName = button.dataset.plan;
+				const price = Number(button.dataset.price);
+
+				if (!planName || Number.isNaN(price)) {
+					return;
+				}
+
+				const card = button.closest(".pricing-card");
+				const defaultLabel = button.textContent.trim();
+				button.dataset.defaultLabel = defaultLabel;
+				button.setAttribute("aria-pressed", "false");
+
+				button.addEventListener("click", (event) => {
+					event.preventDefault();
+
+					const isSelected = button.dataset.selected === "true";
+
+					if (isSelected) {
+						selections.delete(planName);
+						button.dataset.selected = "false";
+						button.textContent = defaultLabel;
+						setBaseAppearance(
+							button,
+							button.dataset.initialAppearance,
+						);
+						button.setAttribute("aria-pressed", "false");
+						card?.classList.remove("is-selected");
+					} else {
+						selections.set(planName, { planName, price });
+						button.dataset.selected = "true";
+						button.textContent = "Added";
+						setBaseAppearance(button, "accent");
+						button.setAttribute("aria-pressed", "true");
+						card?.classList.add("is-selected");
+					}
+
+					updateBill();
+				});
+			});
+
+			updateBill();
+		}
 	}
 </script>
 
@@ -190,6 +358,74 @@
 		box-shadow: 0 0 0 3px rgba(0, 103, 184, 0.16);
 	}
 
+	.pricing-card.is-selected {
+		border-color: var(--brand-accent);
+		box-shadow: 0 32px 72px rgba(0, 46, 102, 0.24);
+	}
+
+	.pricing-bill {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		margin-top: var(--spacingVerticalXL, 3rem);
+		padding: var(--spacingVerticalXL, 3rem)
+			var(--spacingHorizontalL, 2.5rem);
+		border: 1px solid rgba(0, 103, 184, 0.12);
+		border-radius: var(--surfaceCornerRadius, 16px);
+		background: var(--neutral-0, #ffffff);
+		box-shadow: 0 24px 48px rgba(15, 34, 58, 0.1);
+	}
+
+	.bill-title {
+		margin: 0;
+	}
+
+	.bill-description {
+		margin: 0;
+		color: var(--text-muted);
+	}
+
+	.bill-items {
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		padding: 0;
+		margin: 0;
+	}
+
+	.bill-item {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		font-weight: 500;
+	}
+
+	.bill-item__price {
+		color: var(--text-strong);
+	}
+
+	.bill-empty {
+		margin: 0;
+		color: var(--text-muted);
+		font-style: italic;
+	}
+
+	.bill-total {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		font-weight: 600;
+		font-size: 1.1rem;
+		padding-top: 0.5rem;
+		border-top: 1px solid rgba(0, 103, 184, 0.12);
+	}
+
+	.bill-total__amount {
+		font-size: 1.25rem;
+		color: var(--brand-accent);
+	}
+
 	.section-cta {
 		display: flex;
 		flex-wrap: wrap;
@@ -213,6 +449,11 @@
 
 		.section-cta {
 			justify-content: center;
+		}
+
+		.pricing-bill {
+			padding: var(--spacingVerticalL, 2rem)
+				var(--spacingHorizontalM, 1.5rem);
 		}
 	}
 </style>
