@@ -135,7 +135,28 @@
 		const pricingSection = document.getElementById("pricing");
 
 		if (pricingSection) {
-			const setBaseAppearance = (button, value) => {
+			type FluentButtonElement = HTMLElement & { dataset: DOMStringMap };
+
+			interface BillItemDom {
+				item: HTMLLIElement;
+				price: HTMLSpanElement;
+				percent: HTMLSpanElement;
+				slider: HTMLInputElement;
+				name: HTMLSpanElement;
+			}
+
+			interface SelectionEntry {
+				planName: string;
+				basePrice: number;
+				percentage: number;
+				button?: FluentButtonElement;
+				dom?: BillItemDom;
+			}
+
+			const setBaseAppearance = (
+				button: FluentButtonElement,
+				value: string | null | undefined,
+			): void => {
 				const appearance = value || "";
 				button.dataset.baseAppearance = appearance;
 				if (appearance) {
@@ -145,7 +166,7 @@
 				}
 			};
 
-			const getBaseAppearance = (button) => {
+			const getBaseAppearance = (button: FluentButtonElement): string => {
 				const stored = button.dataset.baseAppearance;
 				if (stored && stored.length > 0) {
 					return stored;
@@ -154,11 +175,11 @@
 				return initial || "";
 			};
 
-			const allButtons = Array.from(
+			const allButtons = Array.from<FluentButtonElement>(
 				pricingSection.querySelectorAll("fluent-button"),
 			);
 
-			allButtons.forEach((button) => {
+			allButtons.forEach((button: FluentButtonElement) => {
 				const initialAppearance =
 					button.getAttribute("appearance") || "";
 				button.dataset.initialAppearance = initialAppearance;
@@ -173,10 +194,10 @@
 				});
 			});
 
-			const selectButtons = Array.from(
+			const selectButtons = Array.from<FluentButtonElement>(
 				pricingSection.querySelectorAll(".select-plan"),
 			);
-			const selections = new Map();
+			const selections = new Map<string, SelectionEntry>();
 			const billList = document.getElementById("pricing-bill-items");
 			const emptyState = document.getElementById("pricing-bill-empty");
 			const totalAmount = document.getElementById("pricing-total-amount");
@@ -188,18 +209,18 @@
 				maximumFractionDigits: 2,
 			});
 
-			const formatCurrency = (amount) => {
+			const formatCurrency = (amount: number): string => {
 				const normalized = Math.round(amount * 100) / 100;
 				return currencyFormatter.format(normalized);
 			};
 
-			const formatFte = (percentage) =>
+			const formatFte = (percentage: number): string =>
 				(Number(percentage) / 100).toFixed(2);
 
-			const computeAdjustedAmount = (entry) =>
+			const computeAdjustedAmount = (entry: SelectionEntry): number =>
 				(entry.basePrice * entry.percentage) / 100;
 
-			const updateButtonLabel = (entry) => {
+			const updateButtonLabel = (entry: SelectionEntry): void => {
 				if (entry.button) {
 					entry.button.textContent = `${formatFte(
 						entry.percentage,
@@ -241,7 +262,7 @@
 				}
 			};
 
-			const ensureBillItem = (entry) => {
+			const ensureBillItem = (entry: SelectionEntry): void => {
 				if (!billList) {
 					return;
 				}
@@ -332,7 +353,7 @@
 				}
 			};
 
-			selectButtons.forEach((button) => {
+			selectButtons.forEach((button: FluentButtonElement) => {
 				const planName = button.dataset.plan;
 				const price = Number(button.dataset.price);
 
@@ -356,7 +377,8 @@
 							entry.dom.item.remove();
 						}
 						if (entry) {
-							delete entry.dom;
+							entry.dom = undefined;
+							entry.button = undefined;
 						}
 						selections.delete(planName);
 						button.dataset.selected = "false";
@@ -368,7 +390,7 @@
 						button.setAttribute("aria-pressed", "false");
 						card?.classList.remove("is-selected");
 					} else {
-						const entry = {
+						const entry: SelectionEntry = {
 							planName,
 							basePrice: price,
 							percentage: 100,
