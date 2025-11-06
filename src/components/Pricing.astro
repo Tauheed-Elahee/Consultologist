@@ -202,6 +202,9 @@
 			const emptyState = document.getElementById("pricing-bill-empty");
 			const totalAmount = document.getElementById("pricing-total-amount");
 			const checkoutButton = document.getElementById("pricing-checkout");
+			const contractField = document.getElementById(
+				"contract-summary",
+			) as HTMLInputElement | null;
 			const currencyFormatter = new Intl.NumberFormat("en-US", {
 				style: "currency",
 				currency: "USD",
@@ -229,6 +232,46 @@
 
 			const computeAdjustedAmount = (entry: SelectionEntry): number =>
 				(entry.basePrice * entry.percentage) / 100;
+
+			const getContractSummaryPayload = () => {
+				const items = Array.from(selections.values()).map((entry) => {
+					const adjustedMonthly =
+						Math.round(computeAdjustedAmount(entry) * 100) / 100;
+					return {
+						planName: entry.planName,
+						percentage: entry.percentage,
+						fte: Number(formatFte(entry.percentage)),
+						basePrice: entry.basePrice,
+						adjustedMonthly,
+					};
+				});
+
+				const totalMonthly =
+					Math.round(
+						items.reduce(
+							(sum, item) => sum + item.adjustedMonthly,
+							0,
+						) * 100,
+					) / 100;
+
+				return { items, totalMonthly };
+			};
+
+			const syncContractField = () => {
+				if (!contractField) {
+					return;
+				}
+
+				const payload = getContractSummaryPayload();
+
+				if (payload.items.length > 0) {
+					contractField.value = JSON.stringify(payload);
+				} else {
+					contractField.value = "";
+				}
+
+				contractField.dispatchEvent(new Event("change"));
+			};
 
 			const updateButtonLabel = (entry: SelectionEntry): void => {
 				if (entry.button) {
@@ -270,6 +313,8 @@
 				if (totalAmount) {
 					totalAmount.textContent = `${formatCurrency(total)}/month`;
 				}
+
+				syncContractField();
 			};
 
 			const ensureBillItem = (entry: SelectionEntry): void => {

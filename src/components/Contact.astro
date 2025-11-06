@@ -68,6 +68,12 @@
 						href="/#pricing">View pricing</fluent-button
 					>
 				</div>
+
+				<input
+					type="hidden"
+					id="contract-summary"
+					name="contract-summary"
+				/>
 			</form>
 
 			<div
@@ -168,6 +174,9 @@
 	const responseContainer = document.getElementById(
 		"consultologist-response",
 	) as HTMLElement | null;
+	const contractField = document.getElementById(
+		"contract-summary",
+	) as HTMLInputElement | null;
 
 	type ValueElement = HTMLElement & { value?: string | null };
 
@@ -215,6 +224,15 @@
 		const specialty = getFieldValue("contact-specialty");
 		const organization = getFieldValue("contact-organization");
 		const comments = getFieldValue("contact-comments");
+		let contractSummary: unknown = null;
+
+		if (contractField?.value) {
+			try {
+				contractSummary = JSON.parse(contractField.value);
+			} catch {
+				contractSummary = contractField.value;
+			}
+		}
 
 		if (!name || !email || !specialty || !organization || !comments) {
 			showResponse(`
@@ -240,6 +258,7 @@
 					specialty,
 					organization,
 					comments,
+					contract: contractSummary,
 				}),
 			});
 
