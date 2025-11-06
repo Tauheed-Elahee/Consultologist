@@ -1,6 +1,12 @@
 import { EmailClient } from "@azure/communication-email";
 
-const REQUIRED_FIELDS = ["name", "specialty", "organization", "comments"];
+const REQUIRED_FIELDS = [
+	"name",
+	"email",
+	"specialty",
+	"organization",
+	"comments",
+];
 
 const escapeHtml = (value = "") =>
 	value
@@ -23,9 +29,10 @@ const parseRequestBody = (body) => {
 	return body;
 };
 
-const buildPlainText = ({ name, specialty, organization, comments }) =>
+const buildPlainText = ({ name, email, specialty, organization, comments }) =>
 	`New Consultologist contact request
 Name: ${name}
+Email: ${email}
 Specialty: ${specialty}
 Clinic/Organization: ${organization}
 
@@ -33,9 +40,10 @@ Comments:
 ${comments}
 `;
 
-const buildHtml = ({ name, specialty, organization, comments }) => `
+const buildHtml = ({ name, email, specialty, organization, comments }) => `
   <h2>New Consultologist contact request</h2>
   <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+  <p><strong>Email:</strong> ${escapeHtml(email)}</p>
   <p><strong>Specialty:</strong> ${escapeHtml(specialty)}</p>
   <p><strong>Clinic or organization:</strong> ${escapeHtml(organization)}</p>
   <p><strong>Comments:</strong></p>
@@ -98,6 +106,11 @@ export default async function (context, req) {
 				plainText: buildPlainText(cleanedPayload),
 				html: buildHtml(cleanedPayload),
 			},
+			replyTo: [
+				{
+					address: cleanedPayload.email,
+				},
+			],
 		};
 
 		const poller = await emailClient.beginSend(message);

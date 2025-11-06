@@ -24,6 +24,14 @@
 				</label>
 
 				<label class="input-field">
+					<span>Email</span>
+					<fluent-text-field
+						id="contact-email"
+						type="email"
+						placeholder="you@clinic.ca"></fluent-text-field>
+				</label>
+
+				<label class="input-field">
 					<span>Specialty</span>
 					<fluent-text-field
 						id="contact-specialty"
@@ -61,6 +69,13 @@
 					>
 				</div>
 			</form>
+
+			<div
+				id="consultologist-response"
+				class="response-card"
+				aria-live="polite"
+			>
+			</div>
 		</fluent-card>
 	</div>
 </section>
@@ -196,11 +211,12 @@
 		event.preventDefault();
 
 		const name = getFieldValue("contact-name");
+		const email = getFieldValue("contact-email");
 		const specialty = getFieldValue("contact-specialty");
 		const organization = getFieldValue("contact-organization");
 		const comments = getFieldValue("contact-comments");
 
-		if (!name || !specialty || !organization || !comments) {
+		if (!name || !email || !specialty || !organization || !comments) {
 			showResponse(`
 				<div class="error-message">
 					<p>Please complete all fields so we can route your request.</p>
@@ -220,6 +236,7 @@
 				},
 				body: JSON.stringify({
 					name,
+					email,
 					specialty,
 					organization,
 					comments,
@@ -240,6 +257,7 @@
 			form?.reset();
 			[
 				"contact-name",
+				"contact-email",
 				"contact-specialty",
 				"contact-organization",
 				"contact-comments",
