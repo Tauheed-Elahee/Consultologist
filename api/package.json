@@ -1,12 +1,13 @@
 {
-  "name": "consultologist-api",
-  "version": "1.0.0",
-  "type": "module",
-  "dependencies": {
-    "@azure/identity": "^4.13.0",
-    "ajv": "^8.17.1",
-    "ajv-formats": "^3.0.1",
-    "liquidjs": "^10.21.1",
-    "openai": "^5.23.1"
-  }
+	"name": "consultologist-api",
+	"version": "1.0.0",
+	"type": "module",
+	"dependencies": {
+		"@azure/communication-email": "^1.0.0",
+		"@azure/identity": "^4.13.0",
+		"ajv": "^8.17.1",
+		"ajv-formats": "^3.0.1",
+		"liquidjs": "^10.21.1",
+		"openai": "^5.23.1"
+	}
 }
