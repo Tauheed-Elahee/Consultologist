@@ -209,6 +209,15 @@
 				maximumFractionDigits: 2,
 			});
 			const PLAN_ORDER = ["Attending", "Resident", "Student"] as const;
+			type PlanName = (typeof PLAN_ORDER)[number];
+			const getPlanPriority = (value: string): number => {
+				const candidate = PLAN_ORDER.find((plan) => plan === value) as
+					| PlanName
+					| undefined;
+				return candidate
+					? PLAN_ORDER.indexOf(candidate)
+					: Number.MAX_SAFE_INTEGER;
+			};
 
 			const formatCurrency = (amount: number): string => {
 				const normalized = Math.round(amount * 100) / 100;
@@ -307,22 +316,15 @@
 					control.append(slider, percent);
 					item.append(row, control);
 
-					const priority = PLAN_ORDER.indexOf(entry.planName);
+					const priority = getPlanPriority(entry.planName);
 					const existingItems = Array.from(
 						billList.querySelectorAll<HTMLLIElement>(".bill-item"),
 					);
 					const target = existingItems.find((existing) => {
 						const existingPlan = existing.dataset.plan ?? "";
-						const existingPriority =
-							PLAN_ORDER.indexOf(existingPlan);
 						const resolvedExistingPriority =
-							existingPriority === -1
-								? Number.MAX_SAFE_INTEGER
-								: existingPriority;
-						const resolvedPriority =
-							priority === -1
-								? Number.MAX_SAFE_INTEGER
-								: priority;
+							getPlanPriority(existingPlan);
+						const resolvedPriority = priority;
 						return resolvedExistingPriority > resolvedPriority;
 					});
 
