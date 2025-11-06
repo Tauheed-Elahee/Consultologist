@@ -1,4 +1,5 @@
 ---
+
 ---
 
 <section id="contact" class="page-section" data-background="light">
@@ -7,7 +8,9 @@
 			<span class="section-eyebrow">Contact</span>
 			<h2>Ready to transform your consult workflow?</h2>
 			<p class="section-description">
-				Share a sample consult scenario and we will craft a Microsoft-style experience tailored to your practice—complete with AI automation and security guidance.
+				Share a sample consult scenario and we will craft a
+				Microsoft-style experience tailored to your practice—complete
+				with AI automation and security guidance.
 			</p>
 		</div>
 
@@ -15,17 +18,24 @@
 			<form class="contact-form" id="consultologist-form" novalidate>
 				<label class="input-field">
 					<span>Full name</span>
-					<fluent-text-field id="contact-name" placeholder="Dr. Jane Smith"></fluent-text-field>
+					<fluent-text-field
+						id="contact-name"
+						placeholder="Dr. Jane Smith"></fluent-text-field>
 				</label>
 
 				<label class="input-field">
 					<span>Specialty</span>
-					<fluent-text-field id="contact-specialty" placeholder="Oncology, Rheumatology, etc."></fluent-text-field>
+					<fluent-text-field
+						id="contact-specialty"
+						placeholder="Oncology, Rheumatology, etc."
+					></fluent-text-field>
 				</label>
 
 				<label class="input-field">
 					<span>Clinic or organization</span>
-					<fluent-text-field id="contact-organization" placeholder="City Gastroenterology"></fluent-text-field>
+					<fluent-text-field
+						id="contact-organization"
+						placeholder="City Gastroenterology"></fluent-text-field>
 				</label>
 
 				<label class="input-field">
@@ -33,19 +43,24 @@
 					<fluent-text-area
 						id="contact-comments"
 						placeholder="Share your consult goals, migration questions, or safeguards you need..."
-						rows="6"
-					></fluent-text-area>
+						rows="6"></fluent-text-area>
 				</label>
 
 				<div class="form-actions">
-					<fluent-button appearance="accent" type="submit" id="consultologist-send">
-						Send with Azure Communication Services
+					<fluent-button
+						appearance="accent"
+						type="submit"
+						id="consultologist-send"
+					>
+						Send Email
 					</fluent-button>
-					<fluent-button appearance="outline" data-scroll-target="#pricing" href="/#pricing">View pricing</fluent-button>
+					<fluent-button
+						appearance="outline"
+						data-scroll-target="#pricing"
+						href="/#pricing">View pricing</fluent-button
+					>
 				</div>
 			</form>
-
-			<div id="consultologist-response" class="response-card" aria-live="polite"></div>
 		</fluent-card>
 	</div>
 </section>
@@ -129,9 +144,15 @@
 </style>
 
 <script>
-	const form = document.getElementById("consultologist-form") as HTMLFormElement | null;
-	const sendButton = document.getElementById("consultologist-send") as HTMLButtonElement | null;
-	const responseContainer = document.getElementById("consultologist-response") as HTMLElement | null;
+	const form = document.getElementById(
+		"consultologist-form",
+	) as HTMLFormElement | null;
+	const sendButton = document.getElementById(
+		"consultologist-send",
+	) as HTMLButtonElement | null;
+	const responseContainer = document.getElementById(
+		"consultologist-response",
+	) as HTMLElement | null;
 
 	type ValueElement = HTMLElement & { value?: string | null };
 
@@ -197,7 +218,12 @@
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ name, specialty, organization, comments }),
+				body: JSON.stringify({
+					name,
+					specialty,
+					organization,
+					comments,
+				}),
 			});
 
 			if (!response.ok) {
@@ -212,7 +238,12 @@
 			`);
 
 			form?.reset();
-			["contact-name", "contact-specialty", "contact-organization", "contact-comments"].forEach(clearFieldValue);
+			[
+				"contact-name",
+				"contact-specialty",
+				"contact-organization",
+				"contact-comments",
+			].forEach(clearFieldValue);
 		} catch (error) {
 			console.error("Error calling Consultologist API:", error);
 			showResponse(`
