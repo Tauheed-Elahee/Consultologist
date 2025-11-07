@@ -40,10 +40,10 @@
 				</label>
 
 				<label class="input-field">
-					<span>Clinic or Organization</span>
+					<span>Institution</span>
 					<fluent-text-field
-						id="contact-organization"
-						placeholder="City Gastroenterology"></fluent-text-field>
+						id="contact-institution"
+						placeholder="City Hospital"></fluent-text-field>
 				</label>
 
 				<label class="input-field">
@@ -222,7 +222,7 @@
 		const name = getFieldValue("contact-name");
 		const email = getFieldValue("contact-email");
 		const specialty = getFieldValue("contact-specialty");
-		const organization = getFieldValue("contact-organization");
+		const organization = getFieldValue("contact-institution");
 		const comments = getFieldValue("contact-comments");
 		let contractSummary: unknown = null;
 
@@ -278,7 +278,7 @@
 				"contact-name",
 				"contact-email",
 				"contact-specialty",
-				"contact-organization",
+				"contact-institution",
 				"contact-comments",
 			].forEach(clearFieldValue);
 		} catch (error) {
