@@ -8,6 +8,12 @@ body {
     margin: 0;
 }
 
+.header-title {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-left: 8px;
+}
+
 .navmenu-icon {
     display: none;
 }

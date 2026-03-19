@@ -4,7 +4,15 @@
 
 <FluentLayout>
     <FluentHeader>
-        Consultologist
+        <FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center" Width="100%">
+            <FluentIcon Value="@(new Icons.Regular.Size24.BuildingPeople())" Color="Color.Fill" />
+            <span class="header-title">Consultologist</span>
+            <FluentSpacer />
+            <FluentButton IconStart="@_themeIcon"
+                          Appearance="Appearance.Stealth"
+                          Title="Toggle theme"
+                          OnClick="@ToggleTheme" />
+        </FluentStack>
     </FluentHeader>
     <FluentStack Class="main" Orientation="Orientation.Horizontal" Width="100%">
         <NavMenu />
@@ -27,3 +35,19 @@
         <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor" target="_blank">About Blazor</a>
     </FluentFooter>
 </FluentLayout>
+
+@code {
+    private FluentDesignTheme? _theme;
+    private DesignThemeModes _themeMode = DesignThemeModes.System;
+
+    private Icon _themeIcon => _themeMode == DesignThemeModes.Dark
+        ? new Icons.Regular.Size20.WeatherSunny()
+        : new Icons.Regular.Size20.WeatherMoon();
+
+    private void ToggleTheme()
+    {
+        _themeMode = _themeMode == DesignThemeModes.Dark
+            ? DesignThemeModes.Light
+            : DesignThemeModes.Dark;
+    }
+}
