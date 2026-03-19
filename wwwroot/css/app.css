@@ -15,9 +15,9 @@ body {
 }
 
 header.header {
-    background-color: var(--neutral-layer-4);
+    background-color: var(--neutral-layer-4) !important;
     border-bottom: 2px solid var(--accent-fill-rest);
-    color: var(--neutral-foreground-rest);
+    color: var(--neutral-foreground-rest) !important;
 }
 
 .navmenu-icon {
