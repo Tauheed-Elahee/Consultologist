@@ -14,6 +14,12 @@ body {
     margin-left: 8px;
 }
 
+fluent-header {
+    background-color: var(--neutral-layer-4);
+    border-bottom: 2px solid var(--accent-fill-rest);
+    color: var(--neutral-foreground-rest);
+}
+
 .navmenu-icon {
     display: none;
 }
