@@ -14,10 +14,10 @@ body {
     margin-left: 8px;
 }
 
-header.header {
-    background-color: var(--neutral-layer-4) !important;
+header.header.header {
+    background-color: var(--neutral-layer-4);
     border-bottom: 2px solid var(--accent-fill-rest);
-    color: var(--neutral-foreground-rest) !important;
+    color: var(--neutral-foreground-rest);
 }
 
 .navmenu-icon {
