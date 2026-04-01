@@ -101,11 +101,11 @@
         text-transform: uppercase;
         letter-spacing: 0.08em;
         color: var(--colorBrandForeground1);
-        margin-bottom: var(--spacingVerticalS);
+        margin-bottom: var(--spacingVerticalM);
     }
 
     .section-header h2 {
-        margin: 0 0 var(--spacingVerticalS);
+        margin: 0 0 var(--spacingVerticalM);
     }
 
     .section-description {
@@ -116,8 +116,8 @@
     .contact-card {
         display: flex;
         flex-direction: column;
-        gap: var(--spacingVerticalL);
-        padding: var(--spacingVerticalXL) var(--spacingHorizontalL);
+        gap: var(--spacingVerticalXL);
+        padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
         width: min(820px, 100%);
         margin: 0 auto;
     }
@@ -125,13 +125,13 @@
     .contact-form {
         display: flex;
         flex-direction: column;
-        gap: var(--spacingVerticalM);
+        gap: var(--spacingVerticalL);
     }
 
     .input-field {
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
+        gap: var(--spacingVerticalS);
         font-size: 0.95rem;
         color: var(--colorNeutralForeground2);
     }
@@ -146,7 +146,7 @@
         min-height: 140px;
         border: 1px dashed rgba(0, 103, 184, 0.2);
         border-radius: var(--borderRadiusMedium);
-        padding: var(--spacingVerticalM) var(--spacingHorizontalM);
+        padding: var(--spacingVerticalL) var(--spacingHorizontalL);
         background: rgba(0, 103, 184, 0.04);
     }
 
@@ -154,7 +154,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 0.75rem;
+        gap: var(--spacingVerticalM);
     }
 
     .error-message {
@@ -169,7 +169,7 @@
 
     @@media (max-width: 600px) {
         .contact-card {
-            padding: var(--spacingVerticalL) var(--spacingHorizontalM);
+            padding: var(--spacingVerticalXL) var(--spacingHorizontalM);
         }
 
         .form-actions {
