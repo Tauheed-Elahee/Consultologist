@@ -207,7 +207,6 @@ public class ContactFunction(ILogger<ContactFunction> logger)
     private static async Task<HttpResponseData> WriteJsonResponse(HttpRequestData req, HttpStatusCode status, object body)
     {
         var response = req.CreateResponse(status);
-        response.Headers.Add("Content-Type", "application/json");
         await response.WriteAsJsonAsync(body);
         return response;
     }
