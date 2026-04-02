@@ -1,0 +1,190 @@
+.home-page {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacingVerticalXXL);
+    padding-bottom: var(--spacingVerticalXXL);
+}
+
+/* Hero */
+.hero-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--spacingVerticalXXL) var(--spacingHorizontalL);
+    gap: var(--spacingVerticalL);
+}
+
+.hero-section .section-eyebrow {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--colorBrandForeground1);
+}
+
+.hero-title {
+    margin: 0;
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--colorNeutralForeground1);
+}
+
+.hero-description {
+    max-width: 600px;
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.65;
+    color: var(--colorNeutralForeground2);
+}
+
+.hero-actions {
+    margin-top: var(--spacingVerticalM);
+}
+
+/* Problem */
+.problem-section {
+    display: flex;
+    justify-content: center;
+    padding: 0 var(--spacingHorizontalL);
+}
+
+.problem-text {
+    max-width: 640px;
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    text-align: center;
+    color: var(--colorNeutralForeground2);
+}
+
+/* Features */
+.features-section {
+    padding: 0 var(--spacingHorizontalL);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacingHorizontalL);
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacingVerticalM);
+}
+
+.feature-card h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--colorNeutralForeground1);
+}
+
+.feature-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--colorNeutralForeground2);
+}
+
+/* Disclosure */
+.disclosure-section {
+    padding: 0 var(--spacingHorizontalL);
+    display: flex;
+    justify-content: center;
+}
+
+.disclosure-card {
+    max-width: 720px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacingVerticalL);
+    border-left: 4px solid var(--colorBrandForeground1) !important;
+}
+
+.disclosure-quote {
+    margin: 0;
+    font-size: 1.15rem;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--colorNeutralForeground1);
+}
+
+.disclosure-body {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--colorNeutralForeground2);
+}
+
+/* Waitlist */
+.waitlist-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--spacingVerticalXXL) var(--spacingHorizontalL);
+    gap: var(--spacingVerticalM);
+    background: rgba(0, 103, 184, 0.04);
+    border-top: 1px solid rgba(0, 103, 184, 0.12);
+}
+
+.waitlist-section .section-eyebrow {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--colorBrandForeground1);
+}
+
+.waitlist-section h2 {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.waitlist-description {
+    max-width: 480px;
+    margin: 0;
+    color: var(--colorNeutralForeground2);
+    line-height: 1.6;
+}
+
+.waitlist-section fluent-button {
+    margin-top: var(--spacingVerticalS);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-title {
+        font-size: clamp(1.75rem, 8vw, 2.5rem);
+    }
+}
+
+@media (max-width: 600px) {
+    .hero-section,
+    .waitlist-section {
+        padding-left: var(--spacingHorizontalM);
+        padding-right: var(--spacingHorizontalM);
+    }
+
+    .features-section,
+    .problem-section,
+    .disclosure-section {
+        padding-left: var(--spacingHorizontalM);
+        padding-right: var(--spacingHorizontalM);
+    }
+}

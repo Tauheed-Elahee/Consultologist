@@ -1,7 +1,70 @@
-﻿@page "/"
+@page "/"
+@inject NavigationManager NavigationManager
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Consultologist — AI-Assisted Specialist Consults</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="home-page">
 
-Welcome to your new Fluent Blazor app.
+    <section class="hero-section">
+        <span class="section-eyebrow">Early Access</span>
+        <h1 class="hero-title">Get your time back. Consults done faster, with reasoning you can stand behind.</h1>
+        <p class="hero-description">
+            Generic AI saves you time until it doesn't. One wrong answer you can't explain
+            costs you more time than you saved.
+        </p>
+        <p class="hero-description">
+            Consultologist shows its reasoning. Every output comes with an auditable chain of
+            thinking — so you can review it in seconds, not second-guess it for minutes.
+        </p>
+        <div class="hero-actions">
+            <FluentButton Appearance="Appearance.Accent"
+                          OnClick="@(() => NavigationManager.NavigateTo("/contact"))">
+                Join the waitlist
+            </FluentButton>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="features-grid">
+            <FluentCard Class="feature-card">
+                <h3>Draft in seconds</h3>
+                <p>Referral package in. Structured consult draft out, grounded in the clinical detail of the referral.</p>
+            </FluentCard>
+            <FluentCard Class="feature-card">
+                <h3>Review with confidence</h3>
+                <p>See how the draft was reasoned — catch errors fast and sign off knowing why every recommendation is there.</p>
+            </FluentCard>
+            <FluentCard Class="feature-card">
+                <h3>Disclose with clarity</h3>
+                <p>When patients ask, you have an answer and a record — not just "AI helped", but exactly how and what you reviewed.</p>
+            </FluentCard>
+        </div>
+    </section>
+
+    <section class="disclosure-section">
+        <FluentCard Class="disclosure-card">
+            <blockquote class="disclosure-quote">
+                "AI helped draft this consultation. Your physician reviewed every recommendation."
+            </blockquote>
+            <p class="disclosure-body">
+                Patients increasingly ask whether AI was involved in their care. With Consultologist,
+                the answer is straightforward — and reassuring. You did not hand off your judgment.
+                You used a tool that showed its reasoning, reviewed it, and stood behind it
+                before it reached your patient.
+            </p>
+        </FluentCard>
+    </section>
+
+    <section class="waitlist-section">
+        <span class="section-eyebrow">Early Access</span>
+        <h2>Built for specialist physicians</h2>
+        <p class="waitlist-description">
+            Join the waitlist and we'll be in touch when your specialty is available.
+        </p>
+        <FluentButton Appearance="Appearance.Accent"
+                      OnClick="@(() => NavigationManager.NavigateTo("/contact"))">
+            Join the waitlist
+        </FluentButton>
+    </section>
+
+</div>

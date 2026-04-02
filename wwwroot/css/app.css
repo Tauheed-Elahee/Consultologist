@@ -1,5 +1,6 @@
 @import '/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
 @import './styles/contact.css';
+@import './styles/home.css';
 
 @property --design-unit {
     syntax: '<number>';
