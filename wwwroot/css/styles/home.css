@@ -1,0 +1,233 @@
+.home-page {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacingVerticalXXL);
+    padding-bottom: var(--spacingVerticalXXL);
+}
+
+/* Hero */
+.hero-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--spacingVerticalXXL) var(--spacingHorizontalL);
+    gap: var(--spacingVerticalL);
+}
+
+.hero-section .section-eyebrow,
+.waitlist-section .section-eyebrow {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #fff;
+    background: var(--accent-fill-rest);
+    padding: 0.2em 0.65em;
+    border-radius: 0.25em;
+}
+
+.hero-title {
+    margin: 0;
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--neutral-foreground-rest);
+}
+
+.hero-description {
+    max-width: 600px;
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.65;
+    color: var(--neutral-foreground-hint);
+}
+
+.hero-actions {
+    margin-top: var(--spacingVerticalM);
+}
+
+/* Dialogue */
+.dialogue-group {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    column-gap: var(--spacingHorizontalL);
+    row-gap: var(--spacingVerticalM);
+    align-items: baseline;
+}
+
+.dialogue-item {
+    display: contents;
+}
+
+.dialogue-speaker {
+    text-align: right;
+    font-size: 1.15rem;
+    font-weight: 600;
+    font-variant: small-caps;
+    /*text-transform: uppercase;*/
+    letter-spacing: 0.05em;
+    color: var(--neutral-foreground-hint);
+}
+
+.dialogue-quote {
+    margin: 0;
+    padding: 0 0 0 var(--spacingHorizontalM);
+    border-left: 3px solid transparent;
+    font-size: 1.15rem;
+    font-style: italic;
+    text-align: left;
+    color: var(--neutral-foreground-rest);
+    line-height: 1.5;
+}
+
+/* Per-speaker stripe colours */
+.dialogue-group .dialogue-item:nth-child(1) .dialogue-quote {
+    border-left-color: var(--accent-fill-rest);
+}
+
+.dialogue-group .dialogue-item:nth-child(2) .dialogue-quote {
+    border-left-color: #c43501;
+}
+
+.dialogue-group .dialogue-item:nth-child(3) .dialogue-quote {
+    border-left-color: #038387;
+}
+
+/* Problem */
+.problem-section {
+    display: flex;
+    justify-content: center;
+    padding: 0 var(--spacingHorizontalL);
+}
+
+.problem-text {
+    max-width: 640px;
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    text-align: center;
+    color: var(--neutral-foreground-hint);
+}
+
+/* Features */
+.features-section {
+    padding: 0 var(--spacingHorizontalL);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacingHorizontalL);
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacingVerticalM);
+}
+
+.feature-card h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--neutral-foreground-rest);
+}
+
+.feature-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--neutral-foreground-hint);
+}
+
+/* Disclosure */
+.disclosure-section {
+    padding: 0 var(--spacingHorizontalL);
+    display: flex;
+    justify-content: center;
+}
+
+.disclosure-card {
+    max-width: 720px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacingVerticalL);
+    border-left: 4px solid var(--accent-fill-rest) !important;
+}
+
+.disclosure-quote {
+    margin: 0;
+    font-size: 1.15rem;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--neutral-foreground-rest);
+}
+
+.disclosure-body {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--neutral-foreground-hint);
+}
+
+/* Waitlist */
+.waitlist-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--spacingVerticalXXL) var(--spacingHorizontalL);
+    gap: var(--spacingVerticalM);
+    background: rgba(0, 103, 184, 0.04);
+    border-top: 1px solid rgba(0, 103, 184, 0.12);
+}
+
+
+.waitlist-section h2 {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.waitlist-description {
+    max-width: 480px;
+    margin: 0;
+    color: var(--neutral-foreground-hint);
+    line-height: 1.6;
+}
+
+.waitlist-section fluent-button {
+    margin-top: var(--spacingVerticalS);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-title {
+        font-size: clamp(1.75rem, 8vw, 2.5rem);
+    }
+}
+
+@media (max-width: 600px) {
+    .hero-section,
+    .waitlist-section {
+        padding-left: var(--spacingHorizontalM);
+        padding-right: var(--spacingHorizontalM);
+    }
+
+    .features-section,
+    .problem-section,
+    .disclosure-section {
+        padding-left: var(--spacingHorizontalM);
+        padding-right: var(--spacingHorizontalM);
+    }
+}

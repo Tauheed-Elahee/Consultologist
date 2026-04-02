@@ -1,0 +1,95 @@
+.contact-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacingVerticalXXL);
+    padding: var(--spacingVerticalXL) var(--spacingHorizontalL);
+}
+
+.section-eyebrow {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-fill-rest);
+    margin-bottom: var(--spacingVerticalM);
+}
+
+.section-header h2 {
+    margin: 0 0 var(--spacingVerticalM);
+}
+
+.section-description {
+    color: var(--neutral-foreground-hint);
+    margin: 0;
+}
+
+.contact-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacingVerticalXL);
+    padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
+    width: min(820px, 100%);
+    margin: 0 auto;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacingVerticalXL);
+}
+
+.input-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacingVerticalS);
+    font-size: 0.95rem;
+    color: var(--neutral-foreground-hint);
+}
+
+.input-field fluent-text-field::part(control),
+.input-field fluent-text-area::part(control) {
+    min-height: 36px;
+}
+
+.form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacingHorizontalS);
+    margin-top: var(--spacingVerticalM);
+}
+
+.response-card {
+    min-height: 140px;
+    border: 1px dashed rgba(0, 103, 184, 0.2);
+    border-radius: var(--control-corner-radius);
+    padding: var(--spacingVerticalL) var(--spacingHorizontalL);
+    background: rgba(0, 103, 184, 0.04);
+}
+
+.loading-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacingVerticalM);
+}
+
+.error-message {
+    color: #a4262c;
+    font-weight: 600;
+}
+
+.success-message {
+    color: #107c10;
+    font-weight: 600;
+}
+
+@media (max-width: 600px) {
+    .contact-card {
+        padding: var(--spacingVerticalXL) var(--spacingHorizontalM);
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+}
