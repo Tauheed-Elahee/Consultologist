@@ -11,7 +11,7 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--colorBrandForeground1);
+    color: var(--accent-fill-rest);
     margin-bottom: var(--spacingVerticalM);
 }
 
@@ -20,7 +20,7 @@
 }
 
 .section-description {
-    color: var(--colorNeutralForeground2);
+    color: var(--neutral-foreground-hint);
     margin: 0;
 }
 
@@ -44,7 +44,7 @@
     flex-direction: column;
     gap: var(--spacingVerticalS);
     font-size: 0.95rem;
-    color: var(--colorNeutralForeground2);
+    color: var(--neutral-foreground-hint);
 }
 
 .input-field fluent-text-field::part(control),
@@ -62,7 +62,7 @@
 .response-card {
     min-height: 140px;
     border: 1px dashed rgba(0, 103, 184, 0.2);
-    border-radius: var(--borderRadiusMedium);
+    border-radius: var(--control-corner-radius);
     padding: var(--spacingVerticalL) var(--spacingHorizontalL);
     background: rgba(0, 103, 184, 0.04);
 }
