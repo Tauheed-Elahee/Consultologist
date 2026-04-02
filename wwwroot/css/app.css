@@ -10,6 +10,15 @@ fluent-card {
     --design-unit: 8;
 }
 
+/* Fluent v9 spacing tokens — rem values based on a root font size of 16px */
+:root {
+    --spacingVerticalS: 0.5rem;    --spacingHorizontalS: 0.5rem;
+    --spacingVerticalM: 0.75rem;   --spacingHorizontalM: 0.75rem;
+    --spacingVerticalL: 1rem;      --spacingHorizontalL: 1rem;
+    --spacingVerticalXL: 1.25rem;  --spacingHorizontalXL: 1.25rem;
+    --spacingVerticalXXL: 2rem;    --spacingHorizontalXXL: 2rem;
+}
+
 body {
     --body-font: "Segoe UI Variable", "Segoe UI", sans-serif;
     font-family: var(--body-font);
