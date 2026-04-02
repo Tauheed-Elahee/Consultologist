@@ -1,0 +1,53 @@
+﻿@inherits LayoutComponentBase
+
+<FluentDesignTheme @ref="@_theme" Mode="@_themeMode" StorageName="consultologist-theme" />
+
+<FluentLayout>
+    <FluentHeader>
+        <FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center" Width="100%">
+            <img src="icon.png" alt="Consultologist" style="height:24px;width:24px;" />
+            <span class="header-title">Consultologist</span>
+            <FluentSpacer />
+            <FluentButton IconStart="@_themeIcon"
+                          Appearance="Appearance.Stealth"
+                          Title="Toggle theme"
+                          OnClick="@ToggleTheme" />
+        </FluentStack>
+    </FluentHeader>
+    <FluentStack Class="main" Orientation="Orientation.Horizontal" Width="100%">
+        <NavMenu />
+        <FluentBodyContent Class="body-content">
+            <ErrorBoundary>
+                <ChildContent>
+                    <div class="content">
+                        @Body
+                    </div>
+                </ChildContent>
+                <ErrorContent Context="ex">
+                    <div class="blazor-error-boundary">@ex.Message</div>
+                </ErrorContent>
+            </ErrorBoundary>
+        </FluentBodyContent>
+    </FluentStack>
+    <FluentFooter>
+        <a href="https://www.fluentui-blazor.net" target="_blank">Documentation and demos</a>
+        <FluentSpacer />
+        <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor" target="_blank">About Blazor</a>
+    </FluentFooter>
+</FluentLayout>
+
+@code {
+    private FluentDesignTheme? _theme;
+    private DesignThemeModes _themeMode = DesignThemeModes.System;
+
+    private Icon _themeIcon => _themeMode == DesignThemeModes.Dark
+        ? new Icons.Regular.Size20.WeatherSunny()
+        : new Icons.Regular.Size20.WeatherMoon();
+
+    private void ToggleTheme()
+    {
+        _themeMode = _themeMode == DesignThemeModes.Dark
+            ? DesignThemeModes.Light
+            : DesignThemeModes.Dark;
+    }
+}

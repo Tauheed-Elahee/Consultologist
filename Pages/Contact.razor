@@ -1,0 +1,135 @@
+@page "/contact"
+@inject HttpClient Http
+@using Consultologist.Models
+
+<PageTitle>Contact — Consultologist</PageTitle>
+
+<section class="contact-section">
+    <div class="section-header">
+        <span class="section-eyebrow">Contact</span>
+        <h2>Ready to transform your consult workflow?</h2>
+        <p class="section-description">
+            Share a sample consult scenario and we will craft a
+            Microsoft-style experience tailored to your practice—complete
+            with AI automation and security guidance.
+        </p>
+    </div>
+
+    <FluentCard Class="contact-card">
+        <EditForm Model="@_model" OnValidSubmit="@HandleSubmit" class="contact-form">
+            <DataAnnotationsValidator />
+
+            <label class="input-field">
+                <span>Full name</span>
+                <FluentTextField @bind-Value="_model.Name" Placeholder="Dr. Jane Smith" style="width:100%" />
+                <ValidationMessage For="@(() => _model.Name)" />
+            </label>
+
+            <label class="input-field">
+                <span>Email</span>
+                <FluentTextField @bind-Value="_model.Email" TextFieldType="TextFieldType.Email" Placeholder="you@clinic.ca" style="width:100%" />
+                <ValidationMessage For="@(() => _model.Email)" />
+            </label>
+
+            <label class="input-field">
+                <span>Specialty</span>
+                <FluentTextField @bind-Value="_model.Specialty" Placeholder="Oncology, Rheumatology, etc." style="width:100%" />
+                <ValidationMessage For="@(() => _model.Specialty)" />
+            </label>
+
+            <label class="input-field">
+                <span>Institution</span>
+                <FluentTextField @bind-Value="_model.Institution" Placeholder="City Hospital" style="width:100%" />
+                <ValidationMessage For="@(() => _model.Institution)" />
+            </label>
+
+            <label class="input-field">
+                <span>Comments</span>
+                <FluentTextArea @bind-Value="_model.Comments"
+                                Placeholder="Share your consult goals, migration questions, or safeguards you need..."
+                                Rows="6"
+                                style="width:100%" />
+                <ValidationMessage For="@(() => _model.Comments)" />
+            </label>
+
+            <div class="form-actions">
+                <FluentButton Type="ButtonType.Submit"
+                              Appearance="Appearance.Accent"
+                              Disabled="@_isLoading">
+                    @(_isLoading ? "Sending..." : "Send Email")
+                </FluentButton>
+            </div>
+        </EditForm>
+
+        <div class="response-card" aria-live="polite">
+            @if (_isLoading)
+            {
+                <div class="loading-message">
+                    <FluentProgressRing />
+                    <p>Connecting to Azure Communication Services...</p>
+                </div>
+            }
+            else if (_successMessage is not null)
+            {
+                <div class="success-message">
+                    <p>@_successMessage</p>
+                </div>
+            }
+            else if (_errorMessage is not null)
+            {
+                <div class="error-message">
+                    <h3>We ran into an issue</h3>
+                    <p>@_errorMessage</p>
+                </div>
+            }
+        </div>
+    </FluentCard>
+</section>
+
+@code {
+    private ContactRequest _model = new();
+    private bool _isLoading = false;
+    private string? _successMessage;
+    private string? _errorMessage;
+
+    private async Task HandleSubmit()
+    {
+        _isLoading = true;
+        _successMessage = null;
+        _errorMessage = null;
+
+        var payload = new
+        {
+            name = _model.Name,
+            email = _model.Email,
+            specialty = _model.Specialty,
+            organization = _model.Institution,
+            comments = _model.Comments
+        };
+
+        try
+        {
+            var response = await Http.PostAsJsonAsync("/api/contact", payload);
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadFromJsonAsync<ContactResponse>();
+                _successMessage = result?.Message ?? "Thanks! Your details were sent with Azure Communication Services.";
+                _model = new ContactRequest();
+            }
+            else
+            {
+                _errorMessage = "We could not reach Azure Communication Services. Please verify your configuration or email hello@consultologist.ai.";
+            }
+        }
+        catch
+        {
+            _errorMessage = "We could not reach Azure Communication Services. Please verify your configuration or email hello@consultologist.ai.";
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private record ContactResponse(string? Message);
+}

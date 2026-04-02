@@ -9,26 +9,11 @@
   "routes": [
     {
       "route": "/api/*",
-      "methods": [
-        "get",
-        "post"
-      ],
-      "allowedRoles": [
-        "anonymous"
-      ]
+      "methods": ["get", "post"],
+      "allowedRoles": ["anonymous"]
     }
   ],
-  "responseOverrides": {
-    "404": {
-      "rewrite": "/404.html",
-      "statusCode": 404
-    }
-  },
   "platform": {
-    "apiRuntime": "node:20"
-  },
-  "mimeTypes": {
-    ".json": "application/json",
-    ".liquid": "text/plain"
+    "apiRuntime": "dotnet-isolated:9.0"
   }
 }
