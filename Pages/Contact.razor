@@ -125,7 +125,7 @@
     .contact-form {
         display: flex;
         flex-direction: column;
-        gap: var(--spacingVerticalL);
+        gap: var(--spacingVerticalXL);
     }
 
     .input-field {
@@ -136,10 +136,16 @@
         color: var(--colorNeutralForeground2);
     }
 
+    .input-field fluent-text-field::part(control),
+    .input-field fluent-text-area::part(control) {
+        min-height: 36px;
+    }
+
     .form-actions {
         display: flex;
         flex-wrap: wrap;
         gap: var(--spacingHorizontalS);
+        margin-top: var(--spacingVerticalM);
     }
 
     .response-card {
