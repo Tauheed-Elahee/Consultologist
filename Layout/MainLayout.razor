@@ -7,6 +7,10 @@
         <FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center" Width="100%">
             <img src="icon.png" alt="Consultologist" style="height:24px;width:24px;" />
             <span class="header-title">Consultologist</span>
+            <nav class="top-nav">
+                <NavLink href="/" Match="NavLinkMatch.All">Home</NavLink>
+                <NavLink href="contact">Contact</NavLink>
+            </nav>
             <FluentSpacer />
             <FluentButton IconStart="@_themeIcon"
                           Appearance="Appearance.Stealth"
@@ -14,21 +18,18 @@
                           OnClick="@ToggleTheme" />
         </FluentStack>
     </FluentHeader>
-    <FluentStack Class="main" Orientation="Orientation.Horizontal" Width="100%">
-        <NavMenu />
-        <FluentBodyContent Class="body-content">
-            <ErrorBoundary>
-                <ChildContent>
-                    <div class="content">
-                        @Body
-                    </div>
-                </ChildContent>
-                <ErrorContent Context="ex">
-                    <div class="blazor-error-boundary">@ex.Message</div>
-                </ErrorContent>
-            </ErrorBoundary>
-        </FluentBodyContent>
-    </FluentStack>
+    <FluentBodyContent Class="body-content">
+        <ErrorBoundary>
+            <ChildContent>
+                <div class="content">
+                    @Body
+                </div>
+            </ChildContent>
+            <ErrorContent Context="ex">
+                <div class="blazor-error-boundary">@ex.Message</div>
+            </ErrorContent>
+        </ErrorBoundary>
+    </FluentBodyContent>
     <FluentFooter>
         <a href="https://www.fluentui-blazor.net" target="_blank">Documentation and demos</a>
         <FluentSpacer />
