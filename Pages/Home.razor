@@ -6,39 +6,44 @@
 <div class="home-page">
 
     <section class="hero-section">
-        <span class="section-eyebrow">Early Access</span>
-        <h1 class="hero-title">Get your time back. Consults done faster,<br />with reasoning you can stand behind.</h1>
-        <FluentDivider Style="width: 100%; max-width: 600px;" />
-        <div class="dialogue-group">
-            <div class="dialogue-item">
-                <span class="dialogue-speaker">Admin</span>
-                <blockquote class="dialogue-quote">"Do you <strong>consent</strong> to using AI?"</blockquote>
+        <div class="hero-content">
+            <span class="section-eyebrow">Early Access</span>
+            <h1 class="hero-title">Get your time back. Consults done faster,<br />with reasoning you can stand behind.</h1>
+            <FluentDivider Style="width: 100%;" />
+            <div class="dialogue-group">
+                <div class="dialogue-item">
+                    <span class="dialogue-speaker">Admin</span>
+                    <blockquote class="dialogue-quote">"Do you <strong>consent</strong> to using AI?"</blockquote>
+                </div>
+                <div class="dialogue-item">
+                    <span class="dialogue-speaker">Patient №1</span>
+                    <blockquote class="dialogue-quote">"No. How do you <strong>know</strong> that it works?"</blockquote>
+                </div>
+                <div class="dialogue-item">
+                    <span class="dialogue-speaker">Patient №2</span>
+                    <blockquote class="dialogue-quote">"How much <strong>time</strong> until I can see the doctor?"</blockquote>
+                </div>
             </div>
-            <div class="dialogue-item">
-                <span class="dialogue-speaker">Patient №1</span>
-                <blockquote class="dialogue-quote">"No. How do you <strong>know</strong> that it works?"</blockquote>
-            </div>
-            <div class="dialogue-item">
-                <span class="dialogue-speaker">Patient №2</span>
-                <blockquote class="dialogue-quote">"How much <strong>time</strong> until I can see the doctor?"</blockquote>
+            <FluentDivider Style="width: 100%;" />
+            <p class="hero-description">
+                Admin requires patients' consent.<br />
+                Patients are skeptical how AI can know.<br />
+                Yet AI saves time.
+            </p>
+            <FluentDivider Style="width: 100%;" />
+            <p class="hero-description">
+                Give confidence with an auditable chain of thinking.<br />
+                Gain time to serve more.
+            </p>
+            <div class="hero-actions">
+                <FluentButton Appearance="Appearance.Accent"
+                              OnClick="@(() => NavigationManager.NavigateTo("/contact"))">
+                    Join the waitlist
+                </FluentButton>
             </div>
         </div>
-        <FluentDivider Style="width: 100%; max-width: 600px;" />
-        <p class="hero-description">
-            Admin requires patients' consent.<br />
-            Patients are skeptical how AI can know.<br />
-            Yet AI saves time.
-        </p>
-        <FluentDivider Style="width: 100%; max-width: 600px;" />
-        <p class="hero-description">
-            Give confidence with an auditable chain of thinking.<br />
-            Gain time to serve more.
-        </p>
-        <div class="hero-actions">
-            <FluentButton Appearance="Appearance.Accent"
-                          OnClick="@(() => NavigationManager.NavigateTo("/contact"))">
-                Join the waitlist
-            </FluentButton>
+        <div class="hero-image">
+            <img src="images/hero.webp" alt="AI-assisted specialist consultation — neural network connecting clinical interfaces" />
         </div>
     </section>
 

@@ -7,15 +7,35 @@
 
 /* Hero */
 .hero-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacingHorizontalXXL);
+    padding: var(--spacingVerticalXXL) var(--spacingHorizontalL);
+    align-items: center;
+}
+
+.hero-content {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: var(--spacingVerticalXXL) var(--spacingHorizontalL);
+    align-items: flex-start;
+    text-align: left;
     gap: var(--spacingVerticalL);
 }
 
-.hero-section .section-eyebrow,
+.hero-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-image img {
+    width: 100%;
+    max-width: 560px;
+    height: auto;
+    border-radius: 12px;
+}
+
+.hero-content .section-eyebrow,
 .waitlist-section .section-eyebrow {
     display: inline-block;
     font-size: 0.85rem;
@@ -37,7 +57,6 @@
 }
 
 .hero-description {
-    max-width: 600px;
     margin: 0;
     font-size: 1.1rem;
     line-height: 1.65;
@@ -208,6 +227,19 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+    .hero-section {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-image {
+        display: none;
+    }
+
+    .hero-content {
+        align-items: center;
+        text-align: center;
+    }
+
     .features-grid {
         grid-template-columns: 1fr;
     }
