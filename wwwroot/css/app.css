@@ -183,3 +183,304 @@ code {
         padding: 4px 6px;
     }
 }
+
+
+/* Consultologist shared UI system overrides */
+:root {
+    --consultologist-font: "Segoe UI Variable", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    --consultologist-bg: var(--neutral-layer-2, #f7f9fc);
+    --consultologist-surface: var(--neutral-layer-1, #ffffff);
+    --consultologist-surface-muted: var(--neutral-layer-3, #eef5fb);
+    --consultologist-text: var(--neutral-foreground-rest, #172033);
+    --consultologist-text-muted: var(--neutral-foreground-hint, #5d6a7c);
+    --consultologist-border: var(--neutral-stroke-divider-rest, rgba(23, 32, 51, 0.12));
+    --consultologist-accent: var(--accent-fill-rest, #0067b8);
+    --consultologist-accent-soft: rgba(0, 103, 184, 0.08);
+    --consultologist-success: #107c10;
+    --consultologist-error: #a4262c;
+    --consultologist-radius-sm: 4px;
+    --consultologist-radius-md: 8px;
+    --consultologist-shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.08);
+    --page-gutter: clamp(1rem, 3vw, 2rem);
+    --section-gap: clamp(1.25rem, 3vw, 2rem);
+}
+
+html,
+body {
+    box-sizing: border-box;
+    min-width: 0;
+    overflow-x: hidden;
+    background: var(--consultologist-bg);
+    color: var(--consultologist-text);
+    font-family: var(--consultologist-font);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+img,
+svg,
+video,
+canvas {
+    max-width: 100%;
+}
+
+a:focus-visible,
+button:focus-visible,
+fluent-button:focus-visible,
+fluent-anchor:focus-visible,
+fluent-text-field:focus-within,
+fluent-text-area:focus-within,
+fluent-select:focus-within {
+    outline: 2px solid var(--consultologist-accent);
+    outline-offset: 2px;
+}
+
+.site-header.site-header {
+    background: var(--consultologist-surface);
+    border-bottom: 1px solid var(--consultologist-border);
+    color: var(--consultologist-text);
+}
+
+.site-header__inner {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0.75rem var(--page-gutter);
+    min-width: 0;
+}
+
+.brand-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--consultologist-radius-sm);
+    flex: 0 0 auto;
+}
+
+.header-title {
+    color: var(--consultologist-text);
+    font-weight: 700;
+    letter-spacing: 0;
+}
+
+.top-nav {
+    min-width: 0;
+    flex-wrap: wrap;
+}
+
+.top-nav a {
+    color: var(--consultologist-text-muted);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.top-nav a:hover,
+.top-nav a.active {
+    color: var(--consultologist-text);
+    background: var(--consultologist-accent-soft);
+    text-decoration: none;
+}
+
+.body-content {
+    min-height: calc(100dvh - 104px);
+    background: var(--consultologist-bg);
+}
+
+.content {
+    min-width: 0;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.site-footer {
+    background: var(--consultologist-surface);
+    border-top: 1px solid var(--consultologist-border);
+    color: var(--consultologist-text-muted);
+    padding: 0;
+}
+
+.site-footer__inner {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0.75rem var(--page-gutter);
+    gap: 1rem;
+}
+
+.site-footer a {
+    color: var(--consultologist-text-muted);
+    text-decoration: none;
+}
+
+.site-footer a:hover {
+    color: var(--consultologist-text);
+    text-decoration: underline;
+}
+
+.section-header {
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.section-header h2 {
+    color: var(--consultologist-text);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    line-height: 1.15;
+}
+
+.section-description {
+    line-height: 1.65;
+}
+
+fluent-card,
+.contact-card,
+.feature-card,
+.disclosure-card {
+    border-radius: var(--consultologist-radius-md);
+    box-shadow: var(--consultologist-shadow-sm);
+}
+
+.input-field {
+    min-width: 0;
+    font-weight: 600;
+}
+
+.input-field fluent-text-field,
+.input-field fluent-text-area {
+    min-width: 0;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+}
+
+.validation-message {
+    color: var(--consultologist-error);
+    font-size: 0.875rem;
+}
+
+.response-card {
+    border-radius: var(--consultologist-radius-md);
+    border-color: var(--consultologist-border);
+    background: var(--consultologist-surface-muted);
+}
+
+.success-message {
+    color: var(--consultologist-success);
+}
+
+.error-message {
+    color: var(--consultologist-error);
+}
+
+
+@media (max-width: 768px) {
+    .site-header__inner {
+        padding-inline: 1rem;
+        gap: 0.5rem;
+    }
+
+    .header-title {
+        font-size: 1rem;
+    }
+
+    .hero-section {
+        padding-top: 1.5rem;
+    }
+
+    .hero-content {
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .hero-title br,
+    .hero-description br {
+        display: none;
+    }
+
+    .dialogue-group {
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+
+    .dialogue-item {
+        display: grid;
+        gap: 0.25rem;
+    }
+
+    .dialogue-speaker {
+        text-align: left;
+        font-size: 0.95rem;
+    }
+
+    .dialogue-quote {
+        font-size: 1rem;
+        white-space: normal;
+    overflow-wrap: break-word;
+    }
+
+    .contact-section {
+        padding-inline: 1rem;
+    }
+
+    .form-actions,
+    .form-actions fluent-button {
+        width: 100%;
+    }
+}
+
+
+/* Mobile overflow hardening */
+.content,
+.home-page,
+.contact-section,
+.hero-section,
+.features-section,
+.disclosure-section,
+.waitlist-section {
+    width: 100%;
+    min-width: 0;
+}
+
+.hero-content,
+.hero-title,
+.hero-description,
+.section-header,
+.section-header h2,
+.section-description,
+.feature-card,
+.disclosure-card,
+.disclosure-body,
+.waitlist-description {
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+
+.contact-card {
+    box-sizing: border-box;
+    max-width: min(820px, calc(100vw - 2rem));
+}
+
+.contact-form,
+.response-card {
+    max-width: 100%;
+    min-width: 0;
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: clamp(2rem, 9vw, 2.35rem);
+    }
+
+    .section-header {
+        margin: 0;
+    }
+
+    .contact-card {
+        margin-inline: 0;
+        width: 100%;
+    }
+}

@@ -3,9 +3,9 @@
 <FluentDesignTheme @ref="@_theme" Mode="@_themeMode" StorageName="consultologist-theme" />
 
 <FluentLayout>
-    <FluentHeader>
-        <FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center" Width="100%">
-            <img src="icon.png" alt="Consultologist" style="height:24px;width:24px;" />
+    <FluentHeader Class="site-header">
+        <FluentStack Class="site-header__inner" Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center" Width="100%">
+            <img src="icon.png" alt="" class="brand-icon" />
             <span class="header-title">Consultologist</span>
             <nav class="top-nav">
                 <NavLink href="/" Match="NavLinkMatch.All">Home</NavLink>
@@ -30,10 +30,14 @@
             </ErrorContent>
         </ErrorBoundary>
     </FluentBodyContent>
-    <FluentFooter>
-        <a href="https://www.fluentui-blazor.net" target="_blank">Documentation and demos</a>
-        <FluentSpacer />
-        <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor" target="_blank">About Blazor</a>
+    <FluentFooter Class="site-footer">
+        <FluentStack Class="site-footer__inner" Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center" Width="100%" Wrap="true">
+            <span>&copy; 2026 Consultologist</span>
+            <FluentSpacer />
+            <a href="mailto:hello@consultologist.ai">Contact</a>
+            <a href="contact">Join the waitlist</a>
+            <a href="#">Privacy</a>
+        </FluentStack>
     </FluentFooter>
 </FluentLayout>
 

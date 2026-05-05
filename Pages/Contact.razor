@@ -7,11 +7,9 @@
 <section class="contact-section">
     <div class="section-header">
         <span class="section-eyebrow">Contact</span>
-        <h2>Ready to transform your consult workflow?</h2>
+        <h2>Join the Consultologist waitlist.</h2>
         <p class="section-description">
-            Share a sample consult scenario and we will craft a
-            Microsoft-style experience tailored to your practice—complete
-            with AI automation and security guidance.
+            Tell us about your specialty and consult volume. We will follow up when early access is available for your workflow.
         </p>
     </div>
 
@@ -46,7 +44,7 @@
             <label class="input-field">
                 <span>Comments</span>
                 <FluentTextArea @bind-Value="_model.Comments"
-                                Placeholder="Share your consult goals, migration questions, or safeguards you need..."
+                                Placeholder="Share your specialty, consult workflow, and safeguards you need..."
                                 Rows="6"
                                 style="width:100%" />
                 <ValidationMessage For="@(() => _model.Comments)" />
@@ -56,7 +54,7 @@
                 <FluentButton Type="ButtonType.Submit"
                               Appearance="Appearance.Accent"
                               Disabled="@_isLoading">
-                    @(_isLoading ? "Sending..." : "Send Email")
+                    @(_isLoading ? "Sending..." : "Join waitlist")
                 </FluentButton>
             </div>
         </EditForm>
@@ -66,7 +64,7 @@
             {
                 <div class="loading-message">
                     <FluentProgressRing />
-                    <p>Connecting to Azure Communication Services...</p>
+                    <p>Sending your waitlist request...</p>
                 </div>
             }
             else if (_successMessage is not null)
@@ -113,17 +111,17 @@
             if (response.IsSuccessStatusCode)
             {
                 var result = await response.Content.ReadFromJsonAsync<ContactResponse>();
-                _successMessage = result?.Message ?? "Thanks! Your details were sent with Azure Communication Services.";
+                _successMessage = result?.Message ?? "Thanks! Your waitlist request was sent.";
                 _model = new ContactRequest();
             }
             else
             {
-                _errorMessage = "We could not reach Azure Communication Services. Please verify your configuration or email hello@consultologist.ai.";
+                _errorMessage = "We could not send your request. Please email hello@consultologist.ai.";
             }
         }
         catch
         {
-            _errorMessage = "We could not reach Azure Communication Services. Please verify your configuration or email hello@consultologist.ai.";
+            _errorMessage = "We could not send your request. Please email hello@consultologist.ai.";
         }
         finally
         {
