@@ -66,6 +66,29 @@ header.header.header {
     text-decoration: underline;
 }
 
+.top-nav .fluent-nav-item,
+.top-nav .fluent-nav-link,
+.top-nav .positioning-region {
+    display: inline-flex;
+    width: auto;
+}
+
+.top-nav .fluent-nav-link {
+    padding: 0;
+}
+
+.top-nav .content-region {
+    width: auto;
+    padding: 4px 10px;
+    border-radius: calc(var(--control-corner-radius) * 1px);
+    font-size: var(--type-ramp-base-font-size);
+    transition: background-color 0.1s;
+}
+
+.top-nav .fluent-nav-icon {
+    display: none;
+}
+
 .body-content {
     min-height: calc(100dvh - 86px);
     display: flex;
@@ -182,6 +205,10 @@ code {
     .top-nav a {
         padding: 4px 6px;
     }
+
+    .top-nav .content-region {
+        padding: 4px 6px;
+    }
 }
 
 
@@ -267,7 +294,11 @@ fluent-select:focus-within {
 
 .top-nav {
     min-width: 0;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+}
+
+.top-nav .fluent-nav-item {
+    flex: 0 0 auto;
 }
 
 .top-nav a {
@@ -276,8 +307,26 @@ fluent-select:focus-within {
     text-decoration: none;
 }
 
+.top-nav .content-region {
+    color: var(--consultologist-text-muted);
+    font-weight: 600;
+    text-decoration: none;
+}
+
 .top-nav a:hover,
 .top-nav a.active {
+    color: var(--consultologist-text);
+    background: var(--consultologist-accent-soft);
+    text-decoration: none;
+}
+
+.top-nav a.fluent-nav-link:hover,
+.top-nav a.fluent-nav-link.active {
+    background: transparent;
+}
+
+.top-nav a.fluent-nav-link:hover .content-region,
+.top-nav a.fluent-nav-link.active .content-region {
     color: var(--consultologist-text);
     background: var(--consultologist-accent-soft);
     text-decoration: none;
@@ -456,7 +505,7 @@ fluent-card,
     min-width: 0;
     max-width: 100%;
     white-space: normal;
-    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
 }
 
 .contact-card {
@@ -472,7 +521,7 @@ fluent-card,
 
 @media (max-width: 768px) {
     .hero-title {
-        font-size: clamp(2rem, 9vw, 2.35rem);
+        font-size: 2rem;
     }
 
     .section-header {
