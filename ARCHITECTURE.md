@@ -4,10 +4,10 @@
 
 | Layer | Technology |
 |---|---|
-| Frontend | Blazor WebAssembly (.NET 10) |
-| UI Components | Microsoft Fluent UI Blazor (`Microsoft.FluentUI.AspNetCore.Components` v4.14) |
+| Frontend | Astro (static site generation, TypeScript) |
+| Styling | Hand-written CSS with Fluent-compatible design tokens (`src/styles/tokens.css`) |
 | Hosting | Azure Static Web Apps |
-| Backend (planned) | Azure Functions (integrated with SWA) |
+| Backend | Azure Functions (.NET 9 isolated, integrated with SWA) — contact form email via Azure Communication Services |
 
 ---
 

@@ -3,6 +3,8 @@
     flex-direction: column;
     gap: var(--spacingVerticalXXL);
     padding: var(--spacingVerticalXL) var(--spacingHorizontalL);
+    width: 100%;
+    min-width: 0;
 }
 
 .section-eyebrow {
@@ -30,6 +32,7 @@
     gap: var(--spacingVerticalXL);
     padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
     width: min(820px, 100%);
+    max-width: min(820px, calc(100vw - 2rem));
     margin: 0 auto;
 }
 
@@ -37,6 +40,8 @@
     display: flex;
     flex-direction: column;
     gap: var(--spacingVerticalXL);
+    max-width: 100%;
+    min-width: 0;
 }
 
 .input-field {
@@ -44,12 +49,9 @@
     flex-direction: column;
     gap: var(--spacingVerticalS);
     font-size: 0.95rem;
+    font-weight: 600;
     color: var(--neutral-foreground-hint);
-}
-
-.input-field fluent-text-field::part(control),
-.input-field fluent-text-area::part(control) {
-    min-height: 36px;
+    min-width: 0;
 }
 
 .form-actions {
@@ -61,10 +63,16 @@
 
 .response-card {
     min-height: 140px;
-    border: 1px dashed rgba(0, 103, 184, 0.2);
-    border-radius: var(--control-corner-radius);
+    border: 1px dashed var(--accent-soft-border-strong);
+    border-radius: var(--consultologist-radius-md);
     padding: var(--spacingVerticalL) var(--spacingHorizontalL);
-    background: rgba(0, 103, 184, 0.04);
+    background: var(--accent-soft-bg);
+    max-width: 100%;
+    min-width: 0;
+}
+
+.response-card[hidden] {
+    display: none;
 }
 
 .loading-message {
@@ -74,14 +82,20 @@
     gap: var(--spacingVerticalM);
 }
 
-.error-message {
-    color: #a4262c;
-    font-weight: 600;
-}
+@media (max-width: 768px) {
+    .contact-section {
+        padding-inline: 1rem;
+    }
 
-.success-message {
-    color: #107c10;
-    font-weight: 600;
+    .contact-card {
+        margin-inline: 0;
+        width: 100%;
+    }
+
+    .form-actions,
+    .form-actions .btn-accent {
+        width: 100%;
+    }
 }
 
 @media (max-width: 600px) {

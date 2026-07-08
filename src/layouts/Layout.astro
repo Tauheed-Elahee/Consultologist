@@ -1,0 +1,123 @@
+---
+import "../styles/tokens.css";
+import "../styles/global.css";
+import "../styles/components.css";
+
+interface Props {
+    title: string;
+    description: string;
+}
+
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL("/images/hero.webp", Astro.site);
+const navLinks = [
+    { href: "/", label: "Home" },
+    { href: "/contact", label: "Contact" },
+];
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <link rel="canonical" href={canonical} />
+        <link rel="icon" type="image/png" href="/icon.png" />
+        <link rel="sitemap" href="/sitemap-index.xml" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Consultologist" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={canonical} />
+        <meta property="og:image" content={ogImage} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={ogImage} />
+        <script is:inline>
+            // Apply the stored theme before first paint to avoid a flash.
+            (() => {
+                const theme = localStorage.getItem("consultologist-theme");
+                if (theme === "dark" || theme === "light") {
+                    document.documentElement.dataset.theme = theme;
+                }
+            })();
+        </script>
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="site-header__inner">
+                <img src="/icon.png" alt="" class="brand-icon" />
+                <span class="header-title">Consultologist</span>
+                <nav class="top-nav">
+                    {
+                        navLinks.map((link) => (
+                            <a
+                                href={link.href}
+                                class:list={[{ active: currentPath === link.href }]}
+                                aria-current={currentPath === link.href ? "page" : undefined}
+                            >
+                                {link.label}
+                            </a>
+                        ))
+                    }
+                </nav>
+                <div class="header-spacer"></div>
+                <button type="button" class="btn-icon" id="theme-toggle" title="Toggle theme">
+                    <svg
+                        id="theme-icon-moon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"></path>
+                    </svg>
+                    <svg
+                        id="theme-icon-sun"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                        {...{ hidden: true }}
+                    >
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </header>
+        <main class="body-content">
+            <div class="content">
+                <slot />
+            </div>
+        </main>
+        <footer class="site-footer">
+            <div class="site-footer__inner">
+                <span>&copy; {new Date().getFullYear()} Consultologist</span>
+                <div class="footer-spacer"></div>
+                <a href="mailto:hello@consultologist.ai">Contact</a>
+                <a href="/contact">Join the waitlist</a>
+                <a href="#">Privacy</a>
+            </div>
+        </footer>
+        <script src="../scripts/theme.ts"></script>
+    </body>
+</html>

@@ -1,0 +1,33 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+    title="Not Found — Consultologist"
+    description="Sorry, the content you are looking for does not exist."
+>
+    <section class="notfound-section">
+        <h3>Not Found</h3>
+        <p>Sorry, the content you are looking for does not exist.</p>
+        <a class="btn-accent" href="/">Back to home</a>
+    </section>
+</Layout>
+
+<style>
+    .notfound-section {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacingVerticalM);
+        padding: var(--spacingVerticalXXL) var(--spacingHorizontalL);
+    }
+
+    .notfound-section h3 {
+        margin: 0;
+    }
+
+    .notfound-section p {
+        margin: 0;
+        color: var(--consultologist-text-muted);
+    }
+</style>

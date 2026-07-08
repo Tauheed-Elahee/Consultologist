@@ -1,0 +1,107 @@
+/*
+ * Design tokens. Variable names intentionally match the Fluent tokens the
+ * original Blazor site used, so home.css/contact.css port unchanged.
+ * Light values mirror the fallbacks previously hardcoded in app.css.
+ */
+:root {
+    color-scheme: light;
+
+    /* Fluent-compatible tokens */
+    --accent-fill-rest: #0067b8;
+    --accent-fill-hover: #005ba1;
+    --accent-fill-active: #005494;
+    --accent-foreground-on-fill: #ffffff;
+    --neutral-layer-1: #ffffff;
+    --neutral-layer-2: #f7f9fc;
+    --neutral-layer-3: #eef5fb;
+    --neutral-layer-4: #f0f4f8;
+    --neutral-foreground-rest: #172033;
+    --neutral-foreground-hint: #5d6a7c;
+    --neutral-stroke-rest: #8a97a6;
+    --neutral-stroke-divider-rest: rgba(23, 32, 51, 0.12);
+    --control-corner-radius: 4;
+    --type-ramp-base-font-size: 14px;
+    --type-ramp-base-line-height: 20px;
+
+    /* Accent-tinted surfaces (waitlist band, response card) */
+    --accent-soft-bg: rgba(0, 103, 184, 0.04);
+    --accent-soft-border: rgba(0, 103, 184, 0.12);
+    --accent-soft-border-strong: rgba(0, 103, 184, 0.2);
+
+    /* Consultologist aliases */
+    --consultologist-font: "Segoe UI Variable", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    --consultologist-bg: var(--neutral-layer-2);
+    --consultologist-surface: var(--neutral-layer-1);
+    --consultologist-surface-muted: var(--neutral-layer-3);
+    --consultologist-text: var(--neutral-foreground-rest);
+    --consultologist-text-muted: var(--neutral-foreground-hint);
+    --consultologist-border: var(--neutral-stroke-divider-rest);
+    --consultologist-accent: var(--accent-fill-rest);
+    --consultologist-accent-soft: rgba(0, 103, 184, 0.08);
+    --consultologist-success: #107c10;
+    --consultologist-error: #a4262c;
+    --consultologist-radius-sm: 4px;
+    --consultologist-radius-md: 8px;
+    --consultologist-shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.08);
+    --page-gutter: clamp(1rem, 3vw, 2rem);
+    --section-gap: clamp(1.25rem, 3vw, 2rem);
+
+    /* Fluent v9 spacing ramp — rem values based on a 16px root font size */
+    --spacingVerticalS: 0.5rem;    --spacingHorizontalS: 0.5rem;
+    --spacingVerticalM: 0.75rem;   --spacingHorizontalM: 0.75rem;
+    --spacingVerticalL: 1rem;      --spacingHorizontalL: 1rem;
+    --spacingVerticalXL: 1.25rem;  --spacingHorizontalXL: 1.25rem;
+    --spacingVerticalXXL: 2rem;    --spacingHorizontalXXL: 2rem;
+}
+
+/*
+ * Dark palette. Applied when the user picked dark explicitly, or when the
+ * OS prefers dark and the user hasn't picked light. Keep both blocks in sync.
+ */
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    --accent-fill-rest: #479ef5;
+    --accent-fill-hover: #62abf5;
+    --accent-fill-active: #2886de;
+    --accent-foreground-on-fill: #0b1520;
+    --neutral-layer-1: #1e242c;
+    --neutral-layer-2: #14181d;
+    --neutral-layer-3: #232a33;
+    --neutral-layer-4: #1a1f26;
+    --neutral-foreground-rest: #e8ecf1;
+    --neutral-foreground-hint: #9aa7b5;
+    --neutral-stroke-rest: #5d6a7c;
+    --neutral-stroke-divider-rest: rgba(232, 236, 241, 0.14);
+    --accent-soft-bg: rgba(71, 158, 245, 0.07);
+    --accent-soft-border: rgba(71, 158, 245, 0.18);
+    --accent-soft-border-strong: rgba(71, 158, 245, 0.3);
+    --consultologist-accent-soft: rgba(71, 158, 245, 0.14);
+    --consultologist-success: #6ccb5f;
+    --consultologist-error: #f1707b;
+    --consultologist-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --accent-fill-rest: #479ef5;
+        --accent-fill-hover: #62abf5;
+        --accent-fill-active: #2886de;
+        --accent-foreground-on-fill: #0b1520;
+        --neutral-layer-1: #1e242c;
+        --neutral-layer-2: #14181d;
+        --neutral-layer-3: #232a33;
+        --neutral-layer-4: #1a1f26;
+        --neutral-foreground-rest: #e8ecf1;
+        --neutral-foreground-hint: #9aa7b5;
+        --neutral-stroke-rest: #5d6a7c;
+        --neutral-stroke-divider-rest: rgba(232, 236, 241, 0.14);
+        --accent-soft-bg: rgba(71, 158, 245, 0.07);
+        --accent-soft-border: rgba(71, 158, 245, 0.18);
+        --accent-soft-border-strong: rgba(71, 158, 245, 0.3);
+        --consultologist-accent-soft: rgba(71, 158, 245, 0.14);
+        --consultologist-success: #6ccb5f;
+        --consultologist-error: #f1707b;
+        --consultologist-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    }
+}

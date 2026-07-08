@@ -3,6 +3,8 @@
     flex-direction: column;
     gap: var(--spacingVerticalXXL);
     padding-bottom: var(--spacingVerticalXXL);
+    width: 100%;
+    min-width: 0;
 }
 
 /* Hero */
@@ -12,6 +14,8 @@
     gap: var(--spacingHorizontalXXL);
     padding: var(--spacingVerticalXXL) var(--spacingHorizontalL);
     align-items: center;
+    width: 100%;
+    min-width: 0;
 }
 
 .hero-content {
@@ -85,7 +89,6 @@
     font-size: 1.15rem;
     font-weight: 600;
     font-variant: small-caps;
-    /*text-transform: uppercase;*/
     letter-spacing: 0.05em;
     color: var(--neutral-foreground-hint);
 }
@@ -114,25 +117,11 @@
     border-left-color: #038387;
 }
 
-/* Problem */
-.problem-section {
-    display: flex;
-    justify-content: center;
-    padding: 0 var(--spacingHorizontalL);
-}
-
-.problem-text {
-    max-width: 640px;
-    margin: 0;
-    font-size: 1.05rem;
-    line-height: 1.7;
-    text-align: center;
-    color: var(--neutral-foreground-hint);
-}
-
 /* Features */
 .features-section {
     padding: 0 var(--spacingHorizontalL);
+    width: 100%;
+    min-width: 0;
 }
 
 .features-grid {
@@ -147,6 +136,8 @@
     display: flex;
     flex-direction: column;
     gap: var(--spacingVerticalM);
+    min-width: 0;
+    max-width: 100%;
 }
 
 .feature-card h3 {
@@ -168,6 +159,8 @@
     padding: 0 var(--spacingHorizontalL);
     display: flex;
     justify-content: center;
+    width: 100%;
+    min-width: 0;
 }
 
 .disclosure-card {
@@ -176,7 +169,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--spacingVerticalL);
-    border-left: 4px solid var(--accent-fill-rest) !important;
+    border-left: 4px solid var(--accent-fill-rest);
 }
 
 .disclosure-quote {
@@ -193,6 +186,9 @@
     font-size: 0.95rem;
     line-height: 1.7;
     color: var(--neutral-foreground-hint);
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
 }
 
 /* Waitlist */
@@ -203,10 +199,11 @@
     text-align: center;
     padding: var(--spacingVerticalXXL) var(--spacingHorizontalL);
     gap: var(--spacingVerticalM);
-    background: rgba(0, 103, 184, 0.04);
-    border-top: 1px solid rgba(0, 103, 184, 0.12);
+    background: var(--accent-soft-bg);
+    border-top: 1px solid var(--accent-soft-border);
+    width: 100%;
+    min-width: 0;
 }
-
 
 .waitlist-section h2 {
     margin: 0;
@@ -221,7 +218,7 @@
     line-height: 1.6;
 }
 
-.waitlist-section fluent-button {
+.waitlist-section .btn-accent {
     margin-top: var(--spacingVerticalS);
 }
 
@@ -229,6 +226,7 @@
 @media (max-width: 768px) {
     .hero-section {
         grid-template-columns: 1fr;
+        padding-top: 1.5rem;
     }
 
     .hero-image {
@@ -236,8 +234,8 @@
     }
 
     .hero-content {
-        align-items: center;
-        text-align: center;
+        align-items: flex-start;
+        text-align: left;
     }
 
     .features-grid {
@@ -245,19 +243,35 @@
     }
 
     .hero-title {
-        font-size: clamp(1.75rem, 8vw, 2.5rem);
+        font-size: 2rem;
+    }
+
+    .dialogue-group {
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+
+    .dialogue-item {
+        display: grid;
+        gap: 0.25rem;
+    }
+
+    .dialogue-speaker {
+        text-align: left;
+        font-size: 0.95rem;
+    }
+
+    .dialogue-quote {
+        font-size: 1rem;
+        white-space: normal;
+        overflow-wrap: break-word;
     }
 }
 
 @media (max-width: 600px) {
     .hero-section,
-    .waitlist-section {
-        padding-left: var(--spacingHorizontalM);
-        padding-right: var(--spacingHorizontalM);
-    }
-
+    .waitlist-section,
     .features-section,
-    .problem-section,
     .disclosure-section {
         padding-left: var(--spacingHorizontalM);
         padding-right: var(--spacingHorizontalM);
