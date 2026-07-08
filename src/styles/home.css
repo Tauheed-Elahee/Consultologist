@@ -340,7 +340,16 @@
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-    min-height: 17rem;
+}
+
+/* The sections always reserve their space (they hide via opacity, not display),
+   so the card height is identical in every phase; the placeholder overlays that
+   reserved space instead of adding to it. */
+.demo-body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 
 .how-demo[data-phase="review"] .demo-note {
@@ -373,12 +382,16 @@
 
 .demo-placeholder {
     display: none;
+    position: absolute;
+    top: 0.25rem;
+    left: 0;
+    right: 0;
     flex-direction: column;
     gap: 0.6rem;
-    padding-top: 0.25rem;
 }
 
-.how-demo[data-phase="paste"] .demo-placeholder {
+/* Shown while animating until the first section appears (paste + setup beats). */
+.how-demo.is-animating .demo-note:not(:has(.demo-section.is-visible)) .demo-placeholder {
     display: flex;
 }
 
@@ -759,9 +772,5 @@
             "note"
             "progress";
         grid-template-columns: 1fr;
-    }
-
-    .demo-note {
-        min-height: 0;
     }
 }
