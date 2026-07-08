@@ -48,13 +48,95 @@ import "../styles/home.css";
                     <a class="btn-accent" href="/contact">Join the waitlist</a>
                 </div>
             </div>
-            <div class="hero-image">
-                <img
-                    src="/images/hero.webp"
-                    alt="AI-assisted specialist consultation — neural network connecting clinical interfaces"
-                    width="1280"
-                    height="720"
-                />
+            <div
+                class="hero-visual"
+                role="img"
+                aria-label="Preview of Consultologist generating a consult note section by section, with a visible progress trail"
+            >
+                <div class="product-mock" aria-hidden="true">
+                    <div class="mock-card mock-draft">
+                        <span class="mock-label">Consult draft</span>
+                        <p class="mock-draft-text">
+                            Thank you for seeing this 58-year-old with six weeks of symmetric
+                            small-joint pain and morning stiffness. RF and anti-CCP positive.
+                            Please assess and advise on management…
+                        </p>
+                    </div>
+                    <div class="mock-card mock-note">
+                        <div class="mock-note-header">
+                            <span class="mock-note-title">Consultation note</span>
+                            <span class="mock-badge">5 sections</span>
+                        </div>
+                        <div class="mock-section">
+                            <h4>History of Present Illness</h4>
+                            <p>
+                                Six weeks of symmetric polyarthralgia involving the MCPs and
+                                wrists, with morning stiffness lasting more than an hour and
+                                partial response to NSAIDs.
+                            </p>
+                        </div>
+                        <div class="mock-section">
+                            <h4>Impression</h4>
+                            <p>
+                                Findings are consistent with early seropositive rheumatoid
+                                arthritis<span class="mock-caret"></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mock-card mock-progress">
+                        <span class="mock-label">Progress</span>
+                        <ol class="mock-stages">
+                            <li class="mock-stage is-done">
+                                <span class="mock-stage-icon">✓</span> Section standards
+                            </li>
+                            <li class="mock-stage is-done">
+                                <span class="mock-stage-icon">✓</span> Draft submitted
+                            </li>
+                            <li class="mock-stage is-done">
+                                <span class="mock-stage-icon">✓</span> History of Present Illness
+                            </li>
+                            <li class="mock-stage is-current">
+                                <span class="mock-stage-icon">●</span> Impression — generating
+                            </li>
+                            <li class="mock-stage is-pending">
+                                <span class="mock-stage-icon">○</span> Recommendations
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="how-section">
+            <div class="section-header">
+                <span class="section-eyebrow">How it works</span>
+                <h2>From referral to signed note, with the reasoning in view</h2>
+            </div>
+            <div class="how-grid">
+                <div class="card how-card">
+                    <span class="how-step">1</span>
+                    <h3>Paste the referral</h3>
+                    <p>
+                        Referral letter, history, consult question — the draft you paste becomes
+                        the source of truth for every section of the note.
+                    </p>
+                </div>
+                <div class="card how-card">
+                    <span class="how-step">2</span>
+                    <h3>Watch each section reason</h3>
+                    <p>
+                        Every note section is generated against your specialty's writing
+                        standards, with live progress you can audit as it happens.
+                    </p>
+                </div>
+                <div class="card how-card">
+                    <span class="how-step">3</span>
+                    <h3>Review and sign off</h3>
+                    <p>
+                        Edit, approve, and keep a record of exactly what you reviewed before it
+                        reaches the chart.
+                    </p>
+                </div>
             </div>
         </section>
 
