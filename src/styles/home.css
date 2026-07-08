@@ -527,7 +527,10 @@
 
 .hero-content .section-eyebrow,
 .waitlist-section .section-eyebrow,
-.how-section .section-eyebrow {
+.how-section .section-eyebrow,
+.problem-section .section-eyebrow,
+.faq-section .section-eyebrow,
+.about-section .section-eyebrow {
     display: inline-block;
     font-size: 0.85rem;
     font-weight: 600;
@@ -604,13 +607,46 @@
     border-left-color: #038387;
 }
 
-/* Features */
-.features-section {
+/* Problem */
+.problem-section {
     padding: 0 var(--spacingHorizontalL);
     width: 100%;
     min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacingVerticalXL);
 }
 
+.problem-section .section-header {
+    text-align: center;
+}
+
+.problem-section .section-header h2 {
+    margin: 0;
+}
+
+.problem-card {
+    max-width: 720px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacingVerticalL);
+    padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
+    border-left: 4px solid var(--accent-fill-rest);
+}
+
+.problem-body {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--neutral-foreground-hint);
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+
+/* Features */
 .features-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -641,41 +677,158 @@
     color: var(--neutral-foreground-hint);
 }
 
-/* Disclosure */
-.disclosure-section {
+/* FAQ */
+.faq-section {
     padding: 0 var(--spacingHorizontalL);
-    display: flex;
-    justify-content: center;
     width: 100%;
     min-width: 0;
-}
-
-.disclosure-card {
-    max-width: 720px;
-    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: var(--spacingVerticalL);
-    border-left: 4px solid var(--accent-fill-rest);
+    gap: var(--spacingVerticalXL);
 }
 
-.disclosure-quote {
+.faq-section .section-header {
+    text-align: center;
+}
+
+.faq-section .section-header h2 {
     margin: 0;
-    font-size: 1.15rem;
-    font-style: italic;
-    font-weight: 500;
-    line-height: 1.5;
+}
+
+.faq-list {
+    max-width: 760px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacingVerticalM);
+}
+
+.faq-item {
+    padding: 0;
+}
+
+.faq-item summary {
+    padding: var(--spacingVerticalL) var(--spacingHorizontalXL);
+    font-weight: 600;
     color: var(--neutral-foreground-rest);
+    cursor: pointer;
+    list-style-position: inside;
 }
 
-.disclosure-body {
+.faq-item summary:hover {
+    color: var(--consultologist-accent);
+}
+
+.faq-item p {
     margin: 0;
+    padding: 0 var(--spacingHorizontalXL) var(--spacingVerticalL);
     font-size: 0.95rem;
     line-height: 1.7;
     color: var(--neutral-foreground-hint);
+}
+
+/* About */
+.about-section {
+    padding: 0 var(--spacingHorizontalL);
+    width: 100%;
     min-width: 0;
-    max-width: 100%;
-    overflow-wrap: anywhere;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacingVerticalXL);
+}
+
+.about-section .section-header {
+    text-align: center;
+}
+
+.about-section .section-header h2 {
+    margin: 0;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacingHorizontalL);
+    max-width: 760px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.about-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacingVerticalS);
+    min-width: 0;
+    padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
+}
+
+.about-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacingHorizontalM);
+}
+
+.about-avatar {
+    /* 50% = circle; swap for var(--consultologist-radius-md) for rounded square */
+    --avatar-radius: 50%;
+    flex: 0 0 auto;
+    width: 64px;
+    height: 64px;
+    border-radius: var(--avatar-radius);
+    object-fit: cover;
+    border: 1px solid var(--consultologist-border);
+    background: var(--consultologist-surface-muted);
+}
+
+.about-card h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--neutral-foreground-rest);
+}
+
+.about-card .about-role {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--consultologist-accent);
+}
+
+.about-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--neutral-foreground-hint);
+}
+
+.about-card .about-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacingHorizontalM);
+    margin-top: auto;
+}
+
+.about-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    color: var(--consultologist-text-muted);
+    border-radius: var(--consultologist-radius-sm);
+    transition: color 0.15s ease;
+}
+
+.about-links a:hover {
+    color: var(--consultologist-accent);
+}
+
+.about-links svg {
+    width: 20px;
+    height: 20px;
 }
 
 /* Waitlist */
@@ -772,11 +925,16 @@
 @media (max-width: 600px) {
     .hero-section,
     .waitlist-section,
-    .features-section,
+    .problem-section,
     .how-section,
-    .disclosure-section {
+    .faq-section,
+    .about-section {
         padding-left: var(--spacingHorizontalM);
         padding-right: var(--spacingHorizontalM);
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
     }
 
     .demo-inner {

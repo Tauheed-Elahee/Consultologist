@@ -108,9 +108,27 @@ import "../styles/home.css";
             </div>
         </section>
 
-        <section class="how-section">
+        <section class="problem-section" id="problem">
             <div class="section-header">
-                <span class="section-eyebrow">How it works</span>
+                <span class="section-eyebrow">The problem</span>
+                <h2>One wrong answer you can't explain costs more than the time you saved</h2>
+            </div>
+            <div class="card problem-card">
+                <p class="problem-body">
+                    Generic AI saves you time until it doesn't. When a draft is wrong, you need
+                    to know why — and a black box can't tell you.
+                </p>
+                <p class="problem-body">
+                    Meanwhile the clinic asks patients to consent to AI, and patients ask how
+                    you know it works. "Trust the computer" is not an answer a physician can
+                    stand behind.
+                </p>
+            </div>
+        </section>
+
+        <section class="how-section" id="product">
+            <div class="section-header">
+                <span class="section-eyebrow">The product</span>
                 <h2>From referral to signed note, with the reasoning in view</h2>
             </div>
             <div class="how-layout">
@@ -142,9 +160,7 @@ import "../styles/home.css";
                     </button>
                 </div>
             </div>
-        </section>
 
-        <section class="features-section">
             <div class="features-grid">
                 <div class="card feature-card">
                     <h3>Draft in seconds</h3>
@@ -170,36 +186,172 @@ import "../styles/home.css";
             </div>
         </section>
 
-        <section class="disclosure-section">
-            <div class="card disclosure-card">
-                <blockquote class="disclosure-quote">
-                    "AI helped draft this consultation. Your physician reviewed every
-                    recommendation."
-                </blockquote>
-                <p class="disclosure-body">
-                    Generic AI saves you time until it doesn't. One wrong answer you can't explain
-                    costs you more time than you saved.
-                </p>
-                <p class="disclosure-body">
-                    Consultologist shows its reasoning. Every output comes with an auditable chain
-                    of thinking — so you can review it in seconds, not second-guess it for minutes.
-                </p>
-                <p class="disclosure-body">
-                    Patients increasingly ask whether AI was involved in their care. With
-                    Consultologist, the answer is straightforward and reassuring. You did not hand
-                    off your judgment. You used a tool that showed its reasoning, reviewed it, and
-                    stood behind it before it reached your patient.
-                </p>
-            </div>
-        </section>
-
-        <section class="waitlist-section">
+        <section class="waitlist-section" id="proof">
             <span class="section-eyebrow">Early Access</span>
             <h2>Built for specialist physicians</h2>
             <p class="waitlist-description">
                 Join the waitlist and we'll be in touch when your specialty is available.
             </p>
             <a class="btn-accent" href="/contact">Join the waitlist</a>
+        </section>
+
+        <section class="faq-section" id="faq">
+            <div class="section-header">
+                <span class="section-eyebrow">FAQ</span>
+                <h2>Questions physicians ask</h2>
+            </div>
+            <div class="faq-list">
+                <details class="card faq-item">
+                    <summary>Does the AI decide, or do I?</summary>
+                    <p>
+                        You do. Consultologist drafts each section of the note from your referral
+                        package; nothing is final until you have reviewed it, edited what needs
+                        editing, and signed off. The progress trail records what was generated
+                        and what you approved — the judgment on record is yours.
+                    </p>
+                </details>
+                <details class="card faq-item">
+                    <summary>What happens to patient data?</summary>
+                    <p>
+                        Early-access deployments are set up with each clinic to meet its privacy
+                        and security requirements, and we walk you through exactly where data
+                        flows before anything touches a real referral. Ask us about the
+                        specifics for your site — we would rather show you than make claims
+                        here.
+                    </p>
+                </details>
+                <details class="card faq-item">
+                    <summary>Which specialties are supported?</summary>
+                    <p>
+                        Early access is rolling out one specialty at a time, because each
+                        specialty's writing standards are tuned before we onboard it. Join the
+                        waitlist with your specialty and consult volume, and we will reach out
+                        when yours is ready.
+                    </p>
+                </details>
+                <details class="card faq-item">
+                    <summary>What do I tell patients who ask about AI?</summary>
+                    <p>
+                        "AI helped draft this consultation. Your physician reviewed every
+                        recommendation." And it is not just words — Consultologist keeps the
+                        record of what was drafted and what you reviewed, so the answer holds up
+                        to any follow-up question.
+                    </p>
+                </details>
+            </div>
+        </section>
+
+        <section class="about-section" id="about">
+            <div class="section-header">
+                <span class="section-eyebrow">About us</span>
+                <h2>Who's behind Consultologist</h2>
+            </div>
+            <div class="about-grid">
+                <div class="card about-card">
+                    <div class="about-header">
+                        <img
+                            class="about-avatar"
+                            src="/images/team/tamjeed-elahee.jpg"
+                            alt=""
+                            width="64"
+                            height="64"
+                            loading="lazy"
+                        />
+                        <div>
+                            <h3>Tamjeed Elahee, M.D.</h3>
+                            <p class="about-role">Physician</p>
+                        </div>
+                    </div>
+                    <p>
+                        M.D. from the University of British Columbia, after an undergraduate
+                        degree at the University of Ottawa. Tamjeed brings the clinical half of
+                        Consultologist: the standards each note section is held to, and the
+                        review discipline the product is built around.
+                    </p>
+                    <p class="about-links">
+                        <a
+                            href="https://www.linkedin.com/in/tamjeed-elahee-856169198/"
+                            rel="noopener"
+                            aria-label="Tamjeed Elahee on LinkedIn"
+                            title="LinkedIn"
+                        >
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <path
+                                    d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.27c-.97 0-1.75-.79-1.75-1.76s.78-1.76 1.75-1.76 1.75.79 1.75 1.76-.78 1.76-1.75 1.76zm13.5 12.27h-3v-5.6c0-3.37-4-3.11-4 0v5.6h-3v-11h3v1.77c1.4-2.59 7-2.78 7 2.48v6.75z"
+                                ></path>
+                            </svg>
+                        </a>
+                    </p>
+                </div>
+                <div class="card about-card">
+                    <div class="about-header">
+                        <img
+                            class="about-avatar"
+                            src="/images/team/tauheed-elahee.jpg"
+                            alt=""
+                            width="64"
+                            height="64"
+                            loading="lazy"
+                        />
+                        <div>
+                            <h3>Tauheed Elahee, B.Eng.</h3>
+                            <p class="about-role">Software Developer</p>
+                        </div>
+                    </div>
+                    <p>
+                        Developer of the Consultologist product — from the consult generation
+                        pipeline to the site you are reading.
+                    </p>
+                    <p class="about-links">
+                        <a
+                            href="https://tauheed-elahee.com"
+                            rel="noopener"
+                            aria-label="Tauheed Elahee's website"
+                            title="tauheed-elahee.com"
+                        >
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path
+                                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                                ></path>
+                            </svg>
+                        </a>
+                        <a
+                            href="https://www.linkedin.com/in/tauheed-elahee"
+                            rel="noopener"
+                            aria-label="Tauheed Elahee on LinkedIn"
+                            title="LinkedIn"
+                        >
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <path
+                                    d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.27c-.97 0-1.75-.79-1.75-1.76s.78-1.76 1.75-1.76 1.75.79 1.75 1.76-.78 1.76-1.75 1.76zm13.5 12.27h-3v-5.6c0-3.37-4-3.11-4 0v5.6h-3v-11h3v1.77c1.4-2.59 7-2.78 7 2.48v6.75z"
+                                ></path>
+                            </svg>
+                        </a>
+                        <a
+                            href="https://github.com/Tauheed-Elahee"
+                            rel="noopener"
+                            aria-label="Tauheed Elahee on GitHub"
+                            title="GitHub"
+                        >
+                            <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                                <path
+                                    d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+                                ></path>
+                            </svg>
+                        </a>
+                    </p>
+                </div>
+            </div>
         </section>
     </div>
 
