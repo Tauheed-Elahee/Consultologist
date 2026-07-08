@@ -1,0 +1,123 @@
+/* Plain-HTML replacements for the Fluent components the site used. */
+
+/* Buttons (FluentButton) */
+.btn-accent {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 32px;
+    padding: 5px 12px;
+    border: 1px solid transparent;
+    border-radius: calc(var(--control-corner-radius) * 1px);
+    background: var(--accent-fill-rest);
+    color: var(--accent-foreground-on-fill);
+    font-size: var(--type-ramp-base-font-size);
+    line-height: var(--type-ramp-base-line-height);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.1s;
+}
+
+.btn-accent:hover {
+    background: var(--accent-fill-hover);
+}
+
+.btn-accent:active {
+    background: var(--accent-fill-active);
+}
+
+.btn-accent:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    border-radius: calc(var(--control-corner-radius) * 1px);
+    background: transparent;
+    color: var(--consultologist-text);
+    cursor: pointer;
+    transition: background-color 0.1s;
+}
+
+.btn-icon:hover {
+    background: var(--consultologist-accent-soft);
+}
+
+.btn-icon svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+/* Cards (FluentCard) */
+.card {
+    background: var(--consultologist-surface);
+    border: 1px solid var(--consultologist-border);
+    border-radius: var(--consultologist-radius-md);
+    box-shadow: var(--consultologist-shadow-sm);
+    padding: var(--spacingVerticalL) var(--spacingHorizontalL);
+}
+
+/* Divider (FluentDivider) */
+.divider {
+    width: 100%;
+    margin: 0;
+    border: none;
+    border-top: 1px solid var(--consultologist-border);
+}
+
+/* Text inputs (FluentTextField / FluentTextArea) */
+.input-field input,
+.input-field textarea {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    min-height: 36px;
+    padding: 6px 10px;
+    border: 1px solid var(--neutral-stroke-rest);
+    border-bottom-color: var(--consultologist-text-muted);
+    border-radius: calc(var(--control-corner-radius) * 1px);
+    background: var(--consultologist-surface);
+    color: var(--consultologist-text);
+    font-size: var(--type-ramp-base-font-size);
+    line-height: var(--type-ramp-base-line-height);
+}
+
+.input-field textarea {
+    resize: vertical;
+}
+
+.input-field input::placeholder,
+.input-field textarea::placeholder {
+    color: var(--consultologist-text-muted);
+    opacity: 1;
+}
+
+.input-field input:focus-visible,
+.input-field textarea:focus-visible {
+    outline: 2px solid var(--consultologist-accent);
+    border-color: transparent;
+}
+
+/* Progress ring (FluentProgressRing) */
+.spinner {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 3px solid var(--consultologist-accent-soft);
+    border-top-color: var(--consultologist-accent);
+    animation: spinner-rotate 0.9s linear infinite;
+}
+
+@keyframes spinner-rotate {
+    to {
+        transform: rotate(360deg);
+    }
+}

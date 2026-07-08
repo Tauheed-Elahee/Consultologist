@@ -1,0 +1,224 @@
+/* Minimal reset (replaces Fluent's reboot.css) */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+    overflow-x: hidden;
+}
+
+img,
+svg,
+video,
+canvas {
+    max-width: 100%;
+    display: block;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+button,
+input,
+textarea {
+    font: inherit;
+    color: inherit;
+}
+
+body {
+    background: var(--consultologist-bg);
+    color: var(--consultologist-text);
+    font-family: var(--consultologist-font);
+    font-size: var(--type-ramp-base-font-size);
+    line-height: var(--type-ramp-base-line-height);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--consultologist-accent);
+    outline-offset: 2px;
+}
+
+input:focus-visible,
+textarea:focus-visible {
+    outline-offset: 0;
+}
+
+/* Header */
+.site-header {
+    background: var(--consultologist-surface);
+    border-bottom: 1px solid var(--consultologist-border);
+    color: var(--consultologist-text);
+}
+
+.site-header__inner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0.75rem var(--page-gutter);
+    min-width: 0;
+}
+
+.brand-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--consultologist-radius-sm);
+    flex: 0 0 auto;
+}
+
+.header-title {
+    color: var(--consultologist-text);
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0;
+    margin-left: 8px;
+}
+
+.top-nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    margin-left: 16px;
+    min-width: 0;
+    flex-wrap: nowrap;
+}
+
+.top-nav a {
+    color: var(--consultologist-text-muted);
+    font-weight: 600;
+    text-decoration: none;
+    padding: 4px 10px;
+    border-radius: calc(var(--control-corner-radius) * 1px);
+    font-size: var(--type-ramp-base-font-size);
+    transition: background-color 0.1s;
+}
+
+.top-nav a:hover,
+.top-nav a.active {
+    color: var(--consultologist-text);
+    background: var(--consultologist-accent-soft);
+    text-decoration: none;
+}
+
+.header-spacer {
+    flex: 1 1 auto;
+}
+
+/* Page body */
+.body-content {
+    min-height: calc(100dvh - 104px);
+    display: flex;
+    width: 100%;
+    color: var(--consultologist-text);
+    background: var(--consultologist-bg);
+}
+
+.content {
+    padding: 0;
+    width: 100%;
+    min-width: 0;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+/* Footer */
+.site-footer {
+    background: var(--consultologist-surface);
+    border-top: 1px solid var(--consultologist-border);
+    color: var(--consultologist-text-muted);
+}
+
+.site-footer__inner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0.75rem var(--page-gutter);
+}
+
+.site-footer a {
+    color: var(--consultologist-text-muted);
+    text-decoration: none;
+}
+
+.site-footer a:focus {
+    outline: 1px dashed;
+    outline-offset: 3px;
+}
+
+.site-footer a:hover {
+    color: var(--consultologist-text);
+    text-decoration: underline;
+}
+
+.footer-spacer {
+    flex: 1 1 auto;
+}
+
+/* Shared section styles */
+.section-header {
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.section-header h2 {
+    color: var(--consultologist-text);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    line-height: 1.15;
+}
+
+.section-description {
+    line-height: 1.65;
+}
+
+.validation-message {
+    color: var(--consultologist-error);
+    font-size: 0.875rem;
+}
+
+.success-message {
+    color: var(--consultologist-success);
+    font-weight: 600;
+}
+
+.error-message {
+    color: var(--consultologist-error);
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .site-header__inner {
+        padding-inline: 1rem;
+        gap: 0.5rem;
+    }
+
+    .header-title {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .top-nav {
+        gap: 2px;
+        margin-left: 8px;
+    }
+
+    .top-nav a {
+        padding: 4px 6px;
+    }
+}

@@ -1,0 +1,80 @@
+---
+import Layout from "../layouts/Layout.astro";
+import "../styles/contact.css";
+---
+
+<Layout
+    title="Contact — Consultologist"
+    description="Join the Consultologist waitlist. Tell us about your specialty and consult volume, and we will follow up when early access is available for your workflow."
+>
+    <section class="contact-section">
+        <div class="section-header">
+            <span class="section-eyebrow">Contact</span>
+            <h2>Join the Consultologist waitlist.</h2>
+            <p class="section-description">
+                Tell us about your specialty and consult volume. We will follow up when early
+                access is available for your workflow.
+            </p>
+        </div>
+
+        <div class="card contact-card">
+            <form class="contact-form" id="contact-form" novalidate>
+                <label class="input-field">
+                    <span>Full name</span>
+                    <input type="text" name="name" placeholder="Dr. Jane Smith" required />
+                </label>
+
+                <label class="input-field">
+                    <span>Email</span>
+                    <input type="email" name="email" placeholder="you@clinic.ca" required />
+                </label>
+
+                <label class="input-field">
+                    <span>Specialty</span>
+                    <input
+                        type="text"
+                        name="specialty"
+                        placeholder="Oncology, Rheumatology, etc."
+                        required
+                    />
+                </label>
+
+                <label class="input-field">
+                    <span>Institution</span>
+                    <input type="text" name="organization" placeholder="City Hospital" required />
+                </label>
+
+                <label class="input-field">
+                    <span>Comments</span>
+                    <textarea
+                        name="comments"
+                        placeholder="Share your specialty, consult workflow, and safeguards you need..."
+                        rows="6"
+                        required></textarea>
+                </label>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-accent" id="contact-submit">
+                        Join waitlist
+                    </button>
+                </div>
+            </form>
+
+            <div class="response-card" id="form-response" aria-live="polite" hidden>
+                <div class="loading-message" id="form-loading" hidden>
+                    <div class="spinner" role="progressbar" aria-label="Sending"></div>
+                    <p>Sending your waitlist request...</p>
+                </div>
+                <div class="success-message" id="form-success" hidden>
+                    <p></p>
+                </div>
+                <div class="error-message" id="form-error" hidden>
+                    <h3>We ran into an issue</h3>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="../scripts/contact-form.ts"></script>
+</Layout>
