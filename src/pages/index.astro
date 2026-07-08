@@ -1,7 +1,12 @@
 ---
+import { existsSync } from "node:fs";
 import Layout from "../layouts/Layout.astro";
 import HowItWorksDemo from "../components/HowItWorksDemo.astro";
 import "../styles/home.css";
+
+// Avatars render only once their file exists, so a missing photo can never
+// ship as a broken image.
+const hasTamjeedPhoto = existsSync("public/images/team/tamjeed-elahee.jpg");
 ---
 
 <Layout
@@ -239,14 +244,18 @@ import "../styles/home.css";
             <div class="about-grid">
                 <div class="card about-card">
                     <div class="about-header">
-                        <img
-                            class="about-avatar"
-                            src="/images/team/tamjeed-elahee.jpg"
-                            alt=""
-                            width="64"
-                            height="64"
-                            loading="lazy"
-                        />
+                        {
+                            hasTamjeedPhoto && (
+                                <img
+                                    class="about-avatar"
+                                    src="/images/team/tamjeed-elahee.jpg"
+                                    alt=""
+                                    width="64"
+                                    height="64"
+                                    loading="lazy"
+                                />
+                            )
+                        }
                         <div>
                             <h3>Tamjeed Elahee, M.D.</h3>
                             <p class="about-role">Physician</p>

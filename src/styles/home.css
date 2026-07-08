@@ -12,10 +12,55 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--spacingHorizontalXXL);
-    padding: var(--spacingVerticalXXL) var(--spacingHorizontalL);
     align-items: center;
-    width: 100%;
     min-width: 0;
+    /* Fill the first view: viewport minus the site header. */
+    min-height: calc(100dvh - 57px);
+    border-bottom: 1px solid var(--consultologist-border);
+    position: relative;
+    /* Full-bleed: the background and separator span the viewport even beyond
+       the 1600px content cap; padding keeps the content on the same grid. */
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    padding: var(--spacingVerticalXXL) max(var(--spacingHorizontalL), calc(50vw - 800px + var(--spacingHorizontalL)));
+}
+
+/* Background treatments live on a pseudo-element so the dot grid can be
+   masked without masking the hero content itself. */
+.hero-section > * {
+    position: relative;
+}
+
+.hero-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(
+            55% 75% at 72% 38%,
+            color-mix(in srgb, var(--accent-fill-rest) 9%, transparent),
+            transparent 72%
+        ),
+        radial-gradient(
+            45% 55% at 12% 88%,
+            color-mix(in srgb, var(--accent-fill-rest) 5%, transparent),
+            transparent 70%
+        );
+}
+
+.hero-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(
+        circle,
+        color-mix(in srgb, var(--neutral-foreground-hint) 28%, transparent) 1px,
+        transparent 1.2px
+    );
+    background-size: 22px 22px;
+    mask-image: radial-gradient(70% 85% at 70% 40%, black, transparent 78%);
 }
 
 .hero-content {
@@ -199,8 +244,7 @@
 
 /* How it works */
 .how-section {
-    padding: 0 var(--spacingHorizontalL);
-    width: 100%;
+    padding: var(--spacingVerticalXXL) var(--spacingHorizontalL);
     min-width: 0;
     display: flex;
     flex-direction: column;
@@ -607,10 +651,26 @@
     border-left-color: #038387;
 }
 
+/* Full-width bands: the section paints edge-to-edge while its content stays
+   bounded by each section's own max-width containers. */
+.problem-section,
+.how-section,
+.faq-section,
+.about-section {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+}
+
+.how-section,
+.about-section {
+    background: var(--consultologist-surface);
+    border-top: 1px solid var(--consultologist-border);
+    border-bottom: 1px solid var(--consultologist-border);
+}
+
 /* Problem */
 .problem-section {
     padding: 0 var(--spacingHorizontalL);
-    width: 100%;
     min-width: 0;
     display: flex;
     flex-direction: column;
@@ -686,7 +746,6 @@
 /* FAQ */
 .faq-section {
     padding: 0 var(--spacingHorizontalL);
-    width: 100%;
     min-width: 0;
     display: flex;
     flex-direction: column;
@@ -736,8 +795,7 @@
 
 /* About */
 .about-section {
-    padding: 0 var(--spacingHorizontalL);
-    width: 100%;
+    padding: var(--spacingVerticalXXL) var(--spacingHorizontalL);
     min-width: 0;
     display: flex;
     flex-direction: column;
@@ -847,8 +905,10 @@
     gap: var(--spacingVerticalM);
     background: var(--accent-soft-bg);
     border-top: 1px solid var(--accent-soft-border);
-    width: 100%;
     min-width: 0;
+    /* Full-bleed band beyond the content cap, like the hero. */
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
 }
 
 .waitlist-section h2 {
@@ -886,6 +946,8 @@
     .hero-section {
         grid-template-columns: 1fr;
         padding-top: 1.5rem;
+        /* With the mock hidden, a full-height hero would be mostly empty. */
+        min-height: 0;
     }
 
     .hero-visual {
