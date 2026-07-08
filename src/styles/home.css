@@ -625,6 +625,12 @@
     margin: 0;
 }
 
+.problem-section .dialogue-group {
+    max-width: 620px;
+    width: 100%;
+    margin: 0 auto;
+}
+
 .problem-card {
     max-width: 720px;
     width: 100%;
