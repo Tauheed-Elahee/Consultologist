@@ -54,6 +54,15 @@
     min-width: 0;
 }
 
+/* Honeypot — visually removed but present in the DOM for bots */
+.trap-field {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
 .form-actions {
     display: flex;
     flex-wrap: wrap;

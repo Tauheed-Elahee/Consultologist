@@ -1,6 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import "../styles/contact.css";
+
+// Public site key. "1x00000000000000000000AA" is Cloudflare's always-pass
+// test key — swap for the real widget key before relying on it in production.
+const TURNSTILE_SITE_KEY = "1x00000000000000000000AA";
 ---
 
 <Layout
@@ -53,6 +57,15 @@ import "../styles/contact.css";
                         required></textarea>
                 </label>
 
+                <div class="trap-field" aria-hidden="true">
+                    <label>
+                        Website
+                        <input type="text" name="website" tabindex="-1" autocomplete="off" />
+                    </label>
+                </div>
+
+                <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY}></div>
+
                 <div class="form-actions">
                     <button type="submit" class="btn-accent" id="contact-submit">
                         Join waitlist
@@ -76,5 +89,10 @@ import "../styles/contact.css";
         </div>
     </section>
 
+    <script
+        is:inline
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+        async
+        defer></script>
     <script src="../scripts/contact-form.ts"></script>
 </Layout>
