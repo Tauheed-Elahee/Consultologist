@@ -1,6 +1,14 @@
 import type { ContactPayload, ContactResponse } from "../types";
 
+declare global {
+    interface Window {
+        turnstile?: { reset: () => void };
+    }
+}
+
 const FALLBACK_ERROR = "We could not send your request. Please email hello@consultologist.ai.";
+
+const loadedAt = Date.now();
 
 const form = document.getElementById("contact-form") as HTMLFormElement | null;
 const submitButton = document.getElementById("contact-submit") as HTMLButtonElement | null;
@@ -36,6 +44,9 @@ form?.addEventListener("submit", async (event) => {
         specialty: String(data.get("specialty") ?? ""),
         organization: String(data.get("organization") ?? ""),
         comments: String(data.get("comments") ?? ""),
+        website: String(data.get("website") ?? ""),
+        elapsedMs: Date.now() - loadedAt,
+        turnstileToken: String(data.get("cf-turnstile-response") ?? ""),
     };
 
     if (submitButton) {
@@ -44,6 +55,7 @@ form?.addEventListener("submit", async (event) => {
     }
     showResponse("loading");
 
+    let succeeded = false;
     try {
         const response = await fetch("/api/contact", {
             method: "POST",
@@ -55,6 +67,7 @@ form?.addEventListener("submit", async (event) => {
             const result = (await response.json()) as ContactResponse;
             showResponse("success", result.message ?? "Thanks! Your waitlist request was sent.");
             form.reset();
+            succeeded = true;
         } else {
             showResponse("error", FALLBACK_ERROR);
         }
@@ -64,6 +77,10 @@ form?.addEventListener("submit", async (event) => {
         if (submitButton) {
             submitButton.disabled = false;
             submitButton.textContent = "Join waitlist";
+        }
+        // Turnstile tokens are single-use; get a fresh one for any retry.
+        if (!succeeded) {
+            window.turnstile?.reset();
         }
     }
 });

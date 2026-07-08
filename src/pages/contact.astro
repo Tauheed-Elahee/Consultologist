@@ -1,6 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import "../styles/contact.css";
+
+// Public Turnstile site key for the "Consultologist contact form" widget.
+const TURNSTILE_SITE_KEY = "0x4AAAAAADxoztWEBRdCjE27";
 ---
 
 <Layout
@@ -53,6 +56,15 @@ import "../styles/contact.css";
                         required></textarea>
                 </label>
 
+                <div class="trap-field" aria-hidden="true">
+                    <label>
+                        Website
+                        <input type="text" name="website" tabindex="-1" autocomplete="off" />
+                    </label>
+                </div>
+
+                <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY}></div>
+
                 <div class="form-actions">
                     <button type="submit" class="btn-accent" id="contact-submit">
                         Join waitlist
@@ -76,5 +88,10 @@ import "../styles/contact.css";
         </div>
     </section>
 
+    <script
+        is:inline
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+        async
+        defer></script>
     <script src="../scripts/contact-form.ts"></script>
 </Layout>
