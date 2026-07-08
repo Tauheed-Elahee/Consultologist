@@ -219,7 +219,7 @@
     display: grid;
     grid-template-columns: 1.15fr 1fr;
     gap: var(--spacingHorizontalXXL);
-    align-items: center;
+    align-items: stretch;
     max-width: 1100px;
     width: 100%;
     margin: 0 auto;
@@ -279,19 +279,24 @@
     color: var(--neutral-foreground-hint);
 }
 
-/* Walkthrough demo */
+/* Walkthrough demo. The demo is absolutely positioned inside its grid cell so
+   it contributes nothing to the row height: the steps column alone decides the
+   height, and the demo stretches to match it exactly. */
 .how-demo {
+    position: relative;
     min-width: 0;
 }
 
 .demo-inner {
+    position: absolute;
+    inset: 0;
     display: grid;
     grid-template-areas:
         "draft draft"
         "note progress";
     grid-template-columns: 1.55fr 1fr;
+    grid-template-rows: auto 1fr;
     gap: var(--spacingVerticalM) var(--spacingHorizontalM);
-    align-items: start;
 }
 
 .demo-card {
@@ -340,6 +345,8 @@
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    min-height: 0;
+    overflow: hidden;
 }
 
 /* The sections always reserve their space (they hide via opacity, not display),
@@ -707,6 +714,12 @@
     .how-layout {
         grid-template-columns: 1fr;
         gap: var(--spacingVerticalL);
+    }
+
+    /* Stacked: the demo sizes itself again. */
+    .demo-inner {
+        position: static;
+        grid-template-rows: auto auto;
     }
 }
 
