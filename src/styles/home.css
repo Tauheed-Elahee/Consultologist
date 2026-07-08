@@ -215,13 +215,21 @@
     margin: 0;
 }
 
-.how-grid {
+.how-layout {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacingHorizontalL);
-    max-width: 960px;
+    grid-template-columns: 1.15fr 1fr;
+    gap: var(--spacingHorizontalXXL);
+    align-items: center;
+    max-width: 1100px;
     width: 100%;
     margin: 0 auto;
+}
+
+.how-steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacingVerticalM);
+    min-width: 0;
 }
 
 .how-card {
@@ -230,6 +238,18 @@
     gap: var(--spacingVerticalS);
     min-width: 0;
     max-width: 100%;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+.how-card.is-active {
+    border-color: var(--accent-fill-rest);
+}
+
+.how-card.is-active .how-step {
+    background: var(--accent-fill-rest);
+    color: var(--accent-foreground-on-fill);
 }
 
 .how-step {
@@ -257,6 +277,232 @@
     font-size: 0.95rem;
     line-height: 1.6;
     color: var(--neutral-foreground-hint);
+}
+
+/* Walkthrough demo */
+.how-demo {
+    min-width: 0;
+}
+
+.demo-inner {
+    display: grid;
+    grid-template-areas:
+        "draft draft"
+        "note progress";
+    grid-template-columns: 1.55fr 1fr;
+    gap: var(--spacingVerticalM) var(--spacingHorizontalM);
+    align-items: start;
+}
+
+.demo-card {
+    background: var(--consultologist-surface);
+    border: 1px solid var(--consultologist-border);
+    border-radius: var(--consultologist-radius-md);
+    box-shadow: var(--consultologist-shadow-sm);
+    transition: border-color 0.3s ease;
+}
+
+.demo-label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--consultologist-text-muted);
+    margin-bottom: 0.4rem;
+}
+
+.demo-draft {
+    grid-area: draft;
+    padding: 0.75rem 1rem;
+    background: var(--consultologist-surface-muted);
+}
+
+.how-demo[data-phase="paste"] .demo-draft {
+    border-color: var(--accent-fill-rest);
+}
+
+.demo-draft-text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    margin: 0;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    font-style: italic;
+    color: var(--consultologist-text-muted);
+}
+
+.demo-note {
+    grid-area: note;
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-height: 17rem;
+}
+
+.how-demo[data-phase="review"] .demo-note {
+    border-color: var(--accent-soft-border-strong);
+}
+
+.demo-note-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--consultologist-border);
+}
+
+.demo-note-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--consultologist-text);
+}
+
+.demo-badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--accent-foreground-on-fill);
+    background: var(--accent-fill-rest);
+    padding: 0.15em 0.6em;
+    border-radius: 999px;
+}
+
+.demo-placeholder {
+    display: none;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding-top: 0.25rem;
+}
+
+.how-demo[data-phase="paste"] .demo-placeholder {
+    display: flex;
+}
+
+.demo-placeholder span {
+    height: 0.6rem;
+    border-radius: 999px;
+    background: var(--consultologist-surface-muted);
+}
+
+.demo-placeholder span:nth-child(1) {
+    width: 88%;
+}
+
+.demo-placeholder span:nth-child(2) {
+    width: 72%;
+}
+
+.demo-placeholder span:nth-child(3) {
+    width: 55%;
+}
+
+.demo-section h4 {
+    margin: 0 0 0.2rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--consultologist-text);
+}
+
+.demo-section p {
+    margin: 0;
+    font-size: 0.8rem;
+    line-height: 1.55;
+    color: var(--consultologist-text-muted);
+}
+
+/* Sections are visible by default (no-JS/reduced-motion floor). Only while the
+   controller is animating do non-revealed sections hide. */
+.how-demo.is-animating .demo-section {
+    opacity: 0;
+    transform: translateY(8px);
+}
+
+.how-demo.is-animating .demo-section.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .how-demo.is-animating .demo-section {
+        transition:
+            opacity 0.45s ease,
+            transform 0.45s ease;
+    }
+}
+
+.demo-caret {
+    display: none;
+    width: 2px;
+    height: 0.9em;
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    background: var(--accent-fill-rest);
+}
+
+.demo-section.has-caret .demo-caret {
+    display: inline-block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .demo-caret {
+        animation: mock-caret-blink 1.1s steps(2, start) infinite;
+    }
+}
+
+.demo-progress {
+    grid-area: progress;
+    padding: 0.75rem 1rem;
+    align-self: stretch;
+}
+
+.demo-stages {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.demo-stage {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    color: var(--consultologist-text);
+}
+
+.demo-stage-icon {
+    flex: 0 0 auto;
+    width: 1.1rem;
+    text-align: center;
+    font-size: 0.75rem;
+}
+
+.demo-stage.is-done .demo-stage-icon::before {
+    content: "✓";
+    color: var(--consultologist-success);
+}
+
+.demo-stage.is-current {
+    font-weight: 600;
+}
+
+.demo-stage.is-current .demo-stage-icon::before {
+    content: "●";
+    color: var(--accent-fill-rest);
+}
+
+.demo-stage.is-pending {
+    color: var(--consultologist-text-muted);
+}
+
+.demo-stage.is-pending .demo-stage-icon::before {
+    content: "○";
 }
 
 .hero-content .section-eyebrow,
@@ -444,6 +690,13 @@
 }
 
 /* Responsive */
+@media (max-width: 900px) {
+    .how-layout {
+        grid-template-columns: 1fr;
+        gap: var(--spacingVerticalL);
+    }
+}
+
 @media (max-width: 768px) {
     .hero-section {
         grid-template-columns: 1fr;
@@ -454,9 +707,6 @@
         display: none;
     }
 
-    .how-grid {
-        grid-template-columns: 1fr;
-    }
 
     .hero-content {
         align-items: flex-start;
@@ -501,5 +751,17 @@
     .disclosure-section {
         padding-left: var(--spacingHorizontalM);
         padding-right: var(--spacingHorizontalM);
+    }
+
+    .demo-inner {
+        grid-template-areas:
+            "draft"
+            "note"
+            "progress";
+        grid-template-columns: 1fr;
+    }
+
+    .demo-note {
+        min-height: 0;
     }
 }
