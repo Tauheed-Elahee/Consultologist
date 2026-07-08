@@ -1,0 +1,79 @@
+---
+// Guided walkthrough demo of the consult builder for the How-it-works section.
+// The markup ships in the finished "review" state so the no-JS, reduced-motion,
+// and crawler floors always show a complete note; how-demo.ts rewinds and plays
+// the phases only when it is actually going to animate.
+---
+
+<div
+    class="how-demo"
+    id="how-demo"
+    data-phase="review"
+    role="img"
+    aria-label="Demonstration of Consultologist turning a pasted referral into a consultation note section by section, with a visible progress trail"
+>
+    <div class="demo-inner" aria-hidden="true">
+        <div class="demo-card demo-draft">
+            <span class="demo-label">Consult draft</span>
+            <p class="demo-draft-text">
+                Thank you for seeing this 58-year-old with six weeks of symmetric small-joint
+                pain and morning stiffness. RF and anti-CCP positive. Please assess and advise
+                on management…
+            </p>
+        </div>
+        <div class="demo-card demo-note">
+            <div class="demo-note-header">
+                <span class="demo-note-title">Consultation note</span>
+                <span class="demo-badge">3 sections</span>
+            </div>
+            <div class="demo-placeholder">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="demo-section is-visible" data-section="hpi">
+                <h4>History of Present Illness</h4>
+                <p>
+                    Six weeks of symmetric polyarthralgia involving the MCPs and wrists, with
+                    morning stiffness lasting more than an hour and partial response to
+                    NSAIDs.<span class="demo-caret"></span>
+                </p>
+            </div>
+            <div class="demo-section is-visible" data-section="impression">
+                <h4>Impression</h4>
+                <p>
+                    Findings are consistent with early seropositive rheumatoid
+                    arthritis.<span class="demo-caret"></span>
+                </p>
+            </div>
+            <div class="demo-section is-visible" data-section="recs">
+                <h4>Recommendations</h4>
+                <p>
+                    Initiate methotrexate with folic acid after baseline CBC, liver enzymes,
+                    and chest radiograph; reassess disease activity in six
+                    weeks.<span class="demo-caret"></span>
+                </p>
+            </div>
+        </div>
+        <div class="demo-card demo-progress">
+            <span class="demo-label">Progress</span>
+            <ol class="demo-stages">
+                <li class="demo-stage is-done" data-stage="standards">
+                    <span class="demo-stage-icon"></span> Section standards
+                </li>
+                <li class="demo-stage is-done" data-stage="submit">
+                    <span class="demo-stage-icon"></span> Draft submitted
+                </li>
+                <li class="demo-stage is-done" data-stage="hpi">
+                    <span class="demo-stage-icon"></span> History of Present Illness
+                </li>
+                <li class="demo-stage is-done" data-stage="impression">
+                    <span class="demo-stage-icon"></span> Impression
+                </li>
+                <li class="demo-stage is-done" data-stage="recs">
+                    <span class="demo-stage-icon"></span> Recommendations
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>

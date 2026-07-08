@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import HowItWorksDemo from "../components/HowItWorksDemo.astro";
 import "../styles/home.css";
 ---
 
@@ -112,30 +113,33 @@ import "../styles/home.css";
                 <span class="section-eyebrow">How it works</span>
                 <h2>From referral to signed note, with the reasoning in view</h2>
             </div>
-            <div class="how-grid">
-                <div class="card how-card">
-                    <span class="how-step">1</span>
-                    <h3>Paste the referral</h3>
-                    <p>
-                        Referral letter, history, consult question — the draft you paste becomes
-                        the source of truth for every section of the note.
-                    </p>
-                </div>
-                <div class="card how-card">
-                    <span class="how-step">2</span>
-                    <h3>Watch each section reason</h3>
-                    <p>
-                        Every note section is generated against your specialty's writing
-                        standards, with live progress you can audit as it happens.
-                    </p>
-                </div>
-                <div class="card how-card">
-                    <span class="how-step">3</span>
-                    <h3>Review and sign off</h3>
-                    <p>
-                        Edit, approve, and keep a record of exactly what you reviewed before it
-                        reaches the chart.
-                    </p>
+            <div class="how-layout">
+                <HowItWorksDemo />
+                <div class="how-steps" id="how-steps">
+                    <button type="button" class="card how-card" data-phase-btn="paste">
+                        <span class="how-step">1</span>
+                        <h3>Paste the referral</h3>
+                        <p>
+                            Referral letter, history, consult question — the draft you paste
+                            becomes the source of truth for every section of the note.
+                        </p>
+                    </button>
+                    <button type="button" class="card how-card" data-phase-btn="generate">
+                        <span class="how-step">2</span>
+                        <h3>Watch each section reason</h3>
+                        <p>
+                            Every note section is generated against your specialty's writing
+                            standards, with live progress you can audit as it happens.
+                        </p>
+                    </button>
+                    <button type="button" class="card how-card" data-phase-btn="review">
+                        <span class="how-step">3</span>
+                        <h3>Review and sign off</h3>
+                        <p>
+                            Edit, approve, and keep a record of exactly what you reviewed before
+                            it reaches the chart.
+                        </p>
+                    </button>
                 </div>
             </div>
         </section>
@@ -198,4 +202,6 @@ import "../styles/home.css";
             <a class="btn-accent" href="/contact">Join the waitlist</a>
         </section>
     </div>
+
+    <script src="../scripts/how-demo.ts"></script>
 </Layout>
