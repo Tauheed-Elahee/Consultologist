@@ -1,6 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import HowItWorksDemo from "../components/HowItWorksDemo.astro";
+import TemplatesDemo from "../components/TemplatesDemo.astro";
+import HistoryDemo from "../components/HistoryDemo.astro";
 import BurdenWeek from "../components/BurdenWeek.astro";
 import WorkflowContrast from "../components/WorkflowContrast.astro";
 import "../styles/home.css";
@@ -231,7 +233,8 @@ import "../styles/home.css";
                         <h3>Watch each section reason</h3>
                         <p>
                             Every note section is generated against your specialty's writing
-                            standards, with live progress you can audit as it happens.
+                            standards, grounded in SNOMED CT concepts drawn from the referral —
+                            with live progress you can audit as it happens.
                         </p>
                     </button>
                     <button type="button" class="card how-card" data-phase-btn="review">
@@ -245,39 +248,62 @@ import "../styles/home.css";
                 </div>
             </div>
 
-            <div class="features-grid">
-                <div class="card feature-card">
-                    <h3>Draft in seconds</h3>
+            <div class="product-detail">
+                <div class="product-detail-copy">
+                    <h3>Your standards, your voice</h3>
                     <p>
-                        Referral package in. Structured consult draft out — each section
-                        grounded in SNOMED CT concepts drawn from the clinical detail of the
-                        referral.
+                        Every section of the note — history, impression, recommendations — has
+                        its own writing standard, and each one is yours to edit, with a live
+                        preview beside the markdown.
+                    </p>
+                    <p>
+                        Standards guide tone and structure only. The patient facts still come
+                        from the referral in front of you — never from the template.
                     </p>
                 </div>
-                <div class="card feature-card">
-                    <h3>Review with confidence</h3>
+                <TemplatesDemo />
+            </div>
+
+            <div class="product-detail">
+                <div class="product-detail-copy">
+                    <h3>Every consult, on the record</h3>
                     <p>
-                        See how the draft was reasoned — catch errors fast and sign off knowing why
-                        every recommendation is there.
+                        Each generation job is kept, most recent first — status, section counts,
+                        and the full step-by-step event timeline of how the note was made. When
+                        patients ask how AI was involved, you have an answer and a record.
+                    </p>
+                    <p>
+                        <span class="coming-chip">Coming</span> Each note keeps the model that
+                        wrote it, so you can re-run the reasoning against that exact model years
+                        later — long after newer models ship.
                     </p>
                 </div>
-                <div class="card feature-card">
-                    <h3>Disclose with clarity</h3>
-                    <p>
-                        When patients ask, you have an answer and a record — not just "AI helped",
-                        but exactly how and what you reviewed.
-                    </p>
-                </div>
+                <HistoryDemo />
             </div>
         </section>
 
         <section class="waitlist-section" id="proof">
             <span class="section-eyebrow">Early Access</span>
             <h2>Built for specialist physicians</h2>
-            <p class="waitlist-description">
-                Join the waitlist and we'll be in touch when your specialty is available.
-            </p>
-            <a class="btn-accent" href="/contact">Join the waitlist</a>
+            <div class="proof-lanes">
+                <div class="card proof-lane">
+                    <h3>Try the beta</h3>
+                    <p>
+                        The beta is open. Create an account and run real referrals through
+                        it — early, evolving, and shaped by your feedback. We enable new
+                        accounts as we admit testers.
+                    </p>
+                    <a class="btn-accent" href="https://app.consultologist.ai">Try the beta</a>
+                </div>
+                <div class="card proof-lane">
+                    <h3>Wait for release</h3>
+                    <p>
+                        Not ready for beta software? We'll email you when your specialty is
+                        supported and the polished release ships.
+                    </p>
+                    <a class="btn-outline" href="/contact?interest=release">Join the waitlist</a>
+                </div>
+            </div>
         </section>
 
         <section class="faq-section" id="faq">

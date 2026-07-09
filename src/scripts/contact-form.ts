@@ -12,6 +12,18 @@ const loadedAt = Date.now();
 
 const form = document.getElementById("contact-form") as HTMLFormElement | null;
 const submitButton = document.getElementById("contact-submit") as HTMLButtonElement | null;
+
+// The Proof-section CTAs arrive with an interest hint; start the comments for
+// them. Only when the field is empty, so a back-navigation never loses text.
+const PREFILLS: Record<string, string> = {
+    beta: "I'd like an invite when the beta opens.",
+    release: "Please email me when Consultologist is released for my specialty.",
+};
+const interest = new URLSearchParams(window.location.search).get("interest") ?? "";
+const commentsField = form?.elements.namedItem("comments");
+if (commentsField instanceof HTMLTextAreaElement && commentsField.value === "" && PREFILLS[interest]) {
+    commentsField.value = PREFILLS[interest];
+}
 const responseCard = document.getElementById("form-response");
 const loadingMessage = document.getElementById("form-loading");
 const successMessage = document.getElementById("form-success");

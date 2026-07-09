@@ -507,6 +507,242 @@
     background: var(--accent-fill-rest);
 }
 
+/* Product sub-blocks: templates and history stacked under the walkthrough,
+   copy on the left and the mock on the right, divided like the Problems
+   sub-blocks. */
+.product-detail {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: var(--spacingHorizontalXXL);
+    align-items: center;
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    padding-top: var(--spacingVerticalXL);
+    border-top: 1px solid var(--consultologist-border);
+}
+
+.product-detail-copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacingVerticalM);
+    min-width: 0;
+}
+
+.product-detail-copy h3 {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--neutral-foreground-rest);
+}
+
+.product-detail-copy p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--neutral-foreground-hint);
+}
+
+.tpl-demo,
+.hist-demo {
+    min-width: 0;
+}
+
+.tpl-inner,
+.hist-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacingVerticalM);
+}
+
+/* Templates mock: the section-standards editor with its live preview. */
+.tpl-editor {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1rem 1.25rem;
+}
+
+.tpl-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.tpl-header .demo-label {
+    margin-bottom: 0;
+}
+
+.tpl-actions {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.tpl-btn {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.25em 0.8em;
+    border-radius: 999px;
+    border: 1px solid var(--consultologist-border);
+    color: var(--consultologist-text-muted);
+}
+
+.tpl-btn--accent {
+    background: var(--accent-fill-rest);
+    border-color: var(--accent-fill-rest);
+    color: var(--accent-foreground-on-fill);
+}
+
+.tpl-section-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--consultologist-text);
+}
+
+.tpl-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacingHorizontalM);
+}
+
+.tpl-pane {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--consultologist-border);
+    border-radius: var(--consultologist-radius-sm);
+    background: var(--consultologist-surface-muted);
+    overflow: hidden;
+}
+
+.tpl-pane--preview {
+    background: var(--consultologist-surface);
+}
+
+.tpl-pane-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--consultologist-text-muted);
+}
+
+.tpl-source {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.68rem;
+    line-height: 1.45;
+    color: var(--consultologist-text-muted);
+}
+
+.tpl-preview {
+    margin: 0;
+    padding-left: 1.1rem;
+    font-size: 0.72rem;
+    line-height: 1.5;
+    color: var(--consultologist-text-muted);
+}
+
+.tpl-preview li + li {
+    margin-top: 0.3rem;
+}
+
+.tpl-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 1.25rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--consultologist-text);
+}
+
+.tpl-chevron {
+    color: var(--consultologist-text-muted);
+    font-size: 1rem;
+}
+
+/* History mock: past consult jobs with an expanded event timeline. */
+.hist-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1rem 1.25rem;
+}
+
+.hist-card .demo-label {
+    margin-bottom: 0;
+}
+
+.hist-job {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--consultologist-border);
+    border-radius: var(--consultologist-radius-sm);
+}
+
+.hist-job--open {
+    border-color: var(--accent-soft-border-strong);
+}
+
+.hist-summary {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.hist-badge {
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.2em 0.7em;
+    border-radius: 999px;
+    color: var(--consultologist-success);
+    background: color-mix(in srgb, var(--consultologist-success) 14%, transparent);
+}
+
+.hist-meta {
+    font-size: 0.72rem;
+    color: var(--consultologist-text-muted);
+}
+
+.hist-id {
+    margin-left: auto;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.hist-events {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-size: 0.74rem;
+    color: var(--consultologist-text-muted);
+}
+
+.hist-tick {
+    color: var(--consultologist-success);
+    font-weight: 700;
+}
+
+.hist-model {
+    font-size: 0.7rem;
+    font-style: italic;
+    color: var(--consultologist-text-muted);
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--consultologist-border);
+}
+
 .demo-section.has-caret .demo-caret {
     display: inline-block;
 }
@@ -1092,35 +1328,18 @@
     overflow-wrap: anywhere;
 }
 
-/* Features */
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacingHorizontalL);
-    max-width: 960px;
-    margin: 0 auto;
-}
-
-.feature-card {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacingVerticalM);
-    min-width: 0;
-    max-width: 100%;
-}
-
-.feature-card h3 {
-    margin: 0;
-    font-size: 1.05rem;
+.coming-chip {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 0.4em;
+    padding: 0.15em 0.65em;
+    border-radius: 999px;
+    background: var(--consultologist-accent-soft);
+    color: var(--accent-fill-rest);
+    font-size: 0.62rem;
     font-weight: 600;
-    color: var(--neutral-foreground-rest);
-}
-
-.feature-card p {
-    margin: 0;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: var(--neutral-foreground-hint);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
 }
 
 /* FAQ */
@@ -1297,22 +1516,45 @@
     font-weight: 700;
 }
 
-.waitlist-description {
-    max-width: 480px;
-    margin: 0;
-    color: var(--neutral-foreground-hint);
-    line-height: 1.6;
+/* Two lanes: try the beta now, or wait for the polished release. */
+.proof-lanes {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--spacingHorizontalL);
+    max-width: 760px;
+    width: 100%;
+    margin-top: var(--spacingVerticalS);
+    text-align: left;
 }
 
-.waitlist-section .btn-accent {
-    margin-top: var(--spacingVerticalS);
+.proof-lane {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacingVerticalM);
+}
+
+.proof-lane h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--neutral-foreground-rest);
+}
+
+.proof-lane p {
+    flex: 1;
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--neutral-foreground-hint);
 }
 
 /* Responsive */
 @media (max-width: 900px) {
     .how-layout,
     .problem-layout,
-    .burden-layout {
+    .burden-layout,
+    .product-detail {
         grid-template-columns: 1fr;
         gap: var(--spacingVerticalL);
     }
@@ -1340,10 +1582,6 @@
     .hero-content {
         align-items: flex-start;
         text-align: left;
-    }
-
-    .features-grid {
-        grid-template-columns: 1fr;
     }
 
     .hero-title {
@@ -1379,10 +1617,24 @@
         grid-template-columns: repeat(2, 1fr);
     }
 
+    .proof-lanes {
+        grid-template-columns: 1fr;
+    }
+
     /* Blocks go label-less on small screens; the legend carries identity. */
     .wc-ev {
         color: transparent;
         text-decoration: none;
+    }
+
+    /* Job ids would wrap onto their own line; status and date carry the row. */
+    .hist-id {
+        display: none;
+    }
+
+    /* Editor and preview are too cramped side by side; stack them. */
+    .tpl-grid {
+        grid-template-columns: 1fr;
     }
 
     .demo-inner {

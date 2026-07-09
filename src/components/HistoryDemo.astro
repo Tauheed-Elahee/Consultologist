@@ -1,0 +1,60 @@
+---
+// Mock of the app's History page for the Product showcase: consult generation
+// jobs with status, section counts, and an expandable per-job event timeline.
+// Fake clinical UI, so the whole thing is one labelled image.
+
+const events = [
+    "Section standards loaded",
+    "Draft submitted",
+    "History of Present Illness",
+    "Impression",
+    "Recommendations",
+];
+
+const olderJobs = [
+    { date: "Mar 3, 2026", sections: "9 / 9 sections", id: "77b24e…" },
+    { date: "Nov 12, 2025", sections: "9 / 9 sections", id: "c91d05…" },
+];
+---
+
+<div
+    class="hist-demo"
+    role="img"
+    aria-label="Consultologist's consult history: every generation job kept with its status, section counts, the model that wrote it, and a step-by-step event timeline, most recent first"
+>
+    <div class="hist-inner" aria-hidden="true">
+        <div class="demo-card hist-card">
+            <span class="demo-label">Consult history</span>
+            <div class="hist-job hist-job--open">
+                <div class="hist-summary">
+                    <span class="hist-badge">Completed</span>
+                    <span class="hist-meta">2h ago</span>
+                    <span class="hist-meta">3 / 3 sections</span>
+                    <span class="hist-meta hist-id">a3f81c…</span>
+                </div>
+                <ol class="hist-events">
+                    {
+                        events.map((label) => (
+                            <li>
+                                <span class="hist-tick">✓</span> {label}
+                            </li>
+                        ))
+                    }
+                </ol>
+                <span class="hist-model">Model pinned at generation · re-check anytime</span>
+            </div>
+            {
+                olderJobs.map((job) => (
+                    <div class="hist-job">
+                        <div class="hist-summary">
+                            <span class="hist-badge">Completed</span>
+                            <span class="hist-meta">{job.date}</span>
+                            <span class="hist-meta">{job.sections}</span>
+                            <span class="hist-meta hist-id">{job.id}</span>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</div>
