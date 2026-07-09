@@ -1596,6 +1596,10 @@
     /* Full-bleed band beyond the content cap, like the hero. */
     width: 100vw;
     margin-left: calc(50% - 50vw);
+    /* Own the page's bottom cell: swallow the section gap above and the
+       page padding below so the blue runs from About to the footer. */
+    margin-top: calc(-1 * var(--spacingVerticalXXL));
+    margin-bottom: calc(-1 * var(--spacingVerticalXXL));
 }
 
 .get-started-section h2 {
