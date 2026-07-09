@@ -1,0 +1,42 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { articleNode } from "../../lib/schema";
+import "../../styles/research.css";
+
+export async function getStaticPaths() {
+    const articles = await getCollection("articles");
+    return articles.map((article) => ({
+        params: { slug: article.id },
+        props: { article },
+    }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+
+// Frontmatter dates parse as UTC midnight; format in UTC so the calendar
+// date survives the local timezone.
+const formatDate = (date: Date): string =>
+    date.toLocaleDateString("en-CA", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
+---
+
+<Layout
+    title={`${article.data.title} — Consultologist`}
+    description={article.data.description}
+    schema={[articleNode(article)]}
+>
+    <article class="article-page">
+        <header class="article-header">
+            <a class="article-back" href="/research">← Research</a>
+            <h1>{article.data.title}</h1>
+            <p class="article-meta">
+                {formatDate(article.data.date)}
+                {article.data.author && <> · {article.data.author}</>}
+            </p>
+        </header>
+        <div class="article-prose">
+            <Content />
+        </div>
+    </article>
+</Layout>

@@ -1,0 +1,52 @@
+---
+// Mock of the app's Templates page for the Product showcase: the per-section
+// writing standards editor with its live preview. Fake clinical UI, so the
+// whole thing is one labelled image; the inner markup is decorative.
+
+const standardLines = [
+    "- Open with the consult question, answered",
+    "- Chronological course of the complaint",
+    "- Plain language, under 150 words",
+];
+---
+
+<div
+    class="tpl-demo"
+    role="img"
+    aria-label="Consultologist's template editor: each consult note section has its own editable markdown writing standard with a live preview, shown here for History of Present Illness with Impression and Recommendations listed below"
+>
+    <div class="tpl-inner" aria-hidden="true">
+        <div class="demo-card tpl-editor">
+            <div class="tpl-header">
+                <span class="demo-label">Section standards</span>
+                <span class="tpl-actions">
+                    <span class="tpl-btn">Reset defaults</span>
+                    <span class="tpl-btn tpl-btn--accent">Save changes</span>
+                </span>
+            </div>
+            <span class="tpl-section-name">History of Present Illness</span>
+            <div class="tpl-grid">
+                <div class="tpl-pane">
+                    <span class="tpl-pane-label">Markdown standard</span>
+                    <div class="tpl-source">
+                        {standardLines.map((line) => <span>{line}</span>)}
+                    </div>
+                </div>
+                <div class="tpl-pane tpl-pane--preview">
+                    <span class="tpl-pane-label">Preview</span>
+                    <ul class="tpl-preview">
+                        {standardLines.map((line) => <li>{line.slice(2)}</li>)}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="demo-card tpl-row">
+            <span>Impression</span>
+            <span class="tpl-chevron">›</span>
+        </div>
+        <div class="demo-card tpl-row">
+            <span>Recommendations</span>
+            <span class="tpl-chevron">›</span>
+        </div>
+    </div>
+</div>

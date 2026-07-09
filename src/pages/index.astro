@@ -1,12 +1,34 @@
 ---
+import { getCollection, render } from "astro:content";
 import Layout from "../layouts/Layout.astro";
+import { softwareApplicationNode } from "../lib/schema";
 import HowItWorksDemo from "../components/HowItWorksDemo.astro";
+import TemplatesDemo from "../components/TemplatesDemo.astro";
+import HistoryDemo from "../components/HistoryDemo.astro";
+import BurdenWeek from "../components/BurdenWeek.astro";
+import WorkflowContrast from "../components/WorkflowContrast.astro";
 import "../styles/home.css";
+
+// Reviews live as markdown files in src/content/reviews/ — newest first.
+// While the folder is empty the section shows its placeholder bubble instead.
+const reviewEntries = (await getCollection("reviews")).sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+const reviews = await Promise.all(
+    reviewEntries.map(async (entry) => ({
+        ...entry.data,
+        Content: (await render(entry)).Content,
+    })),
+);
+
+const STAR_PATH =
+    "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z";
 ---
 
 <Layout
     title="Consultologist — AI-Assisted Specialist Consults"
     description="Consults done faster, with reasoning you can stand behind. AI-assisted consult drafts with an auditable chain of thinking, built for specialist physicians."
+    schema={[softwareApplicationNode()]}
 >
     <div class="home-page">
         <section class="hero-section">
@@ -15,36 +37,6 @@ import "../styles/home.css";
                 <h1 class="hero-title">
                     Get your time back. Consults done faster, with reasoning you can stand behind.
                 </h1>
-                <hr class="divider" />
-                <div class="dialogue-group">
-                    <div class="dialogue-item">
-                        <span class="dialogue-speaker">Admin</span>
-                        <blockquote class="dialogue-quote">
-                            "Do you <strong>consent</strong> to using AI?"
-                        </blockquote>
-                    </div>
-                    <div class="dialogue-item">
-                        <span class="dialogue-speaker">Patient №1</span>
-                        <blockquote class="dialogue-quote">
-                            "No. How do you <strong>know</strong> that it works?"
-                        </blockquote>
-                    </div>
-                    <div class="dialogue-item">
-                        <span class="dialogue-speaker">Patient №2</span>
-                        <blockquote class="dialogue-quote">
-                            "How much <strong>time</strong> until I can see the doctor?"
-                        </blockquote>
-                    </div>
-                </div>
-                <hr class="divider" />
-                <p class="hero-description">
-                    Admin requires patient consent. Patients are skeptical how AI can know. Yet AI
-                    saves time.
-                </p>
-                <hr class="divider" />
-                <p class="hero-description">
-                    Give confidence with an auditable chain of thinking. Gain time to serve more.
-                </p>
                 <div class="hero-actions">
                     <a class="btn-accent" href="/contact">Join the waitlist</a>
                 </div>
@@ -108,9 +100,139 @@ import "../styles/home.css";
             </div>
         </section>
 
-        <section class="how-section">
+        <section class="problem-section" id="problem">
             <div class="section-header">
-                <span class="section-eyebrow">How it works</span>
+                <span class="section-eyebrow">Problems</span>
+            </div>
+
+            <div class="problem-burden">
+                <h2 class="problem-heading">The workday ends. The charting doesn't.</h2>
+                <div class="burden-layout">
+                    <div class="problem-copy">
+                        <p class="problem-body">
+                            Canadian primary care is drowning in documentation, and patient
+                            care is compromised by the paperwork wrapped around it. The case
+                            for AI-assisted drafting is real: the hours are measured, national,
+                            and not coming back on their own.
+                        </p>
+                        <div class="problem-stats problem-stats--pair">
+                            <div class="problem-stat">
+                                <span
+                                    class="problem-stat-value"
+                                    data-count-to="89"
+                                    data-suffix="%">89%</span
+                                >
+                                <span class="problem-stat-label"
+                                    >of Canadian primary care providers report symptoms of
+                                    stress or burnout</span
+                                >
+                            </div>
+                            <div class="problem-stat">
+                                <span
+                                    class="problem-stat-value"
+                                    data-count-to="17"
+                                    data-suffix=" hrs/week">17 hrs/week</span
+                                >
+                                <span class="problem-stat-label"
+                                    >spent on administrative work — 7 of them after hours</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <BurdenWeek />
+                </div>
+            </div>
+
+            <h2 class="problem-heading">
+                One wrong answer you can't explain costs more than the time you saved
+            </h2>
+            <div class="problem-layout">
+                <div class="problem-copy">
+                    <div class="problem-stat problem-stat--lead">
+                        <span class="problem-stat-value" data-count-to="20" data-suffix=" of 20"
+                            >20 of 20</span
+                        >
+                        <span class="problem-stat-label"
+                            >AI scribes produced inaccurate notes in Ontario's procurement
+                            testing</span
+                        >
+                    </div>
+                    <p class="problem-body">
+                        Generic AI drafting helps — until it's wrong. When Ontario tested AI
+                        scribes for its own procurement, every one of the 20 approved systems
+                        produced notes with inaccuracies: 60% recorded a different medication
+                        than the one prescribed, 45% hallucinated findings or treatment steps
+                        that never happened — and physicians weren't required to attest that
+                        they had reviewed a note before it reached the chart.
+                    </p>
+                    <blockquote class="problem-quote">
+                        A draft you can't verify quickly doesn't remove the burden — it moves
+                        it from writing to policing.
+                    </blockquote>
+                </div>
+                <div
+                    class="problem-visual"
+                    role="img"
+                    aria-label="A consultation note from a generic AI scribe with a medication error highlighted and no reasoning available to review"
+                >
+                    <div class="bbx" aria-hidden="true">
+                        <div class="bbx-card">
+                            <div class="bbx-header">
+                                <span class="bbx-title">Consultation note</span>
+                                <span class="bbx-badge">generic AI scribe</span>
+                            </div>
+                            <div class="bbx-section">
+                                <h4>History of Present Illness</h4>
+                                <p>
+                                    Six weeks of symmetric small-joint pain with morning
+                                    stiffness, partial response to NSAIDs.
+                                </p>
+                            </div>
+                            <div class="bbx-section">
+                                <h4>Plan</h4>
+                                <p>
+                                    <span class="bbx-error"
+                                        >Start minocycline 15&nbsp;mg weekly<span
+                                            class="bbx-error-tag">prescribed: methotrexate</span
+                                        ></span
+                                    >
+                                </p>
+                            </div>
+                        </div>
+                        <div class="bbx-void">
+                            <span class="bbx-void-icon">?</span>
+                            <span>Reasoning — unavailable</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="problem-workflow">
+                <h2 class="problem-heading">
+                    Scribes transcribe visits. Specialists answer referrals.
+                </h2>
+                <p class="problem-body">
+                    The national push for AI scribes is an ambient microphone in a primary-care
+                    visit — more than 85% of the national program's clinicians are in family
+                    practice, and the supporting evidence comes from single-problem visits. A
+                    specialist's day runs the other way: a referral package in, a consult
+                    letter back to the referring physician, and multi-system reasoning in
+                    between. A visit transcript was never the job.
+                </p>
+                <WorkflowContrast />
+            </div>
+
+            <p class="problem-sources">
+                Sources: Canada Health Infoway &amp; Women's College Hospital Institute for
+                Health System Solutions and Virtual Care, <em>Evaluating AI Scribes in Canadian
+                Primary Care</em> (2025); Office of the
+                <a href="https://www.auditor.on.ca" rel="noopener">Auditor General of Ontario</a
+                >, <em>Use of Artificial Intelligence in the Ontario Government</em> (2026).
+            </p>
+        </section>
+
+        <section class="how-section" id="product">
+            <div class="section-header">
+                <span class="section-eyebrow">The product</span>
                 <h2>From referral to signed note, with the reasoning in view</h2>
             </div>
             <div class="how-layout">
@@ -129,7 +251,8 @@ import "../styles/home.css";
                         <h3>Watch each section reason</h3>
                         <p>
                             Every note section is generated against your specialty's writing
-                            standards, with live progress you can audit as it happens.
+                            standards, grounded in SNOMED CT concepts drawn from the referral —
+                            with live progress you can audit as it happens.
                         </p>
                     </button>
                     <button type="button" class="card how-card" data-phase-btn="review">
@@ -142,66 +265,277 @@ import "../styles/home.css";
                     </button>
                 </div>
             </div>
+
+            <div class="product-detail">
+                <div class="product-detail-copy">
+                    <h3>Your standards, your voice</h3>
+                    <p>
+                        Every section of the note — history, impression, recommendations — has
+                        its own writing standard, and each one is yours to edit, with a live
+                        preview beside the markdown.
+                    </p>
+                    <p>
+                        Standards guide tone and structure only. The patient facts still come
+                        from the referral in front of you — never from the template.
+                    </p>
+                </div>
+                <TemplatesDemo />
+            </div>
+
+            <div class="product-detail">
+                <div class="product-detail-copy">
+                    <h3>Every consult, on the record</h3>
+                    <p>
+                        Each generation job is kept, most recent first — status, section counts,
+                        and the full step-by-step event timeline of how the note was made. When
+                        patients ask how AI was involved, you have an answer and a record.
+                    </p>
+                    <p>
+                        <span class="coming-chip">Coming</span> Each note keeps the model that
+                        wrote it, so you can re-run the reasoning against that exact model years
+                        later — long after newer models ship.
+                    </p>
+                </div>
+                <HistoryDemo />
+            </div>
         </section>
 
-        <section class="features-section">
-            <div class="features-grid">
-                <div class="card feature-card">
-                    <h3>Draft in seconds</h3>
+        <section class="reviews-section" id="proof">
+            <div class="section-header">
+                <span class="section-eyebrow">Reviews</span>
+            </div>
+            {
+                reviews.length === 0 ? (
+                    <figure class="card review-bubble">
+                        <div class="review-stars" aria-hidden="true">
+                            {[1, 2, 3, 4, 5].map(() => (
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
+                                    <path d={STAR_PATH} />
+                                </svg>
+                            ))}
+                        </div>
+                        <blockquote>
+                            The first reviews are being earned right now, and there's room to be
+                            one of the people writing them.
+                        </blockquote>
+                        <figcaption>— In trial with its first specialists</figcaption>
+                    </figure>
+                ) : (
+                    <div class="reviews-list">
+                        {reviews.map(({ name, credential, stars, Content }) => (
+                            <figure class="card review-bubble">
+                                <div class="review-stars" role="img" aria-label={`${stars} out of 5 stars`}>
+                                    {[1, 2, 3, 4, 5].map((n) => (
+                                        <svg
+                                            viewBox="0 0 24 24"
+                                            fill={n <= stars ? "currentColor" : "none"}
+                                            stroke="currentColor"
+                                            stroke-width="1.5"
+                                            stroke-linejoin="round"
+                                            class:list={[n <= stars && "is-filled"]}
+                                        >
+                                            <path d={STAR_PATH} />
+                                        </svg>
+                                    ))}
+                                </div>
+                                <blockquote>
+                                    <Content />
+                                </blockquote>
+                                <figcaption>
+                                    — {name}, {credential}
+                                </figcaption>
+                            </figure>
+                        ))}
+                    </div>
+                )
+            }
+            <a class="review-cta" href="https://app.consultologist.ai">Try the beta →</a>
+        </section>
+
+        <section class="faq-section" id="faq">
+            <div class="section-header">
+                <span class="section-eyebrow">FAQ</span>
+                <h2>Questions physicians ask</h2>
+            </div>
+            <div class="faq-list">
+                <details class="card faq-item">
+                    <summary>Does the AI decide, or do I?</summary>
                     <p>
-                        Referral package in. Structured consult draft out, grounded in the clinical
-                        detail of the referral.
+                        You do. Consultologist drafts each section of the note from your referral
+                        package; nothing is final until you have reviewed it, edited what needs
+                        editing, and signed off. The progress trail records what was generated
+                        and what you approved — the judgment on record is yours.
+                    </p>
+                </details>
+                <details class="card faq-item">
+                    <summary>What happens to patient data?</summary>
+                    <p>
+                        Early-access deployments are set up with each clinic to meet its privacy
+                        and security requirements, and we walk you through exactly where data
+                        flows before anything touches a real referral. Ask us about the
+                        specifics for your site — we would rather show you than make claims
+                        here.
+                    </p>
+                </details>
+                <details class="card faq-item">
+                    <summary>Which specialties are supported?</summary>
+                    <p>
+                        Early access is rolling out one specialty at a time, because each
+                        specialty's writing standards are tuned before we onboard it. Join the
+                        waitlist with your specialty and consult volume, and we will reach out
+                        when yours is ready.
+                    </p>
+                </details>
+                <details class="card faq-item">
+                    <summary>What do I tell patients who ask about AI?</summary>
+                    <p>
+                        "AI helped draft this consultation. Your physician reviewed every
+                        recommendation." And it is not just words — Consultologist keeps the
+                        record of what was drafted and what you reviewed, so the answer holds up
+                        to any follow-up question.
+                    </p>
+                </details>
+            </div>
+        </section>
+
+        <section class="about-section" id="about">
+            <div class="section-header">
+                <span class="section-eyebrow">About us</span>
+                <h2>Who's behind Consultologist</h2>
+            </div>
+            <div class="about-grid">
+                <div class="card about-card">
+                    <div class="about-header">
+                        <img
+                            class="about-avatar"
+                            src="/images/team/tamjeed-elahee.jpg"
+                            alt=""
+                            width="64"
+                            height="64"
+                            loading="lazy"
+                        />
+                        <div>
+                            <h3>Tamjeed Elahee, M.D.</h3>
+                            <p class="about-role">Physician</p>
+                        </div>
+                    </div>
+                    <p>
+                        M.D. from the University of British Columbia, after an undergraduate
+                        degree at the University of Ottawa. Tamjeed brings the clinical half of
+                        Consultologist: the standards each note section is held to, and the
+                        review discipline the product is built around.
+                    </p>
+                    <p class="about-links">
+                        <a
+                            href="https://www.linkedin.com/in/tamjeed-elahee-856169198/"
+                            rel="noopener"
+                            aria-label="Tamjeed Elahee on LinkedIn"
+                            title="LinkedIn"
+                        >
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <path
+                                    d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.27c-.97 0-1.75-.79-1.75-1.76s.78-1.76 1.75-1.76 1.75.79 1.75 1.76-.78 1.76-1.75 1.76zm13.5 12.27h-3v-5.6c0-3.37-4-3.11-4 0v5.6h-3v-11h3v1.77c1.4-2.59 7-2.78 7 2.48v6.75z"
+                                ></path>
+                            </svg>
+                        </a>
                     </p>
                 </div>
-                <div class="card feature-card">
-                    <h3>Review with confidence</h3>
+                <div class="card about-card">
+                    <div class="about-header">
+                        <img
+                            class="about-avatar"
+                            src="/images/team/tauheed-elahee.jpg"
+                            alt=""
+                            width="64"
+                            height="64"
+                            loading="lazy"
+                        />
+                        <div>
+                            <h3>Tauheed Elahee, B.Eng.</h3>
+                            <p class="about-role">Software Developer</p>
+                        </div>
+                    </div>
                     <p>
-                        See how the draft was reasoned — catch errors fast and sign off knowing why
-                        every recommendation is there.
+                        Developer of the Consultologist product — from the consult generation
+                        pipeline to the site you are reading.
                     </p>
-                </div>
-                <div class="card feature-card">
-                    <h3>Disclose with clarity</h3>
-                    <p>
-                        When patients ask, you have an answer and a record — not just "AI helped",
-                        but exactly how and what you reviewed.
+                    <p class="about-links">
+                        <a
+                            href="https://tauheed-elahee.com"
+                            rel="noopener"
+                            aria-label="Tauheed Elahee's website"
+                            title="tauheed-elahee.com"
+                        >
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path
+                                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                                ></path>
+                            </svg>
+                        </a>
+                        <a
+                            href="https://www.linkedin.com/in/tauheed-elahee"
+                            rel="noopener"
+                            aria-label="Tauheed Elahee on LinkedIn"
+                            title="LinkedIn"
+                        >
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <path
+                                    d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.27c-.97 0-1.75-.79-1.75-1.76s.78-1.76 1.75-1.76 1.75.79 1.75 1.76-.78 1.76-1.75 1.76zm13.5 12.27h-3v-5.6c0-3.37-4-3.11-4 0v5.6h-3v-11h3v1.77c1.4-2.59 7-2.78 7 2.48v6.75z"
+                                ></path>
+                            </svg>
+                        </a>
+                        <a
+                            href="https://github.com/Tauheed-Elahee"
+                            rel="noopener"
+                            aria-label="Tauheed Elahee on GitHub"
+                            title="GitHub"
+                        >
+                            <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                                <path
+                                    d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+                                ></path>
+                            </svg>
+                        </a>
                     </p>
                 </div>
             </div>
         </section>
 
-        <section class="disclosure-section">
-            <div class="card disclosure-card">
-                <blockquote class="disclosure-quote">
-                    "AI helped draft this consultation. Your physician reviewed every
-                    recommendation."
-                </blockquote>
-                <p class="disclosure-body">
-                    Generic AI saves you time until it doesn't. One wrong answer you can't explain
-                    costs you more time than you saved.
-                </p>
-                <p class="disclosure-body">
-                    Consultologist shows its reasoning. Every output comes with an auditable chain
-                    of thinking — so you can review it in seconds, not second-guess it for minutes.
-                </p>
-                <p class="disclosure-body">
-                    Patients increasingly ask whether AI was involved in their care. With
-                    Consultologist, the answer is straightforward and reassuring. You did not hand
-                    off your judgment. You used a tool that showed its reasoning, reviewed it, and
-                    stood behind it before it reached your patient.
-                </p>
-            </div>
-        </section>
-
-        <section class="waitlist-section">
-            <span class="section-eyebrow">Early Access</span>
+        <section class="get-started-section" id="get-started">
+            <span class="section-eyebrow">Get started</span>
             <h2>Built for specialist physicians</h2>
-            <p class="waitlist-description">
-                Join the waitlist and we'll be in touch when your specialty is available.
-            </p>
-            <a class="btn-accent" href="/contact">Join the waitlist</a>
+            <div class="get-started-lanes">
+                <div class="card get-started-lane">
+                    <h3>Try the beta</h3>
+                    <p>
+                        The beta is open. Create an account and run real referrals through
+                        it — early, evolving, and shaped by your feedback. We enable new
+                        accounts as we admit testers.
+                    </p>
+                    <a class="btn-accent" href="https://app.consultologist.ai">Try the beta</a>
+                </div>
+                <div class="card get-started-lane">
+                    <h3>Wait for release</h3>
+                    <p>
+                        Not ready for beta software? We'll email you when your specialty is
+                        supported and the polished release ships.
+                    </p>
+                    <a class="btn-outline" href="/contact?interest=release">Join the waitlist</a>
+                </div>
+            </div>
         </section>
     </div>
 
     <script src="../scripts/how-demo.ts"></script>
+    <script src="../scripts/problem-stats.ts"></script>
 </Layout>

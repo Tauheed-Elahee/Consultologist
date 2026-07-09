@@ -2,20 +2,26 @@
 import "../styles/tokens.css";
 import "../styles/global.css";
 import "../styles/components.css";
+import { graph, organizationNode, webSiteNode } from "../lib/schema";
 
 interface Props {
     title: string;
     description: string;
+    /** Extra schema.org nodes appended to the page's JSON-LD graph. */
+    schema?: Record<string, unknown>[];
 }
 
-const { title, description } = Astro.props;
+const { title, description, schema = [] } = Astro.props;
+const jsonLd = graph(organizationNode(), webSiteNode(), ...schema);
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL("/images/hero.webp", Astro.site);
 const navLinks = [
-    { href: "/", label: "Home" },
+    { href: "/research", label: "Research" },
     { href: "/contact", label: "Contact" },
 ];
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isActive = (href: string): boolean =>
+    currentPath === href || currentPath.startsWith(`${href}/`);
 ---
 
 <!doctype html>
@@ -28,6 +34,13 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
         <link rel="canonical" href={canonical} />
         <link rel="icon" type="image/png" href="/icon.png" />
         <link rel="sitemap" href="/sitemap-index.xml" />
+        <link
+            rel="alternate"
+            type="application/rss+xml"
+            title="Consultologist Research"
+            href="/rss.xml"
+        />
+        <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Consultologist" />
         <meta property="og:title" content={title} />
@@ -51,15 +64,17 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
     <body>
         <header class="site-header">
             <div class="site-header__inner">
-                <img src="/icon.png" alt="" class="brand-icon" />
-                <span class="header-title">Consultologist</span>
+                <a class="brand-link" href="/" aria-label="Consultologist — home">
+                    <img src="/icon.png" alt="" class="brand-icon" />
+                    <span class="header-title">Consultologist</span>
+                </a>
                 <nav class="top-nav">
                     {
                         navLinks.map((link) => (
                             <a
                                 href={link.href}
-                                class:list={[{ active: currentPath === link.href }]}
-                                aria-current={currentPath === link.href ? "page" : undefined}
+                                class:list={[{ active: isActive(link.href) }]}
+                                aria-current={isActive(link.href) ? "page" : undefined}
                             >
                                 {link.label}
                             </a>
@@ -67,6 +82,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
                     }
                 </nav>
                 <div class="header-spacer"></div>
+                <a class="btn-accent header-cta" href="https://app.consultologist.ai">Try the beta</a>
                 <button type="button" class="btn-icon" id="theme-toggle" title="Toggle theme">
                     <svg
                         id="theme-icon-moon"
@@ -115,6 +131,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
                 <div class="footer-spacer"></div>
                 <a href="mailto:hello@consultologist.ai">Contact</a>
                 <a href="/contact">Join the waitlist</a>
+                <a href="/research">Research</a>
                 <a href="#">Privacy</a>
             </div>
         </footer>

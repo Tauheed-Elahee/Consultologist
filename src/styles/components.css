@@ -31,6 +31,27 @@
     cursor: default;
 }
 
+.btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 32px;
+    padding: 5px 12px;
+    border: 1px solid var(--accent-fill-rest);
+    border-radius: calc(var(--control-corner-radius) * 1px);
+    background: transparent;
+    color: var(--accent-fill-rest);
+    font-size: var(--type-ramp-base-font-size);
+    line-height: var(--type-ramp-base-line-height);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.1s;
+}
+
+.btn-outline:hover {
+    background: var(--consultologist-accent-soft);
+}
+
 .btn-icon {
     display: inline-flex;
     align-items: center;

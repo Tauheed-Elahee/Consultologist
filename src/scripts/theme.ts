@@ -46,3 +46,5 @@ toggle?.addEventListener("click", () => {
 prefersDark.addEventListener("change", () => applyMode(storedMode()));
 
 applyMode(storedMode());
+
+export {};

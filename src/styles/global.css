@@ -10,7 +10,15 @@ body {
     margin: 0;
     padding: 0;
     min-width: 0;
+    /* clip doesn't create a scroll container, so the sticky header works;
+       hidden is the fallback where clip is unsupported. */
     overflow-x: hidden;
+    overflow-x: clip;
+}
+
+html {
+    /* Anchor jumps land below the sticky header. */
+    scroll-padding-top: 4.5rem;
 }
 
 img,
@@ -55,6 +63,9 @@ textarea:focus-visible {
 
 /* Header */
 .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
     background: var(--consultologist-surface);
     border-bottom: 1px solid var(--consultologist-border);
     color: var(--consultologist-text);
@@ -68,6 +79,18 @@ textarea:focus-visible {
     margin: 0 auto;
     padding: 0.75rem var(--page-gutter);
     min-width: 0;
+}
+
+.brand-link {
+    display: flex;
+    align-items: center;
+    color: inherit;
+    text-decoration: none;
+    flex: 0 0 auto;
+}
+
+.brand-link:hover {
+    text-decoration: none;
 }
 
 .brand-icon {
@@ -114,6 +137,11 @@ textarea:focus-visible {
 
 .header-spacer {
     flex: 1 1 auto;
+}
+
+.header-cta {
+    margin-right: 0.5rem;
+    white-space: nowrap;
 }
 
 /* Page body */
@@ -209,6 +237,17 @@ textarea:focus-visible {
 
     .header-title {
         font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* The beta button takes the wordmark's room; the icon keeps the brand. */
+    .header-title {
+        display: none;
+    }
+
+    .top-nav {
+        flex-shrink: 0;
     }
 }
 
