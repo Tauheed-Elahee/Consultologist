@@ -14,4 +14,16 @@ const reviews = defineCollection({
     }),
 });
 
-export const collections = { reviews };
+// One research article per markdown file: frontmatter carries the listing
+// metadata, the body is the article. Rendered at /research/<filename>.
+const articles = defineCollection({
+    loader: glob({ pattern: "*.md", base: "./src/content/articles" }),
+    schema: z.object({
+        title: z.string(),
+        description: z.string(),
+        date: z.coerce.date(),
+        author: z.string().optional(),
+    }),
+});
+
+export const collections = { reviews, articles };

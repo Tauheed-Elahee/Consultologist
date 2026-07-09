@@ -12,10 +12,12 @@ const { title, description } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL("/images/hero.webp", Astro.site);
 const navLinks = [
-    { href: "/", label: "Home" },
+    { href: "/research", label: "Research" },
     { href: "/contact", label: "Contact" },
 ];
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isActive = (href: string): boolean =>
+    currentPath === href || currentPath.startsWith(`${href}/`);
 ---
 
 <!doctype html>
@@ -51,15 +53,17 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
     <body>
         <header class="site-header">
             <div class="site-header__inner">
-                <img src="/icon.png" alt="" class="brand-icon" />
-                <span class="header-title">Consultologist</span>
+                <a class="brand-link" href="/">
+                    <img src="/icon.png" alt="" class="brand-icon" />
+                    <span class="header-title">Consultologist</span>
+                </a>
                 <nav class="top-nav">
                     {
                         navLinks.map((link) => (
                             <a
                                 href={link.href}
-                                class:list={[{ active: currentPath === link.href }]}
-                                aria-current={currentPath === link.href ? "page" : undefined}
+                                class:list={[{ active: isActive(link.href) }]}
+                                aria-current={isActive(link.href) ? "page" : undefined}
                             >
                                 {link.label}
                             </a>
@@ -116,6 +120,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
                 <div class="footer-spacer"></div>
                 <a href="mailto:hello@consultologist.ai">Contact</a>
                 <a href="/contact">Join the waitlist</a>
+                <a href="/research">Research</a>
                 <a href="#">Privacy</a>
             </div>
         </footer>

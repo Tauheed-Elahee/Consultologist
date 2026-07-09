@@ -81,6 +81,18 @@ textarea:focus-visible {
     min-width: 0;
 }
 
+.brand-link {
+    display: flex;
+    align-items: center;
+    color: inherit;
+    text-decoration: none;
+    flex: 0 0 auto;
+}
+
+.brand-link:hover {
+    text-decoration: none;
+}
+
 .brand-icon {
     width: 28px;
     height: 28px;

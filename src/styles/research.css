@@ -1,0 +1,167 @@
+/* Research: the article list page and the article pages themselves. */
+
+.research-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacingVerticalXXL);
+    padding: var(--spacingVerticalXL) var(--spacingHorizontalL);
+    width: 100%;
+    min-width: 0;
+}
+
+.research-section .section-header {
+    text-align: center;
+}
+
+.section-eyebrow {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-fill-rest);
+    margin-bottom: var(--spacingVerticalM);
+}
+
+.section-header h2 {
+    margin: 0 0 var(--spacingVerticalM);
+}
+
+.section-description {
+    color: var(--neutral-foreground-hint);
+    margin: 0;
+}
+
+.research-empty {
+    max-width: 560px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 1.65;
+    color: var(--neutral-foreground-hint);
+}
+
+.article-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacingVerticalL);
+    width: min(720px, 100%);
+    margin: 0 auto;
+}
+
+.article-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacingVerticalS);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s ease;
+}
+
+.article-card:hover {
+    border-color: var(--accent-fill-rest);
+    text-decoration: none;
+}
+
+.article-date {
+    font-size: 0.8rem;
+    color: var(--consultologist-text-muted);
+}
+
+.article-card h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--consultologist-text);
+}
+
+.article-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--neutral-foreground-hint);
+}
+
+/* Article page */
+.article-page {
+    width: min(720px, 100%);
+    margin: 0 auto;
+    padding: var(--spacingVerticalXL) var(--spacingHorizontalL) var(--spacingVerticalXXL);
+    min-width: 0;
+}
+
+.article-back {
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent-fill-rest);
+    text-decoration: none;
+    margin-bottom: var(--spacingVerticalL);
+}
+
+.article-back:hover {
+    text-decoration: underline;
+}
+
+.article-header h1 {
+    margin: 0 0 var(--spacingVerticalS);
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    line-height: 1.2;
+    color: var(--consultologist-text);
+}
+
+.article-meta {
+    margin: 0 0 var(--spacingVerticalXL);
+    font-size: 0.9rem;
+    color: var(--consultologist-text-muted);
+}
+
+.article-prose {
+    color: var(--consultologist-text);
+    line-height: 1.7;
+    font-size: 1rem;
+}
+
+.article-prose h2 {
+    margin: 2rem 0 0.75rem;
+    font-size: 1.35rem;
+    line-height: 1.3;
+}
+
+.article-prose h3 {
+    margin: 1.5rem 0 0.5rem;
+    font-size: 1.1rem;
+}
+
+.article-prose p {
+    margin: 0 0 1rem;
+}
+
+.article-prose ul,
+.article-prose ol {
+    margin: 0 0 1rem;
+    padding-left: 1.4rem;
+}
+
+.article-prose li {
+    margin-bottom: 0.5rem;
+}
+
+.article-prose li:last-child {
+    margin-bottom: 0;
+}
+
+.article-prose a {
+    color: var(--accent-fill-rest);
+}
+
+.article-prose blockquote {
+    margin: 0 0 1rem;
+    padding: 0.25rem 0 0.25rem 1rem;
+    border-left: 3px solid var(--accent-fill-rest);
+    font-style: italic;
+    color: var(--neutral-foreground-hint);
+}
+
+.article-prose strong {
+    color: var(--consultologist-text);
+}

@@ -1,0 +1,48 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import "../../styles/research.css";
+
+const articles = (await getCollection("articles")).sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+// Frontmatter dates parse as UTC midnight; format in UTC so the calendar
+// date survives the local timezone.
+const formatDate = (date: Date): string =>
+    date.toLocaleDateString("en-CA", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
+---
+
+<Layout
+    title="Research — Consultologist"
+    description="Evidence and analysis on AI-assisted clinical documentation: scribe accuracy, specialist workflows, and what the published evaluations actually show."
+>
+    <section class="research-section">
+        <div class="section-header">
+            <span class="section-eyebrow">Research</span>
+            <h2>Evidence, not hype</h2>
+            <p class="section-description">
+                Notes on what the published evaluations of AI clinical documentation actually
+                show — sourced, and written for physicians.
+            </p>
+        </div>
+        {
+            articles.length === 0 ? (
+                <p class="research-empty">
+                    The first research notes are being written. In the meantime, the sources we
+                    build on are cited throughout the <a href="/">main page</a>.
+                </p>
+            ) : (
+                <div class="article-list">
+                    {articles.map((article) => (
+                        <a class="card article-card" href={`/research/${article.id}`}>
+                            <span class="article-date">{formatDate(article.data.date)}</span>
+                            <h3>{article.data.title}</h3>
+                            <p>{article.data.description}</p>
+                        </a>
+                    ))}
+                </div>
+            )
+        }
+    </section>
+</Layout>
