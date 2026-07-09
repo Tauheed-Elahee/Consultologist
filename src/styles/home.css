@@ -831,6 +831,14 @@
     color: var(--neutral-foreground-rest);
 }
 
+.hero-subtitle {
+    margin: 0;
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    line-height: 1.45;
+    color: var(--neutral-foreground-hint);
+    max-width: 32ch;
+}
+
 .hero-description {
     margin: 0;
     font-size: 1.1rem;
