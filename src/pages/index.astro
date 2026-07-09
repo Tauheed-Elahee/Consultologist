@@ -1,4 +1,5 @@
 ---
+import { getCollection, render } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import HowItWorksDemo from "../components/HowItWorksDemo.astro";
 import TemplatesDemo from "../components/TemplatesDemo.astro";
@@ -6,6 +7,21 @@ import HistoryDemo from "../components/HistoryDemo.astro";
 import BurdenWeek from "../components/BurdenWeek.astro";
 import WorkflowContrast from "../components/WorkflowContrast.astro";
 import "../styles/home.css";
+
+// Reviews live as markdown files in src/content/reviews/ — newest first.
+// While the folder is empty the section shows its placeholder bubble instead.
+const reviewEntries = (await getCollection("reviews")).sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+const reviews = await Promise.all(
+    reviewEntries.map(async (entry) => ({
+        ...entry.data,
+        Content: (await render(entry)).Content,
+    })),
+);
+
+const STAR_PATH =
+    "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z";
 ---
 
 <Layout
@@ -282,28 +298,56 @@ import "../styles/home.css";
             </div>
         </section>
 
-        <section class="waitlist-section" id="proof">
-            <span class="section-eyebrow">Early Access</span>
-            <h2>Built for specialist physicians</h2>
-            <div class="proof-lanes">
-                <div class="card proof-lane">
-                    <h3>Try the beta</h3>
-                    <p>
-                        The beta is open. Create an account and run real referrals through
-                        it — early, evolving, and shaped by your feedback. We enable new
-                        accounts as we admit testers.
-                    </p>
-                    <a class="btn-accent" href="https://app.consultologist.ai">Try the beta</a>
-                </div>
-                <div class="card proof-lane">
-                    <h3>Wait for release</h3>
-                    <p>
-                        Not ready for beta software? We'll email you when your specialty is
-                        supported and the polished release ships.
-                    </p>
-                    <a class="btn-outline" href="/contact?interest=release">Join the waitlist</a>
-                </div>
+        <section class="reviews-section" id="proof">
+            <div class="section-header">
+                <span class="section-eyebrow">Reviews</span>
             </div>
+            {
+                reviews.length === 0 ? (
+                    <figure class="card review-bubble">
+                        <div class="review-stars" aria-hidden="true">
+                            {[1, 2, 3, 4, 5].map(() => (
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
+                                    <path d={STAR_PATH} />
+                                </svg>
+                            ))}
+                        </div>
+                        <blockquote>
+                            The first reviews are being earned right now, and there's room to be
+                            one of the people writing them.
+                        </blockquote>
+                        <figcaption>— In trial with its first specialists</figcaption>
+                    </figure>
+                ) : (
+                    <div class="reviews-list">
+                        {reviews.map(({ name, credential, stars, Content }) => (
+                            <figure class="card review-bubble">
+                                <div class="review-stars" role="img" aria-label={`${stars} out of 5 stars`}>
+                                    {[1, 2, 3, 4, 5].map((n) => (
+                                        <svg
+                                            viewBox="0 0 24 24"
+                                            fill={n <= stars ? "currentColor" : "none"}
+                                            stroke="currentColor"
+                                            stroke-width="1.5"
+                                            stroke-linejoin="round"
+                                            class:list={[n <= stars && "is-filled"]}
+                                        >
+                                            <path d={STAR_PATH} />
+                                        </svg>
+                                    ))}
+                                </div>
+                                <blockquote>
+                                    <Content />
+                                </blockquote>
+                                <figcaption>
+                                    — {name}, {credential}
+                                </figcaption>
+                            </figure>
+                        ))}
+                    </div>
+                )
+            }
+            <a class="review-cta" href="https://app.consultologist.ai">Try the beta →</a>
         </section>
 
         <section class="faq-section" id="faq">
@@ -461,6 +505,30 @@ import "../styles/home.css";
                             </svg>
                         </a>
                     </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="get-started-section" id="get-started">
+            <span class="section-eyebrow">Get started</span>
+            <h2>Built for specialist physicians</h2>
+            <div class="get-started-lanes">
+                <div class="card get-started-lane">
+                    <h3>Try the beta</h3>
+                    <p>
+                        The beta is open. Create an account and run real referrals through
+                        it — early, evolving, and shaped by your feedback. We enable new
+                        accounts as we admit testers.
+                    </p>
+                    <a class="btn-accent" href="https://app.consultologist.ai">Try the beta</a>
+                </div>
+                <div class="card get-started-lane">
+                    <h3>Wait for release</h3>
+                    <p>
+                        Not ready for beta software? We'll email you when your specialty is
+                        supported and the polished release ships.
+                    </p>
+                    <a class="btn-outline" href="/contact?interest=release">Join the waitlist</a>
                 </div>
             </div>
         </section>

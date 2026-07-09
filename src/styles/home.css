@@ -806,7 +806,8 @@
 }
 
 .hero-content .section-eyebrow,
-.waitlist-section .section-eyebrow,
+.get-started-section .section-eyebrow,
+.reviews-section .section-eyebrow,
 .how-section .section-eyebrow,
 .problem-section .section-eyebrow,
 .faq-section .section-eyebrow,
@@ -1494,8 +1495,95 @@
     height: 20px;
 }
 
-/* Waitlist */
-.waitlist-section {
+/* Reviews: one placeholder review bubble holds the slot honestly until the
+   first real reviews replace it. */
+.reviews-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacingVerticalL);
+    padding: 0 var(--spacingHorizontalL);
+    min-width: 0;
+}
+
+.review-bubble {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacingVerticalM);
+    max-width: 560px;
+    width: 100%;
+}
+
+/* Speech-bubble tail. */
+.review-bubble::after {
+    content: "";
+    position: absolute;
+    bottom: -9px;
+    left: 44px;
+    width: 16px;
+    height: 16px;
+    background: var(--consultologist-surface);
+    border-right: 1px solid var(--consultologist-border);
+    border-bottom: 1px solid var(--consultologist-border);
+    transform: rotate(45deg);
+}
+
+/* Real reviews flow in a centered grid; one card stays bubble-width. */
+.reviews-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 480px));
+    justify-content: center;
+    gap: var(--spacingHorizontalL);
+    width: 100%;
+    max-width: 1100px;
+}
+
+/* Outline stars while the rating is still to be earned; filled once it is. */
+.review-stars {
+    display: flex;
+    gap: 0.3rem;
+    color: var(--consultologist-text-muted);
+}
+
+.review-stars svg {
+    width: 18px;
+    height: 18px;
+}
+
+.review-stars .is-filled {
+    color: var(--accent-fill-rest);
+}
+
+.review-bubble blockquote {
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--consultologist-text);
+}
+
+.review-bubble blockquote p {
+    margin: 0;
+}
+
+.review-bubble figcaption {
+    font-size: 0.9rem;
+    color: var(--consultologist-text-muted);
+}
+
+.review-cta {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent-fill-rest);
+    text-decoration: none;
+}
+
+.review-cta:hover {
+    text-decoration: underline;
+}
+
+/* Get started: the closing ask band. */
+.get-started-section {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1510,14 +1598,14 @@
     margin-left: calc(50% - 50vw);
 }
 
-.waitlist-section h2 {
+.get-started-section h2 {
     margin: 0;
     font-size: 1.75rem;
     font-weight: 700;
 }
 
 /* Two lanes: try the beta now, or wait for the polished release. */
-.proof-lanes {
+.get-started-lanes {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--spacingHorizontalL);
@@ -1527,21 +1615,21 @@
     text-align: left;
 }
 
-.proof-lane {
+.get-started-lane {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: var(--spacingVerticalM);
 }
 
-.proof-lane h3 {
+.get-started-lane h3 {
     margin: 0;
     font-size: 1.05rem;
     font-weight: 600;
     color: var(--neutral-foreground-rest);
 }
 
-.proof-lane p {
+.get-started-lane p {
     flex: 1;
     margin: 0;
     font-size: 0.95rem;
@@ -1595,7 +1683,8 @@
 
 @media (max-width: 600px) {
     .hero-section,
-    .waitlist-section,
+    .get-started-section,
+    .reviews-section,
     .problem-section,
     .how-section,
     .faq-section,
@@ -1617,7 +1706,7 @@
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .proof-lanes {
+    .get-started-lanes {
         grid-template-columns: 1fr;
     }
 
