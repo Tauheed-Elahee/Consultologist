@@ -1,6 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import HowItWorksDemo from "../components/HowItWorksDemo.astro";
+import BurdenWeek from "../components/BurdenWeek.astro";
+import WorkflowContrast from "../components/WorkflowContrast.astro";
 import "../styles/home.css";
 ---
 
@@ -80,40 +82,132 @@ import "../styles/home.css";
 
         <section class="problem-section" id="problem">
             <div class="section-header">
-                <span class="section-eyebrow">The problem</span>
-                <h2>One wrong answer you can't explain costs more than the time you saved</h2>
+                <span class="section-eyebrow">Problems</span>
             </div>
-            <div class="dialogue-group">
-                <div class="dialogue-item">
-                    <span class="dialogue-speaker">Admin</span>
-                    <blockquote class="dialogue-quote">
-                        "Do you <strong>consent</strong> to using AI?"
-                    </blockquote>
-                </div>
-                <div class="dialogue-item">
-                    <span class="dialogue-speaker">Patient №1</span>
-                    <blockquote class="dialogue-quote">
-                        "No. How do you <strong>know</strong> that it works?"
-                    </blockquote>
-                </div>
-                <div class="dialogue-item">
-                    <span class="dialogue-speaker">Patient №2</span>
-                    <blockquote class="dialogue-quote">
-                        "How much <strong>time</strong> until I can see the doctor?"
-                    </blockquote>
+
+            <div class="problem-burden">
+                <h2 class="problem-heading">The workday ends. The charting doesn't.</h2>
+                <div class="burden-layout">
+                    <div class="problem-copy">
+                        <p class="problem-body">
+                            Canadian primary care is drowning in documentation, and patient
+                            care is compromised by the paperwork wrapped around it. The case
+                            for AI-assisted drafting is real: the hours are measured, national,
+                            and not coming back on their own.
+                        </p>
+                        <div class="problem-stats problem-stats--pair">
+                            <div class="problem-stat">
+                                <span
+                                    class="problem-stat-value"
+                                    data-count-to="89"
+                                    data-suffix="%">89%</span
+                                >
+                                <span class="problem-stat-label"
+                                    >of Canadian primary care providers report symptoms of
+                                    stress or burnout</span
+                                >
+                            </div>
+                            <div class="problem-stat">
+                                <span
+                                    class="problem-stat-value"
+                                    data-count-to="17"
+                                    data-suffix=" hrs/week">17 hrs/week</span
+                                >
+                                <span class="problem-stat-label"
+                                    >spent on administrative work — 7 of them after hours</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <BurdenWeek />
                 </div>
             </div>
-            <div class="card problem-card">
+
+            <h2 class="problem-heading">
+                One wrong answer you can't explain costs more than the time you saved
+            </h2>
+            <div class="problem-layout">
+                <div class="problem-copy">
+                    <div class="problem-stat problem-stat--lead">
+                        <span class="problem-stat-value" data-count-to="20" data-suffix=" of 20"
+                            >20 of 20</span
+                        >
+                        <span class="problem-stat-label"
+                            >AI scribes produced inaccurate notes in Ontario's procurement
+                            testing</span
+                        >
+                    </div>
+                    <p class="problem-body">
+                        Generic AI drafting helps — until it's wrong. When Ontario tested AI
+                        scribes for its own procurement, every one of the 20 approved systems
+                        produced notes with inaccuracies: 60% recorded a different medication
+                        than the one prescribed, 45% hallucinated findings or treatment steps
+                        that never happened — and physicians weren't required to attest that
+                        they had reviewed a note before it reached the chart.
+                    </p>
+                    <blockquote class="problem-quote">
+                        A draft you can't verify quickly doesn't remove the burden — it moves
+                        it from writing to policing.
+                    </blockquote>
+                </div>
+                <div
+                    class="problem-visual"
+                    role="img"
+                    aria-label="A consultation note from a generic AI scribe with a medication error highlighted and no reasoning available to review"
+                >
+                    <div class="bbx" aria-hidden="true">
+                        <div class="bbx-card">
+                            <div class="bbx-header">
+                                <span class="bbx-title">Consultation note</span>
+                                <span class="bbx-badge">generic AI scribe</span>
+                            </div>
+                            <div class="bbx-section">
+                                <h4>History of Present Illness</h4>
+                                <p>
+                                    Six weeks of symmetric small-joint pain with morning
+                                    stiffness, partial response to NSAIDs.
+                                </p>
+                            </div>
+                            <div class="bbx-section">
+                                <h4>Plan</h4>
+                                <p>
+                                    <span class="bbx-error"
+                                        >Start minocycline 15&nbsp;mg weekly<span
+                                            class="bbx-error-tag">prescribed: methotrexate</span
+                                        ></span
+                                    >
+                                </p>
+                            </div>
+                        </div>
+                        <div class="bbx-void">
+                            <span class="bbx-void-icon">?</span>
+                            <span>Reasoning — unavailable</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="problem-workflow">
+                <h2 class="problem-heading">
+                    Scribes transcribe visits. Specialists answer referrals.
+                </h2>
                 <p class="problem-body">
-                    Generic AI saves you time until it doesn't. When a draft is wrong, you need
-                    to know why — and a black box can't tell you.
+                    The national push for AI scribes is an ambient microphone in a primary-care
+                    visit — more than 85% of the national program's clinicians are in family
+                    practice, and the supporting evidence comes from single-problem visits. A
+                    specialist's day runs the other way: a referral package in, a consult
+                    letter back to the referring physician, and multi-system reasoning in
+                    between. A visit transcript was never the job.
                 </p>
-                <p class="problem-body">
-                    Meanwhile the clinic asks patients to consent to AI, and patients ask how
-                    you know it works. "Trust the computer" is not an answer a physician can
-                    stand behind.
-                </p>
+                <WorkflowContrast />
             </div>
+
+            <p class="problem-sources">
+                Sources: Canada Health Infoway &amp; Women's College Hospital Institute for
+                Health System Solutions and Virtual Care, <em>Evaluating AI Scribes in Canadian
+                Primary Care</em> (2025); Office of the
+                <a href="https://www.auditor.on.ca" rel="noopener">Auditor General of Ontario</a
+                >, <em>Use of Artificial Intelligence in the Ontario Government</em> (2026).
+            </p>
         </section>
 
         <section class="how-section" id="product">
@@ -155,8 +249,9 @@ import "../styles/home.css";
                 <div class="card feature-card">
                     <h3>Draft in seconds</h3>
                     <p>
-                        Referral package in. Structured consult draft out, grounded in the clinical
-                        detail of the referral.
+                        Referral package in. Structured consult draft out — each section
+                        grounded in SNOMED CT concepts drawn from the clinical detail of the
+                        referral.
                     </p>
                 </div>
                 <div class="card feature-card">
@@ -346,4 +441,5 @@ import "../styles/home.css";
     </div>
 
     <script src="../scripts/how-demo.ts"></script>
+    <script src="../scripts/problem-stats.ts"></script>
 </Layout>

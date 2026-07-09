@@ -1,0 +1,129 @@
+---
+// A physician's week, drawn as a calendar: documentation crowds patient time
+// during office hours, and evening charting sits on top of missed family
+// events. Block totals track the sourced stats (~10 h admin in hours,
+// ~7 h after hours per week).
+
+type Kind = "patient" | "admin" | "family" | "family-missed";
+
+interface Ev {
+    start: number; // fractional hours, 24h clock
+    end: number;
+    kind: Kind;
+    label: string;
+    lane?: "left" | "right"; // split a conflicting timeslot like calendar apps do
+}
+
+const DAY_START = 8;
+const DAY_END = 21;
+const SPAN = DAY_END - DAY_START;
+
+const days: { name: string; events: Ev[] }[] = [
+    {
+        name: "Mon",
+        events: [
+            { start: 8.5, end: 12, kind: "patient", label: "Patients" },
+            { start: 12, end: 13, kind: "admin", label: "Charting" },
+            { start: 13, end: 16.5, kind: "patient", label: "Patients" },
+            { start: 16.5, end: 17.5, kind: "admin", label: "Inbox" },
+            { start: 19, end: 20.5, kind: "admin", label: "Charting", lane: "left" },
+            { start: 19, end: 20.5, kind: "family-missed", label: "Bedtime stories", lane: "right" },
+        ],
+    },
+    {
+        name: "Tue",
+        events: [
+            { start: 8.5, end: 12, kind: "patient", label: "Patients" },
+            { start: 12, end: 13, kind: "admin", label: "Forms" },
+            { start: 13, end: 16.5, kind: "patient", label: "Patients" },
+            { start: 16.5, end: 17.5, kind: "admin", label: "Charting" },
+            { start: 18.5, end: 20, kind: "admin", label: "Charting", lane: "left" },
+            { start: 18.5, end: 20, kind: "family-missed", label: "Soccer practice", lane: "right" },
+        ],
+    },
+    {
+        name: "Wed",
+        events: [
+            { start: 8.5, end: 12, kind: "patient", label: "Patients" },
+            { start: 12, end: 13, kind: "admin", label: "Charting" },
+            { start: 13, end: 16.5, kind: "patient", label: "Patients" },
+            { start: 16.5, end: 17.5, kind: "admin", label: "Inbox" },
+            { start: 18.5, end: 20, kind: "family", label: "Swim lessons" },
+        ],
+    },
+    {
+        name: "Thu",
+        events: [
+            { start: 8.5, end: 12, kind: "patient", label: "Patients" },
+            { start: 12, end: 13, kind: "admin", label: "Forms" },
+            { start: 13, end: 16.5, kind: "patient", label: "Patients" },
+            { start: 16.5, end: 17.5, kind: "admin", label: "Charting" },
+            { start: 19, end: 20.5, kind: "admin", label: "Charting", lane: "left" },
+            { start: 19, end: 20.5, kind: "family-missed", label: "Family dinner", lane: "right" },
+        ],
+    },
+    {
+        name: "Fri",
+        events: [
+            { start: 8.5, end: 12, kind: "patient", label: "Patients" },
+            { start: 12, end: 13, kind: "admin", label: "Charting" },
+            { start: 13, end: 16.5, kind: "patient", label: "Patients" },
+            { start: 16.5, end: 17.5, kind: "admin", label: "Inbox" },
+            { start: 18.5, end: 20, kind: "admin", label: "Charting", lane: "left" },
+            { start: 18.5, end: 20, kind: "family-missed", label: "Movie night", lane: "right" },
+        ],
+    },
+];
+
+const ticks = [
+    { at: 8, label: "8a" },
+    { at: 12, label: "12p" },
+    { at: 17, label: "5p" },
+    { at: 21, label: "9p" },
+];
+
+const pct = (h: number): string => `${(((h - DAY_START) / SPAN) * 100).toFixed(2)}%`;
+const heightPct = (ev: Ev): string => `${(((ev.end - ev.start) / SPAN) * 100).toFixed(2)}%`;
+---
+
+<div
+    class="week-cal"
+    role="img"
+    aria-label="A physician's week calendar: documentation blocks crowd patient time during office hours, and evening charting overlaps struck-through family events on four of five nights"
+>
+    <div class="wc-inner" aria-hidden="true">
+        <div class="wc-grid">
+            <div class="wc-gutter">
+                {ticks.map((tick) => (
+                    <span class="wc-tick" style={`top: ${pct(tick.at)}`}>{tick.label}</span>
+                ))}
+            </div>
+            {
+                days.map((day) => (
+                    <div class="wc-day">
+                        <span class="wc-day-name">{day.name}</span>
+                        <div class="wc-track">
+                            {ticks.map((tick) => (
+                                <span class="wc-line" style={`top: ${pct(tick.at)}`} />
+                            ))}
+                            {day.events.map((ev) => (
+                                <span
+                                    class:list={["wc-ev", `wc-ev--${ev.kind}`, ev.lane && `wc-ev--${ev.lane}`]}
+                                    style={`top: ${pct(ev.start)}; height: ${heightPct(ev)}`}
+                                >
+                                    {ev.label}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+        <ul class="wc-legend">
+            <li><span class="wc-swatch wc-ev--patient"></span> Patient care</li>
+            <li><span class="wc-swatch wc-ev--admin"></span> Documentation &amp; admin</li>
+            <li><span class="wc-swatch wc-ev--family"></span> Family time</li>
+            <li><span class="wc-swatch wc-ev--family-missed"></span> Missed family time</li>
+        </ul>
+    </div>
+</div>

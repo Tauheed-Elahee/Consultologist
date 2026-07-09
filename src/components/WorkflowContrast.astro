@@ -1,0 +1,77 @@
+---
+// Two pipelines, side by side: what generic ambient scribes are built for,
+// versus what a specialist consult actually requires. Real content — exposed
+// to assistive tech as text; only the arrows are decorative.
+
+interface Chip {
+    icon: "mic" | "transcript" | "note" | "referral" | "reasoning" | "letter";
+    label: string;
+}
+
+const rows: { label: string; kind: "generic" | "specialist"; chips: Chip[] }[] = [
+    {
+        label: "What generic scribes are built for",
+        kind: "generic",
+        chips: [
+            { icon: "mic", label: "Visit audio" },
+            { icon: "transcript", label: "Transcript" },
+            { icon: "note", label: "SOAP note for the chart" },
+        ],
+    },
+    {
+        label: "Your workflow",
+        kind: "specialist",
+        chips: [
+            { icon: "referral", label: "Referral package" },
+            { icon: "reasoning", label: "Multi-system reasoning" },
+            { icon: "letter", label: "Consult letter to the referring physician" },
+        ],
+    },
+];
+
+const icons: Record<Chip["icon"], string> = {
+    mic: '<path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line>',
+    transcript:
+        '<line x1="4" y1="6" x2="20" y2="6"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="18" x2="14" y2="18"></line>',
+    note: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline>',
+    referral:
+        '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="8" y1="13" x2="16" y2="13"></line><line x1="8" y1="17" x2="13" y2="17"></line>',
+    reasoning:
+        '<circle cx="5" cy="12" r="2"></circle><circle cx="12" cy="5" r="2"></circle><circle cx="12" cy="19" r="2"></circle><circle cx="19" cy="12" r="2"></circle><line x1="7" y1="11" x2="10" y2="6"></line><line x1="7" y1="13" x2="10" y2="18"></line><line x1="14" y1="6" x2="17" y2="11"></line><line x1="14" y1="18" x2="17" y2="13"></line>',
+    letter: '<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline>',
+};
+---
+
+<div class="workflow-contrast">
+    {
+        rows.map((row) => (
+            <div class:list={["flow-row", `flow-row--${row.kind}`]}>
+                <span class="flow-label">{row.label}</span>
+                <div class="flow-chips">
+                    {row.chips.map((chip, i) => (
+                        <>
+                            {i > 0 && (
+                                <span class="flow-arrow" aria-hidden="true">
+                                    →
+                                </span>
+                            )}
+                            <span class="flow-chip">
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                    set:html={icons[chip.icon]}
+                                />
+                                {chip.label}
+                            </span>
+                        </>
+                    ))}
+                </div>
+            </div>
+        ))
+    }
+</div>
