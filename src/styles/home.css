@@ -848,6 +848,26 @@
 
 .hero-actions {
     margin-top: var(--spacingVerticalM);
+    display: flex;
+    align-items: center;
+    gap: var(--spacingHorizontalL);
+}
+
+/* "or" separates the two actions without being part of either. */
+.hero-or {
+    font-size: 0.95rem;
+    color: var(--neutral-foreground-hint);
+}
+
+.hero-secondary-link {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent-fill-rest);
+    text-decoration: none;
+}
+
+.hero-secondary-link:hover {
+    text-decoration: underline;
 }
 
 /* Full-width bands: the section paints edge-to-edge while its content stays
