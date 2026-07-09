@@ -116,6 +116,11 @@ textarea:focus-visible {
     flex: 1 1 auto;
 }
 
+.header-cta {
+    margin-right: 0.5rem;
+    white-space: nowrap;
+}
+
 /* Page body */
 .body-content {
     min-height: calc(100dvh - 104px);
@@ -209,6 +214,17 @@ textarea:focus-visible {
 
     .header-title {
         font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* The beta button takes the wordmark's room; the icon keeps the brand. */
+    .header-title {
+        display: none;
+    }
+
+    .top-nav {
+        flex-shrink: 0;
     }
 }
 
