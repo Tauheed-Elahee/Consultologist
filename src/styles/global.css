@@ -10,7 +10,15 @@ body {
     margin: 0;
     padding: 0;
     min-width: 0;
+    /* clip doesn't create a scroll container, so the sticky header works;
+       hidden is the fallback where clip is unsupported. */
     overflow-x: hidden;
+    overflow-x: clip;
+}
+
+html {
+    /* Anchor jumps land below the sticky header. */
+    scroll-padding-top: 4.5rem;
 }
 
 img,
@@ -55,6 +63,9 @@ textarea:focus-visible {
 
 /* Header */
 .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
     background: var(--consultologist-surface);
     border-bottom: 1px solid var(--consultologist-border);
     color: var(--consultologist-text);
