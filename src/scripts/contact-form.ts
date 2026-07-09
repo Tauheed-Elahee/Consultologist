@@ -77,7 +77,7 @@ form?.addEventListener("submit", async (event) => {
 
         if (response.ok) {
             const result = (await response.json()) as ContactResponse;
-            showResponse("success", result.message ?? "Thanks! Your waitlist request was sent.");
+            showResponse("success", result.message ?? "Thanks! Your message was sent.");
             form.reset();
             succeeded = true;
         } else {
@@ -88,7 +88,7 @@ form?.addEventListener("submit", async (event) => {
     } finally {
         if (submitButton) {
             submitButton.disabled = false;
-            submitButton.textContent = "Join waitlist";
+            submitButton.textContent = "Send message";
         }
         // Turnstile tokens are single-use; get a fresh one for any retry.
         if (!succeeded) {

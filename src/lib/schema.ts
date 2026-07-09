@@ -21,7 +21,9 @@ export function organizationNode(): Node {
             "@type": "ImageObject",
             url: `${SITE}/icon.png`,
         },
-        email: "hello@consultologist.ai",
+        // No email property: a plain address here is scraper bait, and an
+        // obfuscated one breaks the field for legitimate agents. Contact is
+        // discoverable via the site's /contact page.
         founder: [
             {
                 "@type": "Person",

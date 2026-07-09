@@ -12,7 +12,9 @@ namespace Api;
 
 public class ContactFunction(ILogger<ContactFunction> logger, IHttpClientFactory httpClientFactory)
 {
-    private static readonly string[] RequiredFields = ["Name", "Email", "Specialty", "Organization", "Comments"];
+    // Only name and email are required: the form serves waitlist signups,
+    // general inquiries, and privacy requests, so everything else is optional.
+    private static readonly string[] RequiredFields = ["Name", "Email"];
 
     private const int MinFillMilliseconds = 3000;
     private const int MaxShortFieldLength = 200;
