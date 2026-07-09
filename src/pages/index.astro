@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import Layout from "../layouts/Layout.astro";
+import { softwareApplicationNode } from "../lib/schema";
 import HowItWorksDemo from "../components/HowItWorksDemo.astro";
 import TemplatesDemo from "../components/TemplatesDemo.astro";
 import HistoryDemo from "../components/HistoryDemo.astro";
@@ -27,6 +28,7 @@ const STAR_PATH =
 <Layout
     title="Consultologist — AI-Assisted Specialist Consults"
     description="Consults done faster, with reasoning you can stand behind. AI-assisted consult drafts with an auditable chain of thinking, built for specialist physicians."
+    schema={[softwareApplicationNode()]}
 >
     <div class="home-page">
         <section class="hero-section">

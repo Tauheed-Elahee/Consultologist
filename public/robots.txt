@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://consultologist.ai/sitemap-index.xml
+Schemamap: https://consultologist.ai/schemamap.xml

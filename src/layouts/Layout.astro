@@ -2,13 +2,17 @@
 import "../styles/tokens.css";
 import "../styles/global.css";
 import "../styles/components.css";
+import { graph, organizationNode, webSiteNode } from "../lib/schema";
 
 interface Props {
     title: string;
     description: string;
+    /** Extra schema.org nodes appended to the page's JSON-LD graph. */
+    schema?: Record<string, unknown>[];
 }
 
-const { title, description } = Astro.props;
+const { title, description, schema = [] } = Astro.props;
+const jsonLd = graph(organizationNode(), webSiteNode(), ...schema);
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL("/images/hero.webp", Astro.site);
 const navLinks = [
@@ -30,6 +34,13 @@ const isActive = (href: string): boolean =>
         <link rel="canonical" href={canonical} />
         <link rel="icon" type="image/png" href="/icon.png" />
         <link rel="sitemap" href="/sitemap-index.xml" />
+        <link
+            rel="alternate"
+            type="application/rss+xml"
+            title="Consultologist Research"
+            href="/rss.xml"
+        />
+        <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Consultologist" />
         <meta property="og:title" content={title} />

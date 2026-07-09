@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
+import { articleNode } from "../../lib/schema";
 import "../../styles/research.css";
 
 export async function getStaticPaths() {
@@ -20,7 +21,11 @@ const formatDate = (date: Date): string =>
     date.toLocaleDateString("en-CA", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
 ---
 
-<Layout title={`${article.data.title} — Consultologist`} description={article.data.description}>
+<Layout
+    title={`${article.data.title} — Consultologist`}
+    description={article.data.description}
+    schema={[articleNode(article)]}
+>
     <article class="article-page">
         <header class="article-header">
             <a class="article-back" href="/research">← Research</a>
